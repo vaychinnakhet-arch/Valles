@@ -9803,7 +9803,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 
 
-<!-- SOFT INK FLAT POP SLIDER SYNC & CONTROLS -->
+<!-- SOFT INK FLAT POP SLIDER SYNC & CONTROLS (NON-BLOCKING) -->
 <script>
 (function() {
   function syncInkSlider(slider) {
@@ -9815,9 +9815,8 @@ document.addEventListener('DOMContentLoaded', function() {
     } else {
       slider.classList.remove('is-done');
     }
+
     if (slider.id === 'summaryPlanProgressSlider') {
-      const valText = document.getElementById('summaryPlanProgressValue');
-      if (valText) valText.textContent = val;
       const badge = document.getElementById('summaryPlanProgressBadge');
       if (badge) {
         if (val >= 100) {
@@ -9828,16 +9827,10 @@ document.addEventListener('DOMContentLoaded', function() {
           badge.className = 'inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-black bg-slate-100 text-slate-600 border-2 border-slate-400 shadow-[0_2px_0_#94a3b8] transition-all';
         }
       }
-    } else {
-      const box = slider.closest('div.p-2\\.5') || slider.parentElement;
-      const sp = box ? (box.querySelector('.subtask-pct') || box.querySelector('span:last-child')) : null;
-      if (sp && sp.textContent !== undefined) {
-        sp.textContent = val + '%';
-      }
     }
   }
 
-  // Global listener for all range inputs
+  // Input & Change events on sliders
   document.addEventListener('input', function(e) {
     if (e.target && e.target.matches('input[type="range"]')) {
       syncInkSlider(e.target);
@@ -9864,9 +9857,11 @@ document.addEventListener('DOMContentLoaded', function() {
       const val = parseInt(notch.dataset.val, 10);
       const slider = document.getElementById('summaryPlanProgressSlider');
       const cb = document.getElementById('summaryPlanCompletedCheckbox');
+      const valText = document.getElementById('summaryPlanProgressValue');
       if (slider) {
         slider.value = val;
         syncInkSlider(slider);
+        if (valText) valText.textContent = val;
         slider.dispatchEvent(new Event('input', { bubbles: true }));
       }
       if (cb) {
@@ -9880,9 +9875,11 @@ document.addEventListener('DOMContentLoaded', function() {
       const val = parseInt(preset.dataset.val, 10);
       const slider = document.getElementById('summaryPlanProgressSlider');
       const cb = document.getElementById('summaryPlanCompletedCheckbox');
+      const valText = document.getElementById('summaryPlanProgressValue');
       if (slider) {
         slider.value = val;
         syncInkSlider(slider);
+        if (valText) valText.textContent = val;
         slider.dispatchEvent(new Event('input', { bubbles: true }));
       }
       if (cb) {
@@ -9894,9 +9891,11 @@ document.addEventListener('DOMContentLoaded', function() {
     if (e.target.closest('#setSingle100Btn')) {
       const slider = document.getElementById('summaryPlanProgressSlider');
       const cb = document.getElementById('summaryPlanCompletedCheckbox');
+      const valText = document.getElementById('summaryPlanProgressValue');
       if (slider) {
         slider.value = 100;
         syncInkSlider(slider);
+        if (valText) valText.textContent = 100;
         slider.dispatchEvent(new Event('input', { bubbles: true }));
       }
       if (cb) {
@@ -9913,16 +9912,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 
-  // Observers for modal open and value updates
-  const targetVal = document.getElementById('summaryPlanProgressValue');
-  if (targetVal) {
-    const observer = new MutationObserver(function() {
-      const slider = document.getElementById('summaryPlanProgressSlider');
-      if (slider) syncInkSlider(slider);
-    });
-    observer.observe(targetVal, { childList: true, characterData: true, subtree: true });
-  }
-
+  // Safe modal open listener (syncs visual fill when modal opens)
   const modal = document.getElementById('summaryPlanModal');
   if (modal) {
     const modalObserver = new MutationObserver(function() {
@@ -9935,14 +9925,16 @@ document.addEventListener('DOMContentLoaded', function() {
     modalObserver.observe(modal, { attributes: true, attributeFilter: ['style', 'class'] });
   }
 
+  // Safe DOMContentLoaded initial sync
   window.addEventListener('DOMContentLoaded', function() {
-    const slider = document.getElementById('summaryPlanProgressSlider');
-    if (slider) syncInkSlider(slider);
-    document.querySelectorAll('.subtask-slider, .subtask-slider-texca').forEach(syncInkSlider);
+    setTimeout(function() {
+      const slider = document.getElementById('summaryPlanProgressSlider');
+      if (slider) syncInkSlider(slider);
+      document.querySelectorAll('.subtask-slider, .subtask-slider-texca').forEach(syncInkSlider);
+    }, 150);
   });
 })();
 </script>
-
 </body>
 </html>
 
