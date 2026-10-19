@@ -5557,3 +5557,64 @@ body:not(.is-line-capturing) .modal .modal-content {
 }
 
 
+
+/* 5.1 Mobile & Touch Adaptations */
+body.modal-open #unified-controls,
+body.modal-open #schedule-quick-filter-floating {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+    transform: translate(-50%, 40px) !important;
+}
+
+.modal {
+    z-index: 10000 !important;
+    padding: 0.75rem !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+}
+
+@media (max-width: 768px), (pointer: coarse) {
+    #unified-controls {
+        bottom: max(1rem, env(safe-area-inset-bottom, 1rem)) !important;
+        padding: 0.35rem 0.65rem !important;
+        gap: 0.4rem !important;
+        max-width: 96vw !important;
+    }
+    #unified-controls #summary-report-wet-btn,
+    #unified-controls #summary-report-end-btn {
+        padding: 0.4rem 0.75rem !important;
+        font-size: 0.75rem !important;
+    }
+    #unified-controls #captureNewBtn {
+        padding: 0.45rem 0.85rem !important;
+        font-size: 0.75rem !important;
+    }
+
+    .subtask-chip,
+    .single-preset-btn,
+    .quick-progress-btn {
+        min-height: 42px !important;
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        font-size: 0.85rem !important;
+        touch-action: manipulation !important;
+        -webkit-user-select: none !important;
+        user-select: none !important;
+    }
+
+    #summaryPlanModal input,
+    #summaryPlanModal textarea,
+    #updateModal input,
+    #updateModal textarea,
+    #updateModal select {
+        font-size: 16px !important;
+    }
+
+    input[type="range"] {
+        height: 24px !important;
+        cursor: pointer !important;
+    }
+}

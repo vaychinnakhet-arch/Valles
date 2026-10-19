@@ -6402,6 +6402,11 @@
           modal.style.display = "flex";
           document.body.classList.add("modal-open");
 
+          const unifiedDock = document.getElementById("unified-controls");
+          if (unifiedDock) unifiedDock.style.setProperty("display", "none", "important");
+          const scheduleFilter = document.getElementById("schedule-quick-filter-floating");
+          if (scheduleFilter) scheduleFilter.style.setProperty("display", "none", "important");
+
           const focusableElements = modal.querySelectorAll(
             'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
           );
@@ -6419,6 +6424,11 @@
 
           modal.style.display = "none";
           document.body.classList.remove("modal-open");
+
+          const unifiedDock = document.getElementById("unified-controls");
+          if (unifiedDock) unifiedDock.style.removeProperty("display");
+          const scheduleFilter = document.getElementById("schedule-quick-filter-floating");
+          if (scheduleFilter && currentView === "schedule") scheduleFilter.style.removeProperty("display");
 
           modal.removeEventListener("keydown", trapFocus);
           activeModal = null;
