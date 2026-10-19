@@ -6419,11 +6419,7 @@ body.modal-open #schedule-quick-filter-floating {
         font-size: 16px !important;
     }
 
-    /* Sliders on touch screens */
-    input[type="range"] {
-        height: 24px !important;
-        cursor: pointer !important;
-    }
+    /* Sliders on touch screens replaced with Soft Ink Flat Pop System */
 }
 
 /* 6. PERFECT EXECUTIVE CAPTURE SYSTEM (.is-line-capturing) */
@@ -6693,6 +6689,170 @@ body.is-line-capturing {
     visibility: hidden !important;
     pointer-events: none !important;
 }
+
+
+/* ==========================================================================
+   SOFT INK FLAT POP RANGE SLIDER SYSTEM
+   ========================================================================== */
+input[type="range"],
+.ink-flat-slider,
+.subtask-slider,
+.subtask-slider-texca {
+    -webkit-appearance: none !important;
+    -moz-appearance: none !important;
+    appearance: none !important;
+    width: 100% !important;
+    height: 18px !important;
+    background: linear-gradient(to right, #4f46e5 var(--val, 0%), #f1f5f9 var(--val, 0%)) !important;
+    border: 2px solid #0f172a !important;
+    border-radius: 9999px !important;
+    outline: none !important;
+    touch-action: none !important;
+    cursor: pointer !important;
+    box-shadow: inset 0 2px 4px rgba(15, 23, 42, 0.14), 0 2px 0 rgba(15, 23, 42, 0.05) !important;
+    transition: background 0.08s ease, box-shadow 0.15s ease !important;
+    margin: 8px 0 6px 0 !important;
+    padding: 0 !important;
+}
+
+/* 100% Complete Progress Track */
+input[type="range"].is-done,
+.ink-flat-slider.is-done,
+.subtask-slider.is-done,
+.subtask-slider-texca.is-done {
+    background: linear-gradient(to right, #10b981 var(--val, 100%), #f1f5f9 var(--val, 100%)) !important;
+}
+
+/* WebKit Track */
+input[type="range"]::-webkit-slider-runnable-track,
+.ink-flat-slider::-webkit-slider-runnable-track,
+.subtask-slider::-webkit-slider-runnable-track,
+.subtask-slider-texca::-webkit-slider-runnable-track {
+    width: 100% !important;
+    height: 18px !important;
+    background: transparent !important;
+    border-radius: 9999px !important;
+    border: none !important;
+    cursor: pointer !important;
+}
+
+/* WebKit Thumb (Paper Mario / Figma Tactile Knob) */
+input[type="range"]::-webkit-slider-thumb,
+.ink-flat-slider::-webkit-slider-thumb,
+.subtask-slider::-webkit-slider-thumb,
+.subtask-slider-texca::-webkit-slider-thumb {
+    -webkit-appearance: none !important;
+    appearance: none !important;
+    width: 32px !important;
+    height: 32px !important;
+    border-radius: 50% !important;
+    background-color: #ffffff !important;
+    background-image: radial-gradient(circle at center, #4f46e5 0%, #4f46e5 34%, #ffffff 35%) !important;
+    border: 2.5px solid #0f172a !important;
+    box-shadow: 0 4px 0 #0f172a, 0 6px 12px rgba(15, 23, 42, 0.2) !important;
+    cursor: grab !important;
+    margin-top: -8.5px !important;
+    transition: transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.15s ease, background-image 0.15s ease !important;
+}
+
+/* WebKit Thumb 100% Complete */
+input[type="range"].is-done::-webkit-slider-thumb,
+.ink-flat-slider.is-done::-webkit-slider-thumb,
+.subtask-slider.is-done::-webkit-slider-thumb,
+.subtask-slider-texca.is-done::-webkit-slider-thumb {
+    background-image: radial-gradient(circle at center, #10b981 0%, #10b981 34%, #ffffff 35%) !important;
+}
+
+/* WebKit Thumb Hover */
+input[type="range"]:hover::-webkit-slider-thumb,
+.ink-flat-slider:hover::-webkit-slider-thumb,
+.subtask-slider:hover::-webkit-slider-thumb,
+.subtask-slider-texca:hover::-webkit-slider-thumb {
+    transform: scale(1.1) !important;
+    box-shadow: 0 5px 0 #0f172a, 0 8px 16px rgba(79, 70, 229, 0.25) !important;
+}
+
+/* WebKit Thumb Active / Dragging */
+input[type="range"]:active::-webkit-slider-thumb,
+.ink-flat-slider:active::-webkit-slider-thumb,
+.subtask-slider:active::-webkit-slider-thumb,
+.subtask-slider-texca:active::-webkit-slider-thumb {
+    cursor: grabbing !important;
+    transform: scale(1.18) translateY(1px) !important;
+    box-shadow: 0 2px 0 #0f172a, 0 0 0 5px rgba(79, 70, 229, 0.22) !important;
+}
+
+/* Firefox Track */
+input[type="range"]::-moz-range-track,
+.ink-flat-slider::-moz-range-track,
+.subtask-slider::-moz-range-track,
+.subtask-slider-texca::-moz-range-track {
+    width: 100% !important;
+    height: 18px !important;
+    background: transparent !important;
+    border-radius: 9999px !important;
+    border: none !important;
+    cursor: pointer !important;
+}
+
+/* Firefox Thumb */
+input[type="range"]::-moz-range-thumb,
+.ink-flat-slider::-moz-range-thumb,
+.subtask-slider::-moz-range-thumb,
+.subtask-slider-texca::-moz-range-thumb {
+    width: 30px !important;
+    height: 30px !important;
+    border-radius: 50% !important;
+    background-color: #ffffff !important;
+    background-image: radial-gradient(circle at center, #4f46e5 0%, #4f46e5 34%, #ffffff 35%) !important;
+    border: 2.5px solid #0f172a !important;
+    box-shadow: 0 4px 0 #0f172a, 0 6px 12px rgba(15, 23, 42, 0.2) !important;
+    cursor: grab !important;
+    transition: transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.15s ease, background-image 0.15s ease !important;
+}
+
+input[type="range"].is-done::-moz-range-thumb,
+.ink-flat-slider.is-done::-moz-range-thumb,
+.subtask-slider.is-done::-moz-range-thumb,
+.subtask-slider-texca.is-done::-moz-range-thumb {
+    background-image: radial-gradient(circle at center, #10b981 0%, #10b981 34%, #ffffff 35%) !important;
+}
+
+input[type="range"]:hover::-moz-range-thumb,
+.ink-flat-slider:hover::-moz-range-thumb,
+.subtask-slider:hover::-moz-range-thumb,
+.subtask-slider-texca:hover::-moz-range-thumb {
+    transform: scale(1.1) !important;
+    box-shadow: 0 5px 0 #0f172a, 0 8px 16px rgba(79, 70, 229, 0.25) !important;
+}
+
+input[type="range"]:active::-moz-range-thumb,
+.ink-flat-slider:active::-moz-range-thumb,
+.subtask-slider:active::-moz-range-thumb,
+.subtask-slider-texca:active::-moz-range-thumb {
+    cursor: grabbing !important;
+    transform: scale(1.18) translateY(1px) !important;
+    box-shadow: 0 2px 0 #0f172a, 0 0 0 5px rgba(79, 70, 229, 0.22) !important;
+}
+
+/* Tick notch markers */
+.slider-notch-step {
+    padding: 2px 4px !important;
+    border-radius: 6px !important;
+    font-weight: 800 !important;
+    cursor: pointer !important;
+    transition: all 0.15s ease !important;
+    user-select: none !important;
+}
+.slider-notch-step:hover {
+    color: #4f46e5 !important;
+    background: #eef2ff !important;
+    transform: scale(1.08) !important;
+}
+.slider-notch-step:active {
+    transform: scale(0.95) !important;
+}
+
 </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html-to-image/1.11.11/html-to-image.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -8381,37 +8541,56 @@ body.is-line-capturing {
 
           <!-- 2. SINGLE PROGRESS CONTAINER (Top when single progress) -->
           <div id="summaryPlanProgressContainer" class="bg-white p-4 rounded-2xl border-2 border-slate-200/90 shadow-[0_3px_0_#e2e8f0]">
-            <div class="flex justify-between items-center mb-2">
-              <label class="block text-sm font-bold text-slate-800"
-                >ความคืบหน้า (<span id="summaryPlanProgressValue" class="text-indigo-600">0</span
-                >%)</label
-              >
+            <!-- Header with Dynamic Soft Ink Pop Badge -->
+            <div class="flex justify-between items-center mb-3">
+              <div class="flex items-center gap-2">
+                <label for="summaryPlanProgressSlider" class="text-xs sm:text-sm font-black text-slate-800 tracking-tight cursor-pointer">
+                  ความคืบหน้า
+                </label>
+                <span id="summaryPlanProgressBadge" class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-black bg-indigo-50 text-indigo-700 border-2 border-[#0f172a] shadow-[0_2px_0_#0f172a] transition-all">
+                  <span id="summaryPlanProgressValue">0</span>%
+                </span>
+              </div>
               <button
                 type="button"
                 id="setSingle100Btn"
-                class="text-xs font-bold text-white bg-indigo-600 hover:bg-indigo-700 px-3 py-1.5 rounded-lg shadow-sm flex items-center gap-1 transition-all active:scale-95 cursor-pointer"
+                class="text-xs font-black text-white bg-gradient-to-r from-emerald-500 to-teal-600 px-3 py-1.5 rounded-xl border-2 border-[#064e3b] shadow-[0_3px_0_#064e3b] flex items-center gap-1 active:translate-y-[2px] active:shadow-[0_1px_0_#064e3b] transition-all cursor-pointer"
               >
                 ⚡ เสร็จ 100%
               </button>
             </div>
-            <input
-              type="range"
-              id="summaryPlanProgressSlider"
-              min="0"
-              max="100"
-              value="0"
-              class="w-full h-3 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-indigo-600 mb-2.5"
-            />
-            <div class="grid grid-cols-4 gap-1.5 mb-2.5">
-              <button type="button" class="single-preset-btn py-1.5 rounded-lg text-xs font-semibold bg-white border border-slate-200 hover:bg-slate-100 text-slate-700 cursor-pointer" data-val="0">0%</button>
-              <button type="button" class="single-preset-btn py-1.5 rounded-lg text-xs font-semibold bg-white border border-slate-200 hover:bg-indigo-50 text-slate-700 cursor-pointer" data-val="25">25%</button>
-              <button type="button" class="single-preset-btn py-1.5 rounded-lg text-xs font-semibold bg-white border border-slate-200 hover:bg-indigo-50 text-slate-700 cursor-pointer" data-val="50">50%</button>
-              <button type="button" class="single-preset-btn py-1.5 rounded-lg text-xs font-bold bg-indigo-50 border border-indigo-200 hover:bg-indigo-100 text-indigo-700 cursor-pointer" data-val="100">100% เสร็จ</button>
+
+            <!-- Soft Ink Flat Pop Slider Track & Tactile Tick Notches -->
+            <div class="relative w-full mb-3 px-0.5">
+              <input
+                type="range"
+                id="summaryPlanProgressSlider"
+                min="0"
+                max="100"
+                value="0"
+                class="w-full ink-flat-slider"
+                aria-label="กำหนดความคืบหน้าแผนงาน"
+              />
+              <div class="flex justify-between items-center px-1 text-[10px] font-black text-slate-400 select-none mt-1">
+                <span class="slider-notch-step cursor-pointer hover:text-indigo-600 transition-colors" data-val="0">0%</span>
+                <span class="slider-notch-step cursor-pointer hover:text-indigo-600 transition-colors" data-val="25">25%</span>
+                <span class="slider-notch-step cursor-pointer hover:text-indigo-600 transition-colors" data-val="50">50%</span>
+                <span class="slider-notch-step cursor-pointer hover:text-indigo-600 transition-colors" data-val="75">75%</span>
+                <span class="slider-notch-step cursor-pointer hover:text-emerald-600 transition-colors" data-val="100">100%</span>
+              </div>
             </div>
 
-            <div
-              class="flex items-center gap-2 pt-2 border-t border-slate-200"
-            >
+            <!-- 5 Milestone Preset Chips (0%, 25%, 50%, 75%, 100%) -->
+            <div class="grid grid-cols-5 gap-1.5 mb-3">
+              <button type="button" class="single-preset-btn py-1.5 rounded-xl text-xs font-black bg-white border-2 border-slate-300 text-slate-700 shadow-[0_2px_0_#94a3b8] active:translate-y-[2px] active:shadow-none cursor-pointer" data-val="0">0%</button>
+              <button type="button" class="single-preset-btn py-1.5 rounded-xl text-xs font-black bg-sky-50 border-2 border-sky-400 text-sky-800 shadow-[0_2px_0_#0284c7] active:translate-y-[2px] active:shadow-none cursor-pointer" data-val="25">25%</button>
+              <button type="button" class="single-preset-btn py-1.5 rounded-xl text-xs font-black bg-amber-50 border-2 border-amber-400 text-amber-800 shadow-[0_2px_0_#d97706] active:translate-y-[2px] active:shadow-none cursor-pointer" data-val="50">50%</button>
+              <button type="button" class="single-preset-btn py-1.5 rounded-xl text-xs font-black bg-purple-50 border-2 border-purple-400 text-purple-800 shadow-[0_2px_0_#9333ea] active:translate-y-[2px] active:shadow-none cursor-pointer" data-val="75">75%</button>
+              <button type="button" class="single-preset-btn py-1.5 rounded-xl text-xs font-black bg-emerald-500 border-2 border-emerald-800 text-white shadow-[0_2px_0_#064e3b] active:translate-y-[2px] active:shadow-none cursor-pointer" data-val="100">100%</button>
+            </div>
+
+            <!-- Completion Checkbox -->
+            <div class="flex items-center gap-2 pt-2 border-t border-slate-200">
               <input
                 type="checkbox"
                 id="summaryPlanCompletedCheckbox"
@@ -9622,6 +9801,148 @@ document.addEventListener('DOMContentLoaded', function() {
     initValles();
 });
 </script>
+
+
+<!-- SOFT INK FLAT POP SLIDER SYNC & CONTROLS -->
+<script>
+(function() {
+  function syncInkSlider(slider) {
+    if (!slider) return;
+    const val = parseInt(slider.value, 10) || 0;
+    slider.style.setProperty('--val', val + '%');
+    if (val >= 100) {
+      slider.classList.add('is-done');
+    } else {
+      slider.classList.remove('is-done');
+    }
+    if (slider.id === 'summaryPlanProgressSlider') {
+      const valText = document.getElementById('summaryPlanProgressValue');
+      if (valText) valText.textContent = val;
+      const badge = document.getElementById('summaryPlanProgressBadge');
+      if (badge) {
+        if (val >= 100) {
+          badge.className = 'inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-black bg-emerald-50 text-emerald-800 border-2 border-[#064e3b] shadow-[0_2px_0_#064e3b] transition-all';
+        } else if (val > 0) {
+          badge.className = 'inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-black bg-indigo-50 text-indigo-700 border-2 border-[#0f172a] shadow-[0_2px_0_#0f172a] transition-all';
+        } else {
+          badge.className = 'inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-black bg-slate-100 text-slate-600 border-2 border-slate-400 shadow-[0_2px_0_#94a3b8] transition-all';
+        }
+      }
+    } else {
+      const box = slider.closest('div.p-2\\.5') || slider.parentElement;
+      const sp = box ? (box.querySelector('.subtask-pct') || box.querySelector('span:last-child')) : null;
+      if (sp && sp.textContent !== undefined) {
+        sp.textContent = val + '%';
+      }
+    }
+  }
+
+  // Global listener for all range inputs
+  document.addEventListener('input', function(e) {
+    if (e.target && e.target.matches('input[type="range"]')) {
+      syncInkSlider(e.target);
+    }
+  });
+
+  document.addEventListener('change', function(e) {
+    if (e.target && e.target.matches('input[type="range"]')) {
+      syncInkSlider(e.target);
+    }
+    if (e.target && e.target.id === 'summaryPlanCompletedCheckbox') {
+      const slider = document.getElementById('summaryPlanProgressSlider');
+      if (slider) {
+        if (e.target.checked) slider.value = 100;
+        syncInkSlider(slider);
+      }
+    }
+  });
+
+  // Delegated clicks for notches, presets, and 100% button
+  document.addEventListener('click', function(e) {
+    const notch = e.target.closest('.slider-notch-step');
+    if (notch && notch.dataset.val !== undefined) {
+      const val = parseInt(notch.dataset.val, 10);
+      const slider = document.getElementById('summaryPlanProgressSlider');
+      const cb = document.getElementById('summaryPlanCompletedCheckbox');
+      if (slider) {
+        slider.value = val;
+        syncInkSlider(slider);
+        slider.dispatchEvent(new Event('input', { bubbles: true }));
+      }
+      if (cb) {
+        cb.checked = (val >= 100);
+      }
+      return;
+    }
+
+    const preset = e.target.closest('.single-preset-btn');
+    if (preset && preset.dataset.val !== undefined) {
+      const val = parseInt(preset.dataset.val, 10);
+      const slider = document.getElementById('summaryPlanProgressSlider');
+      const cb = document.getElementById('summaryPlanCompletedCheckbox');
+      if (slider) {
+        slider.value = val;
+        syncInkSlider(slider);
+        slider.dispatchEvent(new Event('input', { bubbles: true }));
+      }
+      if (cb) {
+        cb.checked = (val >= 100);
+      }
+      return;
+    }
+
+    if (e.target.closest('#setSingle100Btn')) {
+      const slider = document.getElementById('summaryPlanProgressSlider');
+      const cb = document.getElementById('summaryPlanCompletedCheckbox');
+      if (slider) {
+        slider.value = 100;
+        syncInkSlider(slider);
+        slider.dispatchEvent(new Event('input', { bubbles: true }));
+      }
+      if (cb) {
+        cb.checked = true;
+      }
+      return;
+    }
+
+    if (e.target.closest('#setAllSubtasks100Btn')) {
+      setTimeout(function() {
+        document.querySelectorAll('.subtask-slider, .subtask-slider-texca').forEach(syncInkSlider);
+      }, 10);
+      return;
+    }
+  });
+
+  // Observers for modal open and value updates
+  const targetVal = document.getElementById('summaryPlanProgressValue');
+  if (targetVal) {
+    const observer = new MutationObserver(function() {
+      const slider = document.getElementById('summaryPlanProgressSlider');
+      if (slider) syncInkSlider(slider);
+    });
+    observer.observe(targetVal, { childList: true, characterData: true, subtree: true });
+  }
+
+  const modal = document.getElementById('summaryPlanModal');
+  if (modal) {
+    const modalObserver = new MutationObserver(function() {
+      if (modal.style.display !== 'none' && !modal.classList.contains('hidden')) {
+        const slider = document.getElementById('summaryPlanProgressSlider');
+        if (slider) syncInkSlider(slider);
+        document.querySelectorAll('.subtask-slider, .subtask-slider-texca').forEach(syncInkSlider);
+      }
+    });
+    modalObserver.observe(modal, { attributes: true, attributeFilter: ['style', 'class'] });
+  }
+
+  window.addEventListener('DOMContentLoaded', function() {
+    const slider = document.getElementById('summaryPlanProgressSlider');
+    if (slider) syncInkSlider(slider);
+    document.querySelectorAll('.subtask-slider, .subtask-slider-texca').forEach(syncInkSlider);
+  });
+})();
+</script>
+
 </body>
 </html>
 
