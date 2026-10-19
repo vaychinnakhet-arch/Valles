@@ -5885,19 +5885,90 @@ div[data-report-rule] {
     text-align: center !important;
     vertical-align: middle !important;
     color: #1e293b !important;
-    transition: background-color 0.15s ease !important;
+    transition: background-color 0.15s ease, color 0.15s ease !important;
 }
 
-#main-table tbody tr:nth-child(even) td {
+/* Zebra striping ONLY for empty/unstarted cells */
+#main-table tbody tr:nth-child(even) td.cell-status-empty,
+#main-table tbody tr:nth-child(even) td:not([class*="cell-status-"]):not([class*="bg-emerald"]):not([class*="bg-teal"]):not([class*="bg-rose"]):not([class*="bg-sky"]) {
     background-color: #f8fafc !important;
 }
 
-#main-table tbody tr:nth-child(odd) td {
+#main-table tbody tr:nth-child(odd) td.cell-status-empty,
+#main-table tbody tr:nth-child(odd) td:not([class*="cell-status-"]):not([class*="bg-emerald"]):not([class*="bg-teal"]):not([class*="bg-rose"]):not([class*="bg-sky"]) {
     background-color: #ffffff !important;
 }
 
+/* ==========================================================================
+   EXECUTIVE HEATMAP & STATUS CONTRAST SYSTEM (NORMAL VIEW)
+   ========================================================================== */
+
+/* A. 100% Complete / Finished (Crisp Emerald Green) */
+#main-table td.cell-status-done,
+#main-table td[class*="bg-emerald"],
+#main-table td[class*="bg-teal"] {
+    background-color: #dcfce7 !important; /* Soft Mint Green 100 */
+    color: #14532d !important;             /* Forest Green 900 */
+    font-weight: 800 !important;
+}
+
+#main-table td.cell-status-done svg,
+#main-table td[class*="bg-emerald"] svg,
+#main-table td[class*="bg-teal"] svg {
+    color: #16a34a !important;
+    stroke: #16a34a !important;
+    stroke-width: 3.5 !important;
+    filter: drop-shadow(0 1px 1px rgba(22, 163, 74, 0.3)) !important;
+}
+
+#main-table td.cell-status-done:hover,
+#main-table td[class*="bg-emerald"]:hover {
+    background-color: #bbf7d0 !important;
+}
+
+/* B. In Progress / WIP (1% - 99%) (Vivid Sky Blue) */
+#main-table td.cell-status-wip,
+#main-table td[class*="bg-sky"],
+#main-table td:has(.text-blue-600) {
+    background-color: #e0f2fe !important; /* Sky Blue 100 */
+    color: #0369a1 !important;             /* Blue 800 */
+    font-weight: 800 !important;
+}
+
+#main-table td.cell-status-wip .text-blue-600,
+#main-table td:has(.text-blue-600) .text-blue-600 {
+    color: #0284c7 !important;
+    font-size: 0.9rem !important;
+    font-weight: 900 !important;
+    letter-spacing: -0.02em !important;
+}
+
+#main-table td.cell-status-wip:hover {
+    background-color: #bae6fd !important;
+}
+
+/* C. Delayed / Overdue / Defect (High-Contrast Soft Rose) */
+#main-table td.cell-status-delay,
+#main-table td[class*="bg-rose"] {
+    background-color: #ffe4e6 !important; /* Rose 100 */
+    color: #9f1239 !important;             /* Rose 900 */
+    font-weight: 800 !important;
+    box-shadow: inset 0 0 0 1.5px #f43f5e !important;
+}
+
+#main-table td.cell-status-delay:hover {
+    background-color: #fecdd3 !important;
+}
+
+/* D. Unstarted / Empty (-) */
+#main-table td.cell-status-empty,
+#main-table td:has(span:only-child) {
+    color: #94a3b8 !important;
+    font-weight: 500 !important;
+}
+
 #main-table tbody tr:hover td {
-    background-color: #f1f5f9 !important;
+    filter: brightness(0.97);
 }
 
 /* Sticky frozen room numbers column (701-722) */
@@ -6245,12 +6316,70 @@ body.is-line-capturing {
     vertical-align: middle !important;
     position: static !important;
     box-shadow: none !important;
-    background-color: #ffffff !important;
     white-space: nowrap !important;
 }
 
-.is-line-capturing #main-table tbody tr:nth-child(even) td {
+/* Capture mode zebra striping only for empty cells */
+.is-line-capturing #main-table td.cell-status-empty,
+.is-line-capturing #main-table td:not([class*="cell-status-"]):not([class*="bg-emerald"]):not([class*="bg-teal"]):not([class*="bg-rose"]):not([class*="bg-sky"]) {
+    background-color: #ffffff !important;
+}
+
+.is-line-capturing #main-table tbody tr:nth-child(even) td.cell-status-empty,
+.is-line-capturing #main-table tbody tr:nth-child(even) td:not([class*="cell-status-"]):not([class*="bg-emerald"]):not([class*="bg-teal"]):not([class*="bg-rose"]):not([class*="bg-sky"]) {
     background-color: #f8fafc !important;
+}
+
+/* ==========================================================================
+   EXECUTIVE HEATMAP & STATUS CONTRAST SYSTEM (CAPTURE MODE)
+   ========================================================================== */
+
+/* A. 100% Complete in Capture */
+.is-line-capturing #main-table td.cell-status-done,
+.is-line-capturing #main-table td[class*="bg-emerald"],
+.is-line-capturing #main-table td[class*="bg-teal"] {
+    background-color: #dcfce7 !important; /* Soft Mint Green */
+    color: #14532d !important;
+    font-weight: 800 !important;
+}
+
+.is-line-capturing #main-table td.cell-status-done svg,
+.is-line-capturing #main-table td[class*="bg-emerald"] svg,
+.is-line-capturing #main-table td[class*="bg-teal"] svg {
+    color: #15803d !important;
+    stroke: #15803d !important;
+    stroke-width: 3.5 !important;
+}
+
+/* B. In Progress / WIP in Capture */
+.is-line-capturing #main-table td.cell-status-wip,
+.is-line-capturing #main-table td[class*="bg-sky"],
+.is-line-capturing #main-table td:has(.text-blue-600) {
+    background-color: #e0f2fe !important; /* Sky Blue */
+    color: #0369a1 !important;
+    font-weight: 800 !important;
+}
+
+.is-line-capturing #main-table td.cell-status-wip .text-blue-600,
+.is-line-capturing #main-table td:has(.text-blue-600) .text-blue-600 {
+    color: #0284c7 !important;
+    font-size: 0.88rem !important;
+    font-weight: 900 !important;
+}
+
+/* C. Delayed / Defect in Capture */
+.is-line-capturing #main-table td.cell-status-delay,
+.is-line-capturing #main-table td[class*="bg-rose"] {
+    background-color: #ffe4e6 !important; /* Soft Rose */
+    color: #9f1239 !important;
+    font-weight: 800 !important;
+}
+
+/* D. Unstarted / Empty in Capture */
+.is-line-capturing #main-table td.cell-status-empty,
+.is-line-capturing #main-table td:has(span:only-child) {
+    color: #94a3b8 !important;
+    font-weight: 500 !important;
 }
 
 .is-line-capturing #main-table td.sticky {
