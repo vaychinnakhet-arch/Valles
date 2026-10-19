@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="th">
   <head>
     <meta charset="UTF-8" />
@@ -5670,18 +5670,22 @@ body:not(.is-line-capturing) .modal .modal-content {
     background-color: #e0f2fe !important;
 }
 
-/* Control deck dock */
-#unified-controls {
-    border-radius: 1.25rem !important;
-    border: 1px solid #cbd5e1 !important;
-    box-shadow: 0 10px 30px -5px rgba(15, 23, 42, 0.08) !important;
-    background: rgba(255, 255, 255, 0.98) !important;
-    margin-top: 1rem !important;
-    padding: 1rem 1.25rem !important;
+/* ==========================================================================
+   VALLES HAUS - EXECUTIVE LAYOUT & PERFECT CAPTURE SYSTEM
+   ========================================================================== */
+
+/* 1. Global Page Flow */
+body {
+    background-color: #f8fafc !important;
+    font-family: 'Sarabun', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+    color: #1e293b;
+    overflow-x: hidden;
 }
 
-/* Clean Valles Haus Styling */
-#splash-screen { display: none !important; }
+#splash-screen {
+    display: none !important;
+}
+
 #task-category-container,
 #task-search-container,
 .controls-search-box,
@@ -5699,74 +5703,267 @@ body:not(.is-line-capturing) .modal .modal-content {
     display: none !important;
 }
 
+/* Room to breathe above floating dock */
+#main-app-container {
+    width: 100% !important;
+    max-width: 1840px !important;
+    margin: 0 auto !important;
+    padding: 0.75rem 1rem 7.5rem 1rem !important;
+    box-sizing: border-box !important;
+}
+
+main {
+    padding: 0 !important;
+    padding-bottom: 1rem !important;
+    overflow-x: auto !important;
+}
+
+/* 2. Executive Card Wrapper (#capture-area) */
+#capture-area {
+    background: #ffffff !important;
+    border-radius: 1rem !important;
+    border: 1px solid #cbd5e1 !important;
+    box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.07), 0 2px 6px -1px rgba(15, 23, 42, 0.04) !important;
+    overflow: hidden !important;
+    margin: 0 auto !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+/* 3. Executive Header (#main-header) */
+#main-header {
+    background: #ffffff !important;
+    border-bottom: 2px solid #1e3a8a !important;
+    padding: 1.1rem 1.75rem !important;
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) !important;
+    align-items: center !important;
+    gap: 1.5rem !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    position: relative !important;
+}
+
+#home-btn-container {
+    display: flex !important;
+    align-items: center !important;
+    gap: 0.75rem !important;
+    width: auto !important;
+    position: static !important;
+    transform: none !important;
+}
+
+#home-btn {
+    padding: 0.5rem !important;
+    border-radius: 0.75rem !important;
+    background: #f1f5f9 !important;
+    border: 1px solid #cbd5e1 !important;
+    color: #334155 !important;
+    transition: all 0.2s ease !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+#home-btn:hover {
+    background: #e2e8f0 !important;
+    transform: scale(1.05);
+}
+
+#main-header h1 {
+    font-family: 'Montserrat', sans-serif !important;
+    font-size: 1.65rem !important;
+    font-weight: 900 !important;
+    color: #1e3a8a !important;
+    letter-spacing: -0.03em !important;
+    margin: 0 !important;
+    line-height: 1 !important;
+    white-space: nowrap !important;
+}
+
+#main-header p {
+    font-size: 0.62rem !important;
+    font-weight: 800 !important;
+    letter-spacing: 0.24em !important;
+    color: #64748b !important;
+    text-transform: uppercase !important;
+    margin-top: 0.25rem !important;
+    white-space: nowrap !important;
+}
+
+#header-title-container {
+    text-align: center !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    position: static !important;
+    transform: none !important;
+    width: auto !important;
+    padding: 0 !important;
+}
+
+#status-title {
+    font-size: 1.45rem !important;
+    font-weight: 900 !important;
+    color: #0f172a !important;
+    letter-spacing: -0.01em !important;
+    text-transform: uppercase !important;
+    margin: 0 !important;
+    white-space: nowrap !important;
+}
+
+#header-date-container {
+    display: flex !important;
+    justify-content: flex-end !important;
+    align-items: center !important;
+    position: static !important;
+    transform: none !important;
+    width: auto !important;
+}
+
+#header-date-container > div {
+    background: #f8fafc !important;
+    border: 1.5px solid #cbd5e1 !important;
+    border-radius: 9999px !important;
+    padding: 0.4rem 1.1rem !important;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05) !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    white-space: nowrap !important;
+}
+
+#header-date-container span {
+    font-size: 0.82rem !important;
+    font-weight: 700 !important;
+    color: #334155 !important;
+}
+
+#header-date-container #update-date {
+    font-weight: 900 !important;
+    color: #0f172a !important;
+}
+
+div[data-report-rule] {
+    display: none !important;
+}
+
+/* 4. Elegant Main Grid System (#main-table) */
 #main-table {
     border-collapse: separate !important;
     border-spacing: 0 !important;
     border: 1px solid #cbd5e1 !important;
-    border-radius: 0.75rem !important;
-    overflow: hidden !important;
     background: #ffffff !important;
+    width: 100% !important;
+    font-variant-numeric: tabular-nums !important;
 }
 
 #main-table th {
     background-color: #f8fafc !important;
-    color: #1e293b !important;
+    color: #0f172a !important;
     font-weight: 800 !important;
-    font-size: 0.78rem !important;
-    padding: 0.65rem 0.5rem !important;
-    border-bottom: 1.5px solid #475569 !important;
+    font-size: 0.8rem !important;
+    padding: 0.65rem 0.4rem !important;
+    border-bottom: 2px solid #475569 !important;
     border-right: 1px solid #cbd5e1 !important;
+    text-align: center !important;
+    white-space: nowrap !important;
+    vertical-align: middle !important;
+}
+
+#main-table th:last-child {
+    background-color: #e0f2fe !important;
+    color: #0369a1 !important;
+    border-left: 2px solid #0f172a !important;
+    font-weight: 900 !important;
 }
 
 #main-table td {
-    padding: 0.45rem 0.4rem !important;
+    padding: 0.42rem 0.35rem !important;
     border-bottom: 1px solid #e2e8f0 !important;
     border-right: 1px solid #cbd5e1 !important;
-    font-size: 0.85rem !important;
-    font-variant-numeric: tabular-nums !important;
-    color: #334155 !important;
+    font-size: 0.82rem !important;
+    text-align: center !important;
+    vertical-align: middle !important;
+    color: #1e293b !important;
+    transition: background-color 0.15s ease !important;
 }
 
-#main-table tbody tr:hover td {
+#main-table tbody tr:nth-child(even) td {
     background-color: #f8fafc !important;
 }
 
-#main-table td.sticky {
-    font-weight: 800 !important;
-    color: #0f172a !important;
+#main-table tbody tr:nth-child(odd) td {
     background-color: #ffffff !important;
-    border-right: 1.5px solid #64748b !important;
 }
 
-/* ========================================================
-   MINIMAL DOCK: ONLY QC WET WORK, QC END PRODUCT & CAPTURE
-   ======================================================== */
+#main-table tbody tr:hover td {
+    background-color: #f1f5f9 !important;
+}
+
+/* Sticky frozen room numbers column (701-722) */
+#main-table td.sticky {
+    position: sticky !important;
+    left: 0 !important;
+    z-index: 20 !important;
+    font-weight: 900 !important;
+    font-size: 0.88rem !important;
+    color: #0f172a !important;
+    background-color: #f1f5f9 !important;
+    border-right: 2px solid #0f172a !important;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.05) !important;
+}
+
+#main-table th.sticky {
+    position: sticky !important;
+    left: 0 !important;
+    z-index: 30 !important;
+    background-color: #e2e8f0 !important;
+    border-right: 2px solid #0f172a !important;
+}
+
+#main-table td:last-child {
+    background-color: #f0fdf4 !important;
+    color: #15803d !important;
+    font-weight: 800 !important;
+    border-left: 2px solid #0f172a !important;
+}
+
+/* 5. Minimal Bottom Floating Dock (#unified-controls) */
 #unified-controls {
     display: flex !important;
     flex-direction: row !important;
     align-items: center !important;
     justify-content: center !important;
-    gap: 1.25rem !important;
+    gap: 1rem !important;
     width: max-content !important;
     max-width: 95vw !important;
-    margin: 1.25rem auto 2.5rem auto !important;
-    padding: 0.5rem 0.85rem !important;
-    background: rgba(255, 255, 255, 0.95) !important;
+    height: auto !important;
+    min-height: auto !important;
+    max-height: none !important;
+    margin: 0 !important;
+    padding: 0.45rem 0.85rem !important;
+    background: rgba(255, 255, 255, 0.94) !important;
     backdrop-filter: blur(16px) !important;
     -webkit-backdrop-filter: blur(16px) !important;
     border: 1px solid #cbd5e1 !important;
     border-radius: 9999px !important;
-    box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.1), 0 8px 10px -6px rgba(15, 23, 42, 0.05) !important;
-    position: sticky !important;
-    bottom: 1.5rem !important;
+    box-shadow: 0 10px 25px -4px rgba(15, 23, 42, 0.18), 0 4px 8px -2px rgba(15, 23, 42, 0.08) !important;
+    position: fixed !important;
     top: auto !important;
-    z-index: 50 !important;
+    bottom: 1.5rem !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    z-index: 999 !important;
+    transition: all 0.25s ease !important;
 }
 
 #unified-controls .controls-top-row,
 #unified-controls .controls-toolbar,
 #unified-controls .controls-context-row {
     display: contents !important;
+    height: auto !important;
+    padding: 0 !important;
+    margin: 0 !important;
 }
 
 #unified-controls #contextual-modes-container {
@@ -5790,7 +5987,7 @@ body:not(.is-line-capturing) .modal .modal-content {
     display: none !important;
 }
 
-/* Hide everything except summary-report-mode-toggle and captureNewBtn */
+/* Hide all extraneous buttons except mode toggle and capture */
 #unified-controls .controls-view-scroller,
 #unified-controls .control-group-display,
 #unified-controls .control-group-data,
@@ -5813,12 +6010,11 @@ body:not(.is-line-capturing) .modal .modal-content {
     display: none !important;
 }
 
-/* Styled Mode Toggle Buttons (QC Wet work / QC End product) */
 #unified-controls #summary-report-mode-toggle {
     display: flex !important;
     align-items: center !important;
     background: #f1f5f9 !important;
-    padding: 4px !important;
+    padding: 3px !important;
     border-radius: 9999px !important;
     border: 1px solid #cbd5e1 !important;
     box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.05) !important;
@@ -5832,15 +6028,15 @@ body:not(.is-line-capturing) .modal .modal-content {
     background: transparent !important;
     padding: 0 !important;
     box-shadow: none !important;
-    gap: 4px !important;
+    gap: 3px !important;
     display: flex !important;
 }
 
 #unified-controls #summary-report-wet-btn,
 #unified-controls #summary-report-end-btn {
-    padding: 0.5rem 1.25rem !important;
+    padding: 0.45rem 1.15rem !important;
     border-radius: 9999px !important;
-    font-size: 0.85rem !important;
+    font-size: 0.82rem !important;
     font-weight: 700 !important;
     transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
     cursor: pointer !important;
@@ -5849,9 +6045,9 @@ body:not(.is-line-capturing) .modal .modal-content {
 
 #unified-controls #summary-report-wet-btn.active,
 #unified-controls #summary-report-end-btn.active {
-    background: #1e3a5f !important;
+    background: #0f172a !important;
     color: #ffffff !important;
-    box-shadow: 0 2px 6px rgba(30, 58, 95, 0.3) !important;
+    box-shadow: 0 2px 6px rgba(15, 23, 42, 0.25) !important;
 }
 
 #unified-controls #summary-report-wet-btn:not(.active),
@@ -5866,17 +6062,16 @@ body:not(.is-line-capturing) .modal .modal-content {
     background: rgba(255, 255, 255, 0.8) !important;
 }
 
-/* Styled Capture Button */
 #unified-controls #captureNewBtn {
     display: inline-flex !important;
     align-items: center !important;
     justify-content: center !important;
-    gap: 0.5rem !important;
-    padding: 0.55rem 1.4rem !important;
+    gap: 0.45rem !important;
+    padding: 0.5rem 1.25rem !important;
     min-height: auto !important;
     background: linear-gradient(135deg, #e11d48 0%, #be123c 100%) !important;
     color: #ffffff !important;
-    font-size: 0.85rem !important;
+    font-size: 0.82rem !important;
     font-weight: 800 !important;
     border-radius: 9999px !important;
     border: none !important;
@@ -5894,6 +6089,216 @@ body:not(.is-line-capturing) .modal .modal-content {
 
 #unified-controls #captureNewBtn:active {
     transform: translateY(0) scale(0.97) !important;
+}
+
+/* 6. PERFECT EXECUTIVE CAPTURE SYSTEM (.is-line-capturing) */
+html.is-line-capturing,
+body.is-line-capturing {
+    background-color: #ffffff !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: max-content !important;
+}
+
+.is-line-capturing #main-app-container {
+    width: 100% !important;
+    max-width: none !important;
+    margin: 0 auto !important;
+    padding: 0 !important;
+    overflow: visible !important;
+}
+
+.is-line-capturing main {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0 !important;
+    overflow: visible !important;
+}
+
+/* Frame the capture like an official document */
+.is-line-capturing #capture-area {
+    box-sizing: border-box !important;
+    width: 100% !important;
+    max-width: none !important;
+    margin: 0 auto !important;
+    padding: 24px 28px !important;
+    background: #ffffff !important;
+    border: 2px solid #0f172a !important;
+    border-radius: 8px !important;
+    box-shadow: none !important;
+    display: block !important;
+    overflow: visible !important;
+    transform: none !important;
+}
+
+/* Clean Header in Capture Mode */
+.is-line-capturing #main-header {
+    background: #ffffff !important;
+    border-bottom: 2px solid #0f172a !important;
+    padding: 0.5rem 0 1rem 0 !important;
+    margin-bottom: 1rem !important;
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) !important;
+    align-items: center !important;
+    width: 100% !important;
+    position: static !important;
+}
+
+.is-line-capturing #home-btn-container {
+    position: static !important;
+    transform: none !important;
+    display: flex !important;
+    align-items: center !important;
+    width: auto !important;
+    z-index: 1 !important;
+}
+
+.is-line-capturing #home-btn {
+    display: none !important;
+}
+
+.is-line-capturing #main-header h1 {
+    font-size: 1.75rem !important;
+    font-weight: 900 !important;
+    color: #0f172a !important;
+}
+
+.is-line-capturing #main-header p {
+    font-size: 0.65rem !important;
+    color: #64748b !important;
+    letter-spacing: 0.25em !important;
+}
+
+.is-line-capturing #header-title-container {
+    position: static !important;
+    transform: none !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    text-align: center !important;
+    width: auto !important;
+    padding: 0 !important;
+    z-index: 1 !important;
+}
+
+.is-line-capturing #status-title {
+    font-size: 1.6rem !important;
+    font-weight: 900 !important;
+    color: #0f172a !important;
+}
+
+.is-line-capturing #header-date-container {
+    position: static !important;
+    transform: none !important;
+    display: flex !important;
+    justify-content: flex-end !important;
+    align-items: center !important;
+    width: auto !important;
+    z-index: 1 !important;
+}
+
+.is-line-capturing #header-date-container > div {
+    background: #f8fafc !important;
+    border: 1.5px solid #0f172a !important;
+    border-radius: 9999px !important;
+    padding: 0.35rem 1rem !important;
+}
+
+/* Formal Grid in Capture Mode */
+.is-line-capturing #main-table {
+    table-layout: auto !important;
+    border-collapse: collapse !important;
+    border-spacing: 0 !important;
+    box-sizing: border-box !important;
+    width: 100% !important;
+    min-width: 100% !important;
+    max-width: 100% !important;
+    border: 2px solid #0f172a !important;
+}
+
+.is-line-capturing #main-table th {
+    border: 1px solid #0f172a !important;
+    border-bottom: 2px solid #0f172a !important;
+    background-color: #f1f5f9 !important;
+    color: #0f172a !important;
+    font-weight: 900 !important;
+    font-size: 0.8rem !important;
+    padding: 0.55rem 0.35rem !important;
+    text-align: center !important;
+    vertical-align: middle !important;
+    position: static !important;
+    box-shadow: none !important;
+    white-space: nowrap !important;
+}
+
+.is-line-capturing #main-table th:last-child {
+    background-color: #e0f2fe !important;
+    color: #0369a1 !important;
+    border-left: 2px solid #0f172a !important;
+}
+
+.is-line-capturing #main-table td {
+    border: 1px solid #64748b !important;
+    padding: 0.38rem 0.28rem !important;
+    font-size: 0.8rem !important;
+    text-align: center !important;
+    vertical-align: middle !important;
+    position: static !important;
+    box-shadow: none !important;
+    background-color: #ffffff !important;
+    white-space: nowrap !important;
+}
+
+.is-line-capturing #main-table tbody tr:nth-child(even) td {
+    background-color: #f8fafc !important;
+}
+
+.is-line-capturing #main-table td.sticky {
+    position: static !important;
+    background-color: #f1f5f9 !important;
+    color: #0f172a !important;
+    font-weight: 900 !important;
+    font-size: 0.84rem !important;
+    border-right: 2px solid #0f172a !important;
+    box-shadow: none !important;
+}
+
+.is-line-capturing #main-table td:last-child {
+    background-color: #f0fdf4 !important;
+    color: #15803d !important;
+    font-weight: 800 !important;
+    border-left: 2px solid #0f172a !important;
+}
+
+/* Formal Legend in Capture */
+.is-line-capturing #legend {
+    margin: 1rem 0 0 0 !important;
+    padding: 0.65rem 1rem !important;
+    background-color: #f8fafc !important;
+    border: 1px solid #cbd5e1 !important;
+    border-radius: 6px !important;
+    box-shadow: none !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    font-size: 0.76rem !important;
+    display: flex !important;
+    justify-content: center !important;
+}
+
+/* COMPLETE REMOVAL OF UNWANTED UI FROM CAPTURED IMAGE */
+.is-line-capturing #unified-controls,
+.is-line-capturing #exitCaptureModeFloatingBtn,
+.is-line-capturing #controls-area,
+.is-line-capturing #primary-action-buttons-container,
+.is-line-capturing #secondary-action-buttons-container,
+.is-line-capturing #schedule-quick-filter-floating,
+.is-line-capturing #toast,
+.is-line-capturing .modal,
+.is-line-capturing #quick-update-mode-container {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
 }
 </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html-to-image/1.11.11/html-to-image.min.js"></script>
