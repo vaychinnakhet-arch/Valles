@@ -731,6 +731,9 @@
           }
 
           renderSplashScreen();
+          if (typeof renderTable === "function") {
+            renderTable();
+          }
           const now = new Date();
           const dateStr = now.toLocaleDateString("th-TH", {
             year: "numeric",
