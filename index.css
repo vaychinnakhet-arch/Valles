@@ -5618,3 +5618,205 @@ body.modal-open #schedule-quick-filter-floating {
         cursor: pointer !important;
     }
 }
+
+/* 5.1 SOFT INK FLAT POP AESTHETIC SYSTEM */
+/* Primary Update & Save Action Buttons */
+#saveSummaryPlanBtn,
+#saveProgressBtn,
+.btn-soft-ink-pop {
+    background: linear-gradient(135deg, #4f46e5 0%, #4338ca 100%) !important;
+    color: #ffffff !important;
+    font-weight: 900 !important;
+    letter-spacing: 0.02em !important;
+    border: 2px solid #0f172a !important;
+    border-radius: 0.875rem !important;
+    box-shadow: 0 4px 0 #0f172a, 0 8px 16px rgba(79, 70, 229, 0.25) !important;
+    padding: 0.65rem 1.4rem !important;
+    transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    cursor: pointer !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 0.5rem !important;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2) !important;
+    min-height: 46px !important;
+}
+
+#saveSummaryPlanBtn:hover,
+#saveProgressBtn:hover,
+.btn-soft-ink-pop:hover {
+    background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%) !important;
+    box-shadow: 0 5px 0 #0f172a, 0 10px 20px rgba(79, 70, 229, 0.35) !important;
+    transform: translateY(-1px) !important;
+}
+
+#saveSummaryPlanBtn:active,
+#saveProgressBtn:active,
+.btn-soft-ink-pop:active {
+    box-shadow: 0 1px 0 #0f172a !important;
+    transform: translateY(3px) !important;
+}
+
+/* Cancel / Close Buttons in Soft Ink Style */
+#cancelSummaryPlanBtn,
+#closeModalBtn,
+.btn-soft-ink-secondary {
+    background: #ffffff !important;
+    color: #1e293b !important;
+    font-weight: 800 !important;
+    border: 2px solid #334155 !important;
+    border-radius: 0.875rem !important;
+    box-shadow: 0 3px 0 #94a3b8 !important;
+    padding: 0.65rem 1.25rem !important;
+    transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    cursor: pointer !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    min-height: 46px !important;
+}
+
+#cancelSummaryPlanBtn:hover,
+#closeModalBtn:hover,
+.btn-soft-ink-secondary:hover {
+    background: #f8fafc !important;
+    border-color: #0f172a !important;
+    color: #0f172a !important;
+    box-shadow: 0 4px 0 #64748b !important;
+    transform: translateY(-1px) !important;
+}
+
+#cancelSummaryPlanBtn:active,
+#closeModalBtn:active,
+.btn-soft-ink-secondary:active {
+    box-shadow: 0 1px 0 #64748b !important;
+    transform: translateY(2px) !important;
+}
+
+/* Hero 100% Quick Complete Buttons */
+#setAllSubtasks100Btn,
+#setSingle100Btn {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%) !important;
+    color: #ffffff !important;
+    font-weight: 800 !important;
+    border: 2px solid #064e3b !important;
+    border-radius: 0.75rem !important;
+    box-shadow: 0 3px 0 #064e3b !important;
+    padding: 0.4rem 0.85rem !important;
+    transition: all 0.15s ease !important;
+    cursor: pointer !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 0.35rem !important;
+}
+
+#setAllSubtasks100Btn:hover,
+#setSingle100Btn:hover {
+    background: linear-gradient(135deg, #34d399 0%, #10b981 100%) !important;
+    box-shadow: 0 4px 0 #064e3b !important;
+    transform: translateY(-1px) !important;
+}
+
+#setAllSubtasks100Btn:active,
+#setSingle100Btn:active {
+    box-shadow: 0 1px 0 #064e3b !important;
+    transform: translateY(2px) !important;
+}
+
+/* Preset Percentage Chips - Soft Ink Flat Pop */
+.single-preset-btn,
+.subtask-chip,
+.quick-progress-btn {
+    border: 2px solid #cbd5e1 !important;
+    border-radius: 0.75rem !important;
+    font-weight: 800 !important;
+    box-shadow: 0 2px 0 #94a3b8 !important;
+    background: #ffffff !important;
+    color: #1e293b !important;
+    transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    cursor: pointer !important;
+    padding: 0.4rem 0.5rem !important;
+}
+
+.single-preset-btn:hover,
+.subtask-chip:hover,
+.quick-progress-btn:hover {
+    border-color: #0f172a !important;
+    color: #0f172a !important;
+    box-shadow: 0 3px 0 #0f172a !important;
+    transform: translateY(-1px) !important;
+}
+
+.single-preset-btn:active,
+.subtask-chip:active,
+.quick-progress-btn:active {
+    transform: translateY(2px) !important;
+    box-shadow: 0 0 0 !important;
+}
+
+/* 25% Chip */
+.single-preset-btn[data-val="25"],
+.quick-progress-btn[data-value="25"] {
+    background: #f0f9ff !important;
+    border-color: #38bdf8 !important;
+    color: #0369a1 !important;
+    box-shadow: 0 2px 0 #0284c7 !important;
+}
+
+/* 50% Chip */
+.single-preset-btn[data-val="50"],
+.subtask-chip[data-val="50"],
+.quick-progress-btn[data-value="50"] {
+    background: #fffbeb !important;
+    border-color: #fbbf24 !important;
+    color: #b45309 !important;
+    box-shadow: 0 2px 0 #d97706 !important;
+}
+
+/* 75% Chip */
+.quick-progress-btn[data-value="75"] {
+    background: #faf5ff !important;
+    border-color: #c084fc !important;
+    color: #7e22ce !important;
+    box-shadow: 0 2px 0 #9333ea !important;
+}
+
+/* 100% Chip */
+.single-preset-btn[data-val="100"],
+.subtask-chip[data-val="100"],
+.quick-progress-btn[data-value="100"] {
+    background: #10b981 !important;
+    color: #ffffff !important;
+    border-color: #064e3b !important;
+    box-shadow: 0 2px 0 #064e3b !important;
+}
+
+.single-preset-btn[data-val="100"]:hover,
+.subtask-chip[data-val="100"]:hover,
+.quick-progress-btn[data-value="100"]:hover {
+    background: #059669 !important;
+    box-shadow: 0 3px 0 #064e3b !important;
+}
+
+/* Mini Clear Actions in Soft Ink */
+#clearSummaryPlanDateBtn,
+#clearSummaryPlanNoteBtn {
+    background: #fff1f2 !important;
+    border: 1.5px solid #fecdd3 !important;
+    color: #e11d48 !important;
+    font-weight: 800 !important;
+    border-radius: 0.625rem !important;
+    box-shadow: 0 1px 0 #fda4af !important;
+    transition: all 0.15s ease !important;
+    cursor: pointer !important;
+}
+
+#clearSummaryPlanDateBtn:hover,
+#clearSummaryPlanNoteBtn:hover {
+    background: #ffe4e6 !important;
+    border-color: #f43f5e !important;
+    color: #be123c !important;
+    transform: translateY(-0.5px) !important;
+}
+
+/* 5.2 Mobile & Touch Adaptations: Hide floating docks when ANY modal is open */
