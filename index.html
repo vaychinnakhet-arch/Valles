@@ -6056,20 +6056,25 @@ div[data-report-rule] {
 #home-btn,
 #home-btn-container button,
 .controls-view-scroller,
-#mobile-room-strip {
+#mobile-room-strip,
+#unified-controls #table-scale-mode-toggle,
+#unified-controls #report-header-style-toggle,
+#unified-controls #summary-report-floor-selection,
+#unified-controls #captureUltraBtn,
+#unified-controls #exportPdfBtn,
+#unified-controls #exportExcelBtn {
     display: none !important;
 }
 
 #unified-controls {
     display: flex !important;
-    flex-wrap: wrap !important;
     align-items: center !important;
     justify-content: space-between !important;
-    gap: 0.75rem 1rem !important;
+    gap: 1rem !important;
     width: 100% !important;
     max-width: 100% !important;
     margin: 0.85rem auto 1.5rem auto !important;
-    padding: 0.75rem 1.25rem !important;
+    padding: 0.65rem 1rem !important;
     background: #ffffff !important;
     border: 1px solid #cbd5e1 !important;
     border-radius: 1rem !important;
@@ -6084,7 +6089,7 @@ div[data-report-rule] {
     transition: all 0.2s ease !important;
 }
 
-/* Ensure mode toggle buttons are crisp and interactive */
+/* Ensure report mode toggle buttons are crisp and interactive */
 #unified-controls #summary-report-mode-toggle {
     display: flex !important;
     align-items: center !important;
@@ -6097,7 +6102,7 @@ div[data-report-rule] {
 
 #unified-controls #summary-report-wet-btn,
 #unified-controls #summary-report-end-btn {
-    padding: 0.45rem 1rem !important;
+    padding: 0.45rem 1.15rem !important;
     border-radius: 0.5rem !important;
     font-size: 0.82rem !important;
     font-weight: 700 !important;
@@ -6126,58 +6131,13 @@ div[data-report-rule] {
     background: rgba(255, 255, 255, 0.8) !important;
 }
 
-/* Scale & Header style pill toggles */
-#unified-controls #table-scale-mode-toggle,
-#unified-controls #report-header-style-toggle {
-    display: flex !important;
-    align-items: center !important;
-    background: #f1f5f9 !important;
-    padding: 3px !important;
-    border-radius: 0.75rem !important;
-    border: 1px solid #cbd5e1 !important;
-}
-
-#unified-controls #table-scale-mode-toggle button,
-#unified-controls #report-header-style-toggle button {
-    padding: 0.4rem 0.75rem !important;
-    border-radius: 0.5rem !important;
-    font-size: 0.8rem !important;
-    font-weight: 700 !important;
-    border: none !important;
-    cursor: pointer !important;
-    transition: all 0.2s ease !important;
-}
-
-#unified-controls #table-scale-mode-toggle button.active,
-#unified-controls #report-header-style-toggle button.active {
-    background: #0f172a !important;
-    color: #ffffff !important;
-    box-shadow: 0 1px 3px rgba(15, 23, 42, 0.2) !important;
-}
-
-#unified-controls #table-scale-mode-toggle button:not(.active),
-#unified-controls #report-header-style-toggle button:not(.active) {
-    background: transparent !important;
-    color: #64748b !important;
-}
-
-/* Floor selection */
-#unified-controls #summary-report-floor-selection {
-    display: flex !important;
-    align-items: center !important;
-    background: #f8fafc !important;
-    padding: 0.35rem 0.75rem !important;
-    border-radius: 0.75rem !important;
-    border: 1px solid #cbd5e1 !important;
-}
-
-/* Action & capture buttons */
+/* Capture button */
 #unified-controls #captureNewBtn {
     display: inline-flex !important;
     align-items: center !important;
     justify-content: center !important;
     gap: 0.45rem !important;
-    padding: 0.5rem 1.25rem !important;
+    padding: 0.5rem 1.35rem !important;
     min-height: auto !important;
     background: linear-gradient(135deg, #e11d48 0%, #be123c 100%) !important;
     color: #ffffff !important;
@@ -6201,64 +6161,6 @@ div[data-report-rule] {
     transform: translateY(0) scale(0.97) !important;
 }
 
-#unified-controls #captureUltraBtn {
-    display: inline-flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    gap: 0.4rem !important;
-    padding: 0.5rem 1rem !important;
-    background: #1e293b !important;
-    color: #ffffff !important;
-    font-size: 0.82rem !important;
-    font-weight: 700 !important;
-    border-radius: 0.75rem !important;
-    border: none !important;
-    box-shadow: 0 2px 6px rgba(30, 41, 59, 0.25) !important;
-    cursor: pointer !important;
-    transition: all 0.2s ease !important;
-    white-space: nowrap !important;
-}
-
-#unified-controls #captureUltraBtn:hover {
-    background: #0f172a !important;
-    transform: translateY(-1px) !important;
-}
-
-#unified-controls #exportPdfBtn {
-    display: inline-flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    gap: 0.4rem !important;
-    padding: 0.5rem 1rem !important;
-    background: #e11d48 !important;
-    color: #ffffff !important;
-    font-size: 0.82rem !important;
-    font-weight: 700 !important;
-    border-radius: 0.75rem !important;
-    border: none !important;
-    box-shadow: 0 2px 6px rgba(225, 29, 72, 0.25) !important;
-    cursor: pointer !important;
-    transition: all 0.2s ease !important;
-    white-space: nowrap !important;
-}
-
-#unified-controls #exportExcelBtn {
-    display: inline-flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    gap: 0.4rem !important;
-    padding: 0.5rem 1rem !important;
-    background: #059669 !important;
-    color: #ffffff !important;
-    font-size: 0.82rem !important;
-    font-weight: 700 !important;
-    border-radius: 0.75rem !important;
-    border: none !important;
-    box-shadow: 0 2px 6px rgba(5, 150, 105, 0.25) !important;
-    cursor: pointer !important;
-    transition: all 0.2s ease !important;
-    white-space: nowrap !important;
-}
 
 
 /* 5.1 SOFT INK FLAT POP AESTHETIC SYSTEM */
@@ -7832,77 +7734,38 @@ input[type="range"]:active::-moz-range-thumb,
         id="unified-controls"
         class="control-deck max-w-full mx-auto bg-white rounded-2xl shadow-sm border border-slate-200/80 p-3 md:p-4 flex flex-wrap items-center justify-between gap-3 transition-all print:hidden"
       >
-        <!-- Primary Controls Group: Mode, Scale, Header Style, Floor Selection -->
-        <div class="flex flex-wrap items-center gap-2.5">
-          <!-- Summary Report Mode (Wet work / End product) -->
-          <div id="summary-report-mode-toggle" class="flex items-center bg-slate-100 p-1 rounded-xl border border-slate-200 shadow-xs">
-            <span class="px-2.5 text-[11px] font-black text-slate-500 uppercase tracking-widest hidden sm:inline">โหมดรายงาน</span>
-            <div class="bg-white p-0.5 rounded-lg text-xs font-bold flex items-center gap-1 shadow-xs">
-              <button id="summary-report-wet-btn" type="button" class="view-toggle-btn px-3 py-1.5 rounded-md active transition-all whitespace-nowrap text-xs">QC Wet work</button>
-              <button id="summary-report-end-btn" type="button" class="view-toggle-btn px-3 py-1.5 rounded-md transition-all whitespace-nowrap text-xs">QC End product</button>
-            </div>
-          </div>
-
-          <!-- Table Fit Mode -->
-          <div id="table-scale-mode-toggle" class="flex items-center bg-slate-100 p-1 rounded-xl border border-slate-200 shadow-xs">
-            <span class="px-2 text-[11px] font-black text-slate-500 uppercase tracking-widest hidden lg:inline">ขนาดตาราง</span>
-            <div class="bg-white p-0.5 rounded-lg text-xs font-bold flex items-center gap-1 shadow-xs">
-              <button id="table-fit-btn" type="button" onclick="toggleTableFit(true)" class="view-toggle-btn px-2.5 py-1.5 rounded-md active transition-all whitespace-nowrap flex items-center gap-1 text-xs" title="ปรับขนาดคอลัมน์ให้พอดีหน้าจอ">
-                <i data-lucide="shrink" class="w-3.5 h-3.5"></i>
-                <span>พอดีจอ (Fit)</span>
-              </button>
-              <button id="table-normal-btn" type="button" onclick="toggleTableFit(false)" class="view-toggle-btn px-2.5 py-1.5 rounded-md transition-all whitespace-nowrap flex items-center gap-1 text-xs" title="ขนาดมาตรฐานแบบเดิม">
-                <i data-lucide="expand" class="w-3.5 h-3.5"></i>
-                <span>ปกติ (100%)</span>
-              </button>
-            </div>
-          </div>
-
-          <!-- Header Style -->
-          <div id="report-header-style-toggle" class="flex items-center bg-slate-100 p-1 rounded-xl border border-slate-200 shadow-xs">
-            <span class="px-2 text-[11px] font-black text-slate-500 uppercase tracking-widest hidden xl:inline">หัวกระดาษ</span>
-            <div class="bg-white p-0.5 rounded-lg text-xs font-bold flex items-center gap-1 shadow-xs">
-              <button id="header-style-dark-btn" type="button" class="view-toggle-btn px-2.5 py-1.5 rounded-md active transition-all whitespace-nowrap text-xs">Classic</button>
-              <button id="header-style-light-btn" type="button" class="view-toggle-btn px-2.5 py-1.5 rounded-md transition-all whitespace-nowrap text-xs">Modern</button>
-            </div>
-          </div>
-
-          <!-- Floor Selection -->
-          <div id="summary-report-floor-selection" class="flex items-center gap-2 px-2.5 py-1.5 bg-slate-100 border border-slate-200 rounded-xl shadow-xs">
-            <span class="text-[11px] font-black text-slate-500 uppercase tracking-widest whitespace-nowrap">เลือกชั้น:</span>
-            <div id="summary-report-floor-list" class="flex flex-wrap gap-1"></div>
+        <!-- Summary Report Mode (Wet work / End product) -->
+        <div id="summary-report-mode-toggle" class="flex items-center bg-slate-100 p-1 rounded-xl border border-slate-200 shadow-xs">
+          <span class="px-2.5 text-[11px] font-black text-slate-500 uppercase tracking-widest hidden sm:inline">โหมดรายงาน</span>
+          <div class="bg-white p-0.5 rounded-lg text-xs font-bold flex items-center gap-1 shadow-xs">
+            <button id="summary-report-wet-btn" type="button" class="view-toggle-btn px-3.5 py-1.5 rounded-md active transition-all whitespace-nowrap text-xs">QC Wet work</button>
+            <button id="summary-report-end-btn" type="button" class="view-toggle-btn px-3.5 py-1.5 rounded-md transition-all whitespace-nowrap text-xs">QC End product</button>
           </div>
         </div>
 
-        <!-- Action / Export Buttons Group -->
-        <div class="flex flex-wrap items-center gap-2 shrink-0">
-          <!-- Capture New Button -->
-          <button id="captureNewBtn" type="button" class="action-btn px-4 py-2 bg-gradient-to-r from-rose-600 to-rose-700 hover:from-rose-500 hover:to-rose-600 text-white rounded-xl shadow-sm hover:shadow focus:outline-none flex items-center justify-center gap-1.5 transition-all font-extrabold text-xs whitespace-nowrap min-h-[38px] active:scale-95" title="แคปเจอร์และบันทึกรูปภาพตาราง">
-            <i data-lucide="camera" class="w-4 h-4"></i>
-            <span>แคปและบันทึก</span>
-          </button>
-
-          <!-- Ultra HD Capture Button -->
-          <button id="captureUltraBtn" type="button" class="action-btn px-3.5 py-2 bg-slate-800 hover:bg-slate-900 text-white rounded-xl shadow-sm hover:shadow focus:outline-none flex items-center justify-center gap-1.5 transition-all font-bold text-xs whitespace-nowrap min-h-[38px] active:scale-95" title="แคปเจอร์แบบคมชัดระดับ Ultra HD">
-            <i data-lucide="sparkles" class="w-3.5 h-3.5 text-amber-300"></i>
-            <span>Ultra HD</span>
-          </button>
-
-          <!-- Export PDF -->
-          <button id="exportPdfBtn" type="button" class="action-btn px-3.5 py-2 bg-rose-600 hover:bg-rose-700 text-white rounded-xl shadow-sm hover:shadow focus:outline-none flex items-center justify-center gap-1.5 transition-all font-bold text-xs whitespace-nowrap min-h-[38px] active:scale-95" title="ส่งออกตารางเป็นไฟล์ PDF">
-            <i data-lucide="file-down" class="w-3.5 h-3.5"></i>
-            <span>ส่งออก PDF</span>
-          </button>
-
-          <!-- Export Excel -->
-          <button id="exportExcelBtn" type="button" onclick="openModal('exportExcelModal')" class="action-btn px-3.5 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl shadow-sm hover:shadow focus:outline-none flex items-center justify-center gap-1.5 transition-all font-bold text-xs whitespace-nowrap min-h-[38px] active:scale-95" title="ส่งออกตารางเป็นไฟล์ Excel">
-            <i data-lucide="file-spreadsheet" class="w-3.5 h-3.5"></i>
-            <span>ส่งออก (Excel)</span>
-          </button>
-        </div>
+        <!-- Capture New Button -->
+        <button id="captureNewBtn" type="button" class="action-btn px-4 py-2 bg-gradient-to-r from-rose-600 to-rose-700 hover:from-rose-500 hover:to-rose-600 text-white rounded-xl shadow-sm hover:shadow focus:outline-none flex items-center justify-center gap-1.5 transition-all font-extrabold text-xs whitespace-nowrap min-h-[38px] active:scale-95" title="แคปเจอร์และบันทึกรูปภาพตาราง">
+          <i data-lucide="camera" class="w-4 h-4"></i>
+          <span>แคปและบันทึก</span>
+        </button>
 
         <!-- Hidden Legacy DOM Stubs to prevent JS runtime errors -->
         <div style="display: none !important;" aria-hidden="true">
+          <!-- Toggles & Export buttons hidden per user request -->
+          <div id="table-scale-mode-toggle">
+            <button id="table-fit-btn" type="button" onclick="toggleTableFit(true)"></button>
+            <button id="table-normal-btn" type="button" onclick="toggleTableFit(false)"></button>
+          </div>
+          <div id="report-header-style-toggle">
+            <button id="header-style-dark-btn" type="button"></button>
+            <button id="header-style-light-btn" type="button"></button>
+          </div>
+          <div id="summary-report-floor-selection">
+            <div id="summary-report-floor-list"></div>
+          </div>
+          <button id="captureUltraBtn" type="button"></button>
+          <button id="exportPdfBtn" type="button"></button>
+          <button id="exportExcelBtn" type="button" onclick="openModal('exportExcelModal')"></button>
           <!-- View navigation tabs removed from UI -->
           <div id="view-toggle">
             <button id="view-residential-btn"></button>
