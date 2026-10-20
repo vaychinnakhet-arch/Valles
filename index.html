@@ -6057,6 +6057,13 @@ div[data-report-rule] {
 #home-btn-container button,
 .controls-view-scroller,
 #mobile-room-strip,
+#legend,
+#legend *,
+.legend-step,
+.legend-step-pill,
+.legend-number-circle,
+.legend-step-label,
+.legend-step-arrow,
 #unified-controls #table-scale-mode-toggle,
 #unified-controls #report-header-style-toggle,
 #unified-controls #summary-report-floor-selection,
@@ -6064,6 +6071,8 @@ div[data-report-rule] {
 #unified-controls #exportPdfBtn,
 #unified-controls #exportExcelBtn {
     display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
 }
 
 #unified-controls {
@@ -7724,7 +7733,6 @@ input[type="range"]:active::-moz-range-thumb,
 
           <!-- Hidden legacy view containers to keep layout clean and gap-free -->
           <div id="common-defect-container" style="display: none !important;"></div>
-          <div id="legend" style="display: none !important;"></div>
           <div id="executive-summary-dashboard" style="display: none !important;"></div>
         </main>
       </div>
@@ -7751,6 +7759,7 @@ input[type="range"]:active::-moz-range-thumb,
 
         <!-- Hidden Legacy DOM Stubs to prevent JS runtime errors -->
         <div style="display: none !important;" aria-hidden="true">
+          <div id="legend"></div>
           <!-- Toggles & Export buttons hidden per user request -->
           <div id="table-scale-mode-toggle">
             <button id="table-fit-btn" type="button" onclick="toggleTableFit(true)"></button>
