@@ -10305,6 +10305,103 @@ document.addEventListener('DOMContentLoaded', function() {
 <!-- SOFT INK FLAT POP MOBILE ROOM NAVIGATOR & QUICK-UPDATE HUB SCRIPT -->
 <script>
 (function() {
+  // Global scroll listener to suppress ghost clicks during momentum scrolling
+  window.__isGlobalScrolling = false;
+  let globalScrollTimeout = null;
+  const markGlobalScroll = () => {
+    window.__isGlobalScrolling = true;
+    if (globalScrollTimeout) clearTimeout(globalScrollTimeout);
+    globalScrollTimeout = setTimeout(() => {
+      window.__isGlobalScrolling = false;
+    }, 180);
+  };
+  window.addEventListener('scroll', markGlobalScroll, { passive: true });
+  document.addEventListener('scroll', markGlobalScroll, { passive: true, capture: true });
+
+  // Touch tracking for the horizontal room buttons strip
+  let stripTouchStartX = 0;
+  let stripTouchStartY = 0;
+  let stripIsScrolling = false;
+  let stripScrollTimeout = null;
+
+  function bindStripGestures() {
+    const strip = document.getElementById('mobile-room-strip');
+    if (!strip || strip.dataset.touchFilterBound) return;
+    strip.dataset.touchFilterBound = 'true';
+
+    strip.addEventListener('touchstart', (e) => {
+      if (e.touches && e.touches[0]) {
+        stripTouchStartX = e.touches[0].clientX;
+        stripTouchStartY = e.touches[0].clientY;
+      }
+      stripIsScrolling = false;
+    }, { passive: true });
+
+    strip.addEventListener('touchmove', (e) => {
+      if (e.touches && e.touches[0]) {
+        const dx = Math.abs(e.touches[0].clientX - stripTouchStartX);
+        const dy = Math.abs(e.touches[0].clientY - stripTouchStartY);
+        if (dx > 7 || dy > 7) {
+          stripIsScrolling = true;
+        }
+      }
+    }, { passive: true });
+
+    strip.addEventListener('touchend', () => {
+      if (stripIsScrolling) {
+        if (stripScrollTimeout) clearTimeout(stripScrollTimeout);
+        stripScrollTimeout = setTimeout(() => {
+          stripIsScrolling = false;
+        }, 220);
+      }
+    }, { passive: true });
+    strip.addEventListener('touchcancel', () => {
+      stripIsScrolling = false;
+    }, { passive: true });
+  }
+
+  // Touch tracking for the main table to distinguish scrolling from clicking room numbers
+  let tableTouchStartX = 0;
+  let tableTouchStartY = 0;
+  let tableIsScrolling = false;
+  let tableScrollTimeout = null;
+
+  function bindTableGestures() {
+    const table = document.getElementById('main-table');
+    if (!table || table.dataset.roomTouchFilterBound) return;
+    table.dataset.roomTouchFilterBound = 'true';
+
+    table.addEventListener('touchstart', (e) => {
+      if (e.touches && e.touches[0]) {
+        tableTouchStartX = e.touches[0].clientX;
+        tableTouchStartY = e.touches[0].clientY;
+      }
+      tableIsScrolling = false;
+    }, { passive: true });
+
+    table.addEventListener('touchmove', (e) => {
+      if (e.touches && e.touches[0]) {
+        const dx = Math.abs(e.touches[0].clientX - tableTouchStartX);
+        const dy = Math.abs(e.touches[0].clientY - tableTouchStartY);
+        if (dx > 8 || dy > 8) {
+          tableIsScrolling = true;
+        }
+      }
+    }, { passive: true });
+
+    table.addEventListener('touchend', () => {
+      if (tableIsScrolling) {
+        if (tableScrollTimeout) clearTimeout(tableScrollTimeout);
+        tableScrollTimeout = setTimeout(() => {
+          tableIsScrolling = false;
+        }, 220);
+      }
+    }, { passive: true });
+    table.addEventListener('touchcancel', () => {
+      tableIsScrolling = false;
+    }, { passive: true });
+  }
+
   function getActiveFloor() {
     if (Array.isArray(window.summaryReportSelectedFloors) && window.summaryReportSelectedFloors.length > 0) {
       return window.summaryReportSelectedFloors[0];
@@ -10313,6 +10410,9 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   function initMobileRoomStrip() {
+    bindStripGestures();
+    bindTableGestures();
+
     const pillsContainer = document.getElementById('mobile-room-pills');
     if (!pillsContainer) return;
 
@@ -10329,12 +10429,16 @@ document.addEventListener('DOMContentLoaded', function() {
         if (/^\d{3,4}$/.test(text) && !roomNumbers.includes(text)) {
           roomNumbers.push(text);
         }
-        // Make room cells in the table clickable to open the modal as well!
+        // Make room cells in the table clickable to open the modal as well, with scroll guard!
         if (!cell.dataset.hasRoomClick) {
           cell.dataset.hasRoomClick = 'true';
           cell.style.cursor = 'pointer';
           cell.title = `คลิกเพื่อเปิดกรอกข้อมูลห้อง ${text}`;
           cell.addEventListener('click', function(e) {
+            // Guard against accidental clicks while scrolling
+            if (tableIsScrolling || window.__isGlobalScrolling) {
+              return;
+            }
             e.stopPropagation();
             const fl = parseInt(cell.dataset.floor, 10) || Math.floor(parseInt(text, 10) / 100);
             window.openMobileRoomQuickModal(fl, text);
@@ -10353,7 +10457,6 @@ document.addEventListener('DOMContentLoaded', function() {
     pillsContainer.innerHTML = roomNumbers.map(r => `
       <button
         type="button"
-        onclick="openMobileRoomQuickModal('${currentFloor}', '${r}')"
         id="mobile-room-pill-${r}"
         data-room="${r}"
         class="room-pill-btn"
@@ -10362,6 +10465,24 @@ document.addEventListener('DOMContentLoaded', function() {
         ${r}
       </button>
     `).join('');
+
+    // Attach click handler with scroll protection on container
+    if (!pillsContainer.dataset.clickBound) {
+      pillsContainer.dataset.clickBound = 'true';
+      pillsContainer.addEventListener('click', function(e) {
+        if (stripIsScrolling || window.__isGlobalScrolling) {
+          e.preventDefault();
+          e.stopPropagation();
+          return;
+        }
+        const btn = e.target.closest('.room-pill-btn');
+        if (!btn) return;
+        const r = btn.dataset.room;
+        if (r) {
+          window.openMobileRoomQuickModal(getActiveFloor(), r);
+        }
+      });
+    }
   }
 
   window.jumpToRoom = function(roomNumber) {

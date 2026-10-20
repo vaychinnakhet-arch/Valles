@@ -11170,11 +11170,11 @@
               selectionLock = false;
               touchStartCell = cell;
 
-              // Smart timer: if held for 250ms, lock into selection mode
+              // Smart timer: if held still for 500ms, lock into selection mode
               if (touchTimer) clearTimeout(touchTimer);
               touchTimer = setTimeout(() => {
                 selectionLock = true;
-                if (touchStartCell && !isTouchScrolling) {
+                if (touchStartCell && !isTouchScrolling && !window.__isGlobalScrolling) {
                   if (currentView === "qcSummary") {
                     clearSelection();
                   }
@@ -11186,7 +11186,7 @@
                     } catch (err) {}
                   }
                 }
-              }, 250);
+              }, 500);
             } else {
               e.preventDefault();
             }
@@ -11222,8 +11222,8 @@
               if (selectionLock) {
                 e.preventDefault(); // Lock scroll now that we are in selection mode
               } else {
-                // If moved significantly before lock, cancel selection and allow scroll
-                if (deltaX > 20 || deltaY > 20) {
+                // If moved slightly (more than 8px), user is scrolling: cancel selection immediately!
+                if (deltaX > 8 || deltaY > 8) {
                   if (touchTimer) {
                     clearTimeout(touchTimer);
                     touchTimer = null;
@@ -11270,10 +11270,11 @@
             }
 
             if (e.type.includes("touch") || e.type === "touchend") {
-              if (isTouchScrolling) {
+              if (isTouchScrolling || window.__isGlobalScrolling) {
                 isSelecting = false;
                 isTouchScrolling = false;
                 selectionLock = false;
+                clearSelection();
                 return;
               }
             }

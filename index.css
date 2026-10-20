@@ -5861,6 +5861,18 @@ body.modal-open #schedule-quick-filter-floating {
     box-shadow: 0 3px 0 #0f172a !important;
 }
 
+#mobile-room-strip {
+    touch-action: pan-x pan-y;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-x: contain;
+}
+
+#main-table td:first-child {
+    touch-action: pan-x pan-y;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
 /* Room Flash Animation for Mobile Quick Navigator */
 @keyframes roomRowFlash {
     0% { background-color: #fef08a !important; outline: 3px solid #eab308; }
