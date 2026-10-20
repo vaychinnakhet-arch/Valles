@@ -8702,6 +8702,26 @@
             execDashboard.style.maxWidth = "100%";
           }
 
+          const _tbodyRows = table && !table.classList.contains("hidden") ? Array.from(table.querySelectorAll("tbody tr")) : [];
+          const _target4x3H = Math.round(fullWidth / (3 / 4));
+          if (_tbodyRows.length > 0) {
+            const _currAreaH = captureArea.offsetHeight;
+            const _diffH = _target4x3H - _currAreaH;
+            if (_diffH > 0) {
+              const _extraTr = _diffH / _tbodyRows.length;
+              _tbodyRows.forEach(tr => {
+                const curH = tr.offsetHeight;
+                const nH = Math.round(curH + _extraTr);
+                tr.style.height = nH + "px";
+                tr.querySelectorAll("td").forEach(td => {
+                  td.style.height = nH + "px";
+                });
+              });
+              captureArea.style.height = _target4x3H + "px";
+              captureArea.style.minHeight = _target4x3H + "px";
+            }
+          }
+
           setTimeout(() => {
             const finalWidth = Math.ceil(captureArea.getBoundingClientRect().width || captureArea.offsetWidth || fullWidth);
             const finalHeight = Math.ceil(captureArea.getBoundingClientRect().height || captureArea.offsetHeight);
@@ -8712,9 +8732,12 @@
             // Helper to transform any captured canvas into EXACT 4:3 VERTICAL (portrait 3:4 aspect ratio)
             function toPortrait4x3Canvas(srcCanvas) {
               const TARGET_RATIO = 3 / 4; // 0.75:1
-              const sw = srcCanvas.width;
-              const sh = srcCanvas.height;
+              const sw = srcCanvas.width || srcCanvas.naturalWidth;
+              const sh = srcCanvas.height || srcCanvas.naturalHeight;
               const srcRatio = sw / sh;
+              if (Math.abs(srcRatio - TARGET_RATIO) < 0.015) {
+                return srcCanvas;
+              }
               let finalW, finalH, dx, dy;
               if (srcRatio > TARGET_RATIO) {
                 // Wide table: keep width, extend height to match 4:3 portrait ratio
@@ -8744,6 +8767,16 @@
             function cleanup() {
               document.documentElement.classList.remove("is-line-capturing");
               document.body.classList.remove("is-line-capturing");
+              captureArea.style.height = "";
+              captureArea.style.minHeight = "";
+              if (typeof _tbodyRows !== "undefined" && _tbodyRows.length > 0) {
+                _tbodyRows.forEach(tr => {
+                  tr.style.height = "";
+                  tr.querySelectorAll("td").forEach(td => {
+                    td.style.height = "";
+                  });
+                });
+              }
               captureArea.style.width = originalCaptureAreaWidth;
               document.body.style.width = originalBodyWidth;
               document.documentElement.style.width = originalHtmlWidth;
