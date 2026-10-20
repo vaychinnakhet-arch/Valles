@@ -6719,8 +6719,12 @@
           renderSummaryPlanHistory();
           updateSummaryPlanDelayInfo();
           openModal("summaryPlanModal");
-        }
         window.openSummaryPlanModal = openSummaryPlanModal;
+        window.projectData = projectData;
+        window.getProjectData = () => projectData;
+        window.renderTable = renderTable;
+        window.saveProjectDataToDB = saveProjectDataToDB;
+        window.showToast = showToast;
 
         function renderSummaryPlanHistory() {
           const { floor, room, taskKey } = currentSummaryPlanData;

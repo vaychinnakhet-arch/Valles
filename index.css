@@ -5820,6 +5820,47 @@ body.modal-open #schedule-quick-filter-floating {
     }
 }
 
+/* Soft Ink Flat Pop Mobile Room Navigator Buttons */
+.room-pill-btn {
+    background: #ffffff !important;
+    color: #0f172a !important;
+    font-family: 'Montserrat', sans-serif !important;
+    font-weight: 800 !important;
+    font-size: 0.82rem !important;
+    border: 2px solid #0f172a !important;
+    border-radius: 0.75rem !important;
+    box-shadow: 0 3px 0 #0f172a !important;
+    padding: 0.35rem 0.75rem !important;
+    min-width: 54px !important;
+    height: 36px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    transition: all 0.12s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    cursor: pointer !important;
+    user-select: none !important;
+    -webkit-user-select: none !important;
+    touch-action: manipulation !important;
+}
+
+.room-pill-btn:hover {
+    background: #f8fafc !important;
+    transform: translateY(-1px) !important;
+    box-shadow: 0 4px 0 #0f172a !important;
+}
+
+.room-pill-btn:active {
+    transform: translateY(2px) !important;
+    box-shadow: 0 1px 0 #0f172a !important;
+}
+
+.room-pill-btn.is-active {
+    background: #4f46e5 !important;
+    color: #ffffff !important;
+    border-color: #0f172a !important;
+    box-shadow: 0 3px 0 #0f172a !important;
+}
+
 /* Room Flash Animation for Mobile Quick Navigator */
 @keyframes roomRowFlash {
     0% { background-color: #fef08a !important; outline: 3px solid #eab308; }
@@ -5830,8 +5871,9 @@ body.modal-open #schedule-quick-filter-floating {
     animation: roomRowFlash 1.6s ease-out;
 }
 
-/* Hide mobile-only navigator during high-res executive capture */
-.is-line-capturing #mobile-room-strip {
+/* Hide mobile-only navigator and quick modal during high-res executive capture */
+.is-line-capturing #mobile-room-strip,
+.is-line-capturing #mobileRoomQuickModal {
     display: none !important;
 }
 

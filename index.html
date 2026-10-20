@@ -6626,6 +6626,47 @@ body.modal-open #schedule-quick-filter-floating {
     }
 }
 
+/* Soft Ink Flat Pop Mobile Room Navigator Buttons */
+.room-pill-btn {
+    background: #ffffff !important;
+    color: #0f172a !important;
+    font-family: 'Montserrat', sans-serif !important;
+    font-weight: 800 !important;
+    font-size: 0.82rem !important;
+    border: 2px solid #0f172a !important;
+    border-radius: 0.75rem !important;
+    box-shadow: 0 3px 0 #0f172a !important;
+    padding: 0.35rem 0.75rem !important;
+    min-width: 54px !important;
+    height: 36px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    transition: all 0.12s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    cursor: pointer !important;
+    user-select: none !important;
+    -webkit-user-select: none !important;
+    touch-action: manipulation !important;
+}
+
+.room-pill-btn:hover {
+    background: #f8fafc !important;
+    transform: translateY(-1px) !important;
+    box-shadow: 0 4px 0 #0f172a !important;
+}
+
+.room-pill-btn:active {
+    transform: translateY(2px) !important;
+    box-shadow: 0 1px 0 #0f172a !important;
+}
+
+.room-pill-btn.is-active {
+    background: #4f46e5 !important;
+    color: #ffffff !important;
+    border-color: #0f172a !important;
+    box-shadow: 0 3px 0 #0f172a !important;
+}
+
 /* Room Flash Animation for Mobile Quick Navigator */
 @keyframes roomRowFlash {
     0% { background-color: #fef08a !important; outline: 3px solid #eab308; }
@@ -6636,8 +6677,9 @@ body.modal-open #schedule-quick-filter-floating {
     animation: roomRowFlash 1.6s ease-out;
 }
 
-/* Hide mobile-only navigator during high-res executive capture */
-.is-line-capturing #mobile-room-strip {
+/* Hide mobile-only navigator and quick modal during high-res executive capture */
+.is-line-capturing #mobile-room-strip,
+.is-line-capturing #mobileRoomQuickModal {
     display: none !important;
 }
 
@@ -7407,27 +7449,18 @@ input[type="range"]:active::-moz-range-thumb,
           </div>
         </header>
 
-        <!-- Mobile Quick Room Navigator (Mobile Touch Only, md:hidden) -->
+        <!-- Mobile Quick Room Navigator (Soft Ink Flat Pop, md:hidden) -->
         <div
           id="mobile-room-strip"
-          class="md:hidden sticky top-0 z-30 bg-slate-900 text-white px-2 py-2 flex items-center gap-2 overflow-x-auto scrollbar-hide shadow-md border-b border-slate-700"
+          class="md:hidden sticky top-0 z-30 bg-white/95 backdrop-blur-md px-3 py-2 flex items-center gap-2 overflow-x-auto scrollbar-hide border-b-2 border-[#1e293b] shadow-xs"
           style="-webkit-overflow-scrolling: touch;"
         >
-          <button
-            type="button"
-            id="mobile-qr-btn"
-            onclick="if (typeof openRoomQrScannerModal === 'function') openRoomQrScannerModal(); else if (typeof openQrModal === 'function') openQrModal();"
-            class="px-2.5 py-1.5 rounded-lg bg-emerald-600 active:bg-emerald-700 text-white font-bold text-xs flex items-center gap-1 shrink-0 shadow-sm transition-all"
-            title="สแกน QR ห้อง"
-          >
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"/>
-            </svg>
-            <span>QR</span>
-          </button>
-          <div class="h-4 w-[1px] bg-slate-700 shrink-0"></div>
-          <div id="mobile-room-pills" class="flex items-center gap-1.5 shrink-0">
-            <!-- Dynamically populated room pills (e.g. 701-722) -->
+          <div class="flex items-center gap-1.5 shrink-0 pl-1 pr-1 font-black text-xs text-slate-800 tracking-tight select-none">
+            <span class="w-2.5 h-2.5 rounded-full bg-indigo-600 border border-[#1e293b] shadow-xs"></span>
+            <span>ห้อง:</span>
+          </div>
+          <div id="mobile-room-pills" class="flex items-center gap-2 shrink-0 py-0.5">
+            <!-- Dynamically populated Soft Ink Flat Pop room pills -->
           </div>
         </div>
 
@@ -8712,6 +8745,96 @@ input[type="range"]:active::-moz-range-thumb,
     </div>
 
     <!-- Modals (Moved outside main containers) -->
+    <!-- ROOM QUICK-UPDATE MODAL (SOFT INK FLAT POP) -->
+    <div
+      id="mobileRoomQuickModal"
+      class="modal fixed inset-0 w-full h-full items-center justify-center p-3 sm:p-4 z-[10001] backdrop-blur-xs"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="mobileRoomQuickModalTitle"
+    >
+      <div
+        class="bg-[#FFFDF9] rounded-3xl border-2 sm:border-3 border-[#1e293b] shadow-[0_10px_0_#1e293b,0_20px_35px_rgba(0,0,0,0.18)] w-full max-w-lg overflow-hidden flex flex-col max-h-[88vh] max-h-[88dvh] my-auto transform transition-all duration-200 relative"
+      >
+        <!-- Top Paper Card Tag (Soft Ink Signature) -->
+        <div class="absolute top-0 left-6 sm:left-8 px-4 py-0.5 bg-[#4f46e5] text-white text-[10px] font-black rounded-b-lg shadow-xs tracking-wider uppercase border-b-2 border-x-2 border-[#1e293b]">
+          ROOM PROGRESS HUB • บันทึกงานห้อง
+        </div>
+
+        <!-- Modal Header -->
+        <div class="px-5 pt-6 pb-3.5 border-b-2 border-slate-200 flex justify-between items-center bg-slate-50/90 shrink-0">
+          <div class="flex items-center gap-2.5">
+            <div class="w-10 h-10 rounded-2xl bg-indigo-50 border-2 border-[#1e293b] shadow-[0_2px_0_#1e293b] flex items-center justify-center text-lg shrink-0">
+              🚪
+            </div>
+            <div>
+              <div class="flex items-center gap-2">
+                <h3 id="mobileRoomQuickModalTitle" class="font-black text-slate-900 text-lg sm:text-xl tracking-tight">
+                  ห้อง 701
+                </h3>
+                <span id="mobileRoomQuickModalFloorBadge" class="px-2 py-0.5 rounded-full text-[11px] font-black bg-slate-200 text-slate-700 border border-slate-400">
+                  ชั้น 7
+                </span>
+              </div>
+              <p id="mobileRoomQuickModalSubtitle" class="text-xs text-slate-500 font-bold mt-0.5">
+                อัปเดตความคืบหน้ารายงานสรุป
+              </p>
+            </div>
+          </div>
+          <button
+            type="button"
+            onclick="closeModal('mobileRoomQuickModal')"
+            class="w-9 h-9 rounded-xl border-2 border-[#1e293b] shadow-[0_2px_0_#1e293b] active:translate-y-0.5 active:shadow-none bg-white text-slate-600 hover:text-slate-900 hover:bg-slate-100 flex items-center justify-center transition-all cursor-pointer font-black text-sm"
+            title="ปิดหน้าต่าง"
+          >
+            ✕
+          </button>
+        </div>
+
+        <!-- Quick Action Banner: All Complete Shortcut -->
+        <div class="px-5 py-2.5 bg-gradient-to-r from-indigo-50/80 to-slate-50 border-b-2 border-slate-200 flex items-center justify-between gap-3 shrink-0">
+          <div class="flex items-center gap-2 min-w-0">
+            <span class="text-xs font-black text-slate-700 whitespace-nowrap">เฉลี่ย:</span>
+            <div class="w-20 sm:w-28 bg-slate-200 border border-slate-300 rounded-full h-3 overflow-hidden shrink-0">
+              <div id="mobileRoomQuickOverallFill" class="bg-gradient-to-r from-indigo-500 to-emerald-500 h-full w-0 transition-all duration-300"></div>
+            </div>
+            <span id="mobileRoomQuickOverallText" class="text-xs font-black text-indigo-700">0%</span>
+          </div>
+          <button
+            type="button"
+            id="mobileRoomSetAll100Btn"
+            class="px-3 py-1.5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 text-white font-black text-xs border-2 border-[#064e3b] shadow-[0_3px_0_#064e3b] active:translate-y-0.5 active:shadow-[0_1px_0_#064e3b] flex items-center gap-1 shrink-0 transition-all cursor-pointer whitespace-nowrap"
+          >
+            <span>⚡ 100% ทุกงาน</span>
+          </button>
+        </div>
+
+        <!-- Scrollable Task List -->
+        <div id="mobileRoomTasksList" class="p-4 space-y-3 overflow-y-auto max-h-[55vh] max-h-[55dvh]">
+          <!-- Injected Task Cards -->
+        </div>
+
+        <!-- Modal Footer Actions -->
+        <div class="px-5 py-3.5 border-t-2 border-slate-200 bg-white flex justify-between items-center gap-3 shrink-0">
+          <button
+            type="button"
+            onclick="closeModal('mobileRoomQuickModal')"
+            class="btn-soft-ink-secondary px-4 py-2 text-xs sm:text-sm font-black rounded-xl border-2 border-[#334155] shadow-[0_3px_0_#94a3b8] active:translate-y-0.5 active:shadow-none bg-white text-slate-700 cursor-pointer"
+          >
+            ยกเลิก
+          </button>
+          <button
+            type="button"
+            id="saveMobileRoomQuickBtn"
+            class="btn-soft-ink-pop px-5 py-2.5 text-xs sm:text-sm font-black rounded-xl bg-gradient-to-r from-indigo-600 to-indigo-700 text-white border-2 border-[#0f172a] shadow-[0_4px_0_#0f172a] active:translate-y-0.5 active:shadow-[0_1px_0_#0f172a] flex items-center gap-2 cursor-pointer transition-all"
+          >
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+            <span id="saveMobileRoomQuickBtnText">บันทึกข้อมูลห้อง</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
     <div
       id="summaryPlanModal" class="modal fixed inset-0 w-full h-full items-center justify-center p-3 sm:p-4 z-[10000] backdrop-blur-xs"
       role="dialog"
@@ -10179,9 +10302,16 @@ document.addEventListener('DOMContentLoaded', function() {
 })();
 </script>
 
-<!-- MOBILE ROOM QUICK NAVIGATOR SCRIPT -->
+<!-- SOFT INK FLAT POP MOBILE ROOM NAVIGATOR & QUICK-UPDATE HUB SCRIPT -->
 <script>
 (function() {
+  function getActiveFloor() {
+    if (Array.isArray(window.summaryReportSelectedFloors) && window.summaryReportSelectedFloors.length > 0) {
+      return window.summaryReportSelectedFloors[0];
+    }
+    return 7;
+  }
+
   function initMobileRoomStrip() {
     const pillsContainer = document.getElementById('mobile-room-pills');
     if (!pillsContainer) return;
@@ -10189,34 +10319,49 @@ document.addEventListener('DOMContentLoaded', function() {
     const table = document.getElementById('main-table');
     if (!table) return;
 
+    const currentFloor = getActiveFloor();
     const roomCells = table.querySelectorAll('tbody td:first-child');
+    const roomNumbers = [];
+
     if (roomCells.length > 0) {
-      const roomNumbers = [];
       roomCells.forEach(cell => {
         const text = cell.textContent.trim();
         if (/^\d{3,4}$/.test(text) && !roomNumbers.includes(text)) {
           roomNumbers.push(text);
         }
+        // Make room cells in the table clickable to open the modal as well!
+        if (!cell.dataset.hasRoomClick) {
+          cell.dataset.hasRoomClick = 'true';
+          cell.style.cursor = 'pointer';
+          cell.title = `คลิกเพื่อเปิดกรอกข้อมูลห้อง ${text}`;
+          cell.addEventListener('click', function(e) {
+            e.stopPropagation();
+            const fl = parseInt(cell.dataset.floor, 10) || Math.floor(parseInt(text, 10) / 100);
+            window.openMobileRoomQuickModal(fl, text);
+          });
+        }
       });
-
-      if (roomNumbers.length > 0) {
-        pillsContainer.innerHTML = roomNumbers.map(r => `
-          <button type="button" onclick="jumpToRoom('${r}')" class="px-2.5 py-1 rounded-md bg-slate-800 hover:bg-slate-700 active:bg-blue-600 text-white font-bold text-xs shrink-0 border border-slate-700 transition-colors">
-            ${r}
-          </button>
-        `).join('');
-        return;
-      }
     }
 
     // Default fallback (Rooms 701-722)
-    if (!pillsContainer.hasChildNodes() || pillsContainer.children.length === 0) {
-      let html = '';
+    if (roomNumbers.length === 0) {
       for (let i = 701; i <= 722; i++) {
-        html += `<button type="button" onclick="jumpToRoom('${i}')" class="px-2.5 py-1 rounded-md bg-slate-800 hover:bg-slate-700 active:bg-blue-600 text-white font-bold text-xs shrink-0 border border-slate-700 transition-colors">${i}</button>`;
+        roomNumbers.push(String(i));
       }
-      pillsContainer.innerHTML = html;
     }
+
+    pillsContainer.innerHTML = roomNumbers.map(r => `
+      <button
+        type="button"
+        onclick="openMobileRoomQuickModal('${currentFloor}', '${r}')"
+        id="mobile-room-pill-${r}"
+        data-room="${r}"
+        class="room-pill-btn"
+        title="เปิดกรอกข้อมูลห้อง ${r}"
+      >
+        ${r}
+      </button>
+    `).join('');
   }
 
   window.jumpToRoom = function(roomNumber) {
@@ -10235,6 +10380,357 @@ document.addEventListener('DOMContentLoaded', function() {
       void targetRow.offsetWidth; // trigger reflow
       targetRow.classList.add('room-row-flash');
       setTimeout(() => targetRow.classList.remove('room-row-flash'), 1800);
+    }
+  };
+
+  window.setQuickTaskPreset = function(btn, val) {
+    const card = btn.closest('.task-card-item');
+    if (!card) return;
+    const slider = card.querySelector('input[type="range"]');
+    if (slider) {
+      slider.value = val;
+      window.syncQuickTaskSlider(slider);
+    }
+  };
+
+  window.syncQuickTaskSlider = function(slider) {
+    const card = slider.closest('.task-card-item');
+    if (!card) return;
+    const val = parseInt(slider.value, 10) || 0;
+    slider.style.setProperty('--val', val + '%');
+
+    const valText = card.querySelector('.task-val');
+    if (valText) valText.textContent = val;
+
+    const badge = card.querySelector('.task-badge');
+    if (badge) {
+      if (val >= 100) {
+        badge.className = 'task-badge inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-black border-2 transition-all bg-emerald-50 text-emerald-800 border-[#064e3b] shadow-[0_2px_0_#064e3b]';
+      } else if (val > 0) {
+        badge.className = 'task-badge inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-black border-2 transition-all bg-indigo-50 text-indigo-700 border-[#0f172a] shadow-[0_2px_0_#0f172a]';
+      } else {
+        badge.className = 'task-badge inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-black border-2 transition-all bg-slate-100 text-slate-700 border-slate-400 shadow-[0_2px_0_#94a3b8]';
+      }
+    }
+
+    window.updateQuickModalOverall();
+  };
+
+  window.updateQuickModalOverall = function() {
+    const container = document.getElementById('mobileRoomTasksList');
+    if (!container) return;
+    const sliders = container.querySelectorAll('input[type="range"]');
+    if (sliders.length === 0) return;
+    let sum = 0;
+    sliders.forEach(s => sum += (parseInt(s.value, 10) || 0));
+    const avg = Math.round(sum / sliders.length);
+
+    const fill = document.getElementById('mobileRoomQuickOverallFill');
+    if (fill) fill.style.width = avg + '%';
+
+    const text = document.getElementById('mobileRoomQuickOverallText');
+    if (text) text.textContent = avg + '%';
+  };
+
+  window.openMobileRoomQuickModal = function(floor, room) {
+    floor = parseInt(floor, 10) || getActiveFloor();
+    room = parseInt(room, 10);
+    const roomStr = String(room);
+
+    // 1. Highlight the chip in the mobile strip and scroll table row
+    document.querySelectorAll('.room-pill-btn').forEach(btn => {
+      if (btn.dataset.room === roomStr) {
+        btn.classList.add('is-active');
+      } else {
+        btn.classList.remove('is-active');
+      }
+    });
+
+    window.jumpToRoom(roomStr);
+
+    // 2. Setup Modal Title & Info
+    const modal = document.getElementById('mobileRoomQuickModal');
+    if (!modal) return;
+
+    document.getElementById('mobileRoomQuickModalTitle').textContent = `ห้อง ${roomStr}`;
+    document.getElementById('mobileRoomQuickModalFloorBadge').textContent = `ชั้น ${floor}`;
+
+    const subtitle = document.getElementById('mobileRoomQuickModalSubtitle');
+    const isEndProduct = (window.summaryReportMode === 'endProduct');
+    if (subtitle) {
+      subtitle.textContent = isEndProduct
+        ? 'ตรวจงาน: รายงานสรุป END PRODUCT'
+        : 'ตรวจงาน: รายงานสรุป WET WORK';
+    }
+
+    // 3. Collect active tasks for this room
+    const pData = (typeof window.getProjectData === 'function') ? window.getProjectData() : (window.projectData || {});
+
+    const wetWorkTaskDefs = [
+      { key: "texcaWallOnly", name: "งานผนัง TEXCA (INSEE WALL)", emoji: "🧱" },
+      { key: "electricalRoughIn", name: "งานระบบไฟฟ้า (Rough-in)", emoji: "⚡" },
+      { key: "plumbingRoughIn", name: "งานระบบประปา (Rough-in)", emoji: "💧" },
+      { key: "airConRoughIn", name: "งานระบบแอร์ (Rough-in)", emoji: "❄️" },
+      { key: "topping", name: "งานเทท็อปปิ้ง (Topping)", emoji: "🏗️" },
+      { key: "waterproofing", name: "งานกันซึม", emoji: "🛡️" },
+      { key: "tiling", name: "งานปูกระเบื้อง", emoji: "🔲" },
+      { key: "ceilingRoomFraming", name: "โครงฝ้าห้องพัก", emoji: "🪜" },
+      { key: "ceilingBathroomFraming", name: "โครงฝ้าห้องน้ำ", emoji: "🚿" },
+      { key: "ceilingBoard", name: "ปิดแผ่นฝ้า", emoji: "🪵" },
+      { key: "above_ceiling_inspection", name: "ตรวจเหนือฝ้า", emoji: "🔍" },
+      { key: "skimAndPaintCombined", name: "งานสกิมทาสี", emoji: "🎨" },
+    ];
+
+    const endProductTaskDefs = [
+      { key: "electrical", name: "งานระบบไฟฟ้า", emoji: "⚡" },
+      { key: "plumbing", name: "งานระบบประปา", emoji: "💧" },
+      { key: "airCon", name: "งานระบบแอร์", emoji: "❄️" },
+      { key: "door", name: "งานติดตั้งประตู", emoji: "🚪" },
+      { key: "aluminum", name: "งานอลูมิเนียม", emoji: "🪟" },
+      { key: "laminate", name: "งานปูพื้นลามิเนต", emoji: "🪵" },
+      { key: "showerScreenInspection", name: "ตรวจรับ Shower Screen", emoji: "🔍" },
+      { key: "showerScreen", name: "งาน Shower Screen", emoji: "🚿" },
+      { key: "kitchenOnly", name: "งานติดตั้งชุดครัว", emoji: "🍳" },
+      { key: "paintOnly", name: "งานสี", emoji: "🎨" },
+      { key: "aluminumPaint", name: "งานสีอลูมิเนียม", emoji: "🖌️" },
+      { key: "cleaning", name: "งานทำความสะอาด", emoji: "🧹" },
+    ];
+
+    const tasksToRender = isEndProduct ? endProductTaskDefs : wetWorkTaskDefs;
+
+    function getTaskVal(key) {
+      if (key === "texcaWallOnly") {
+        const d = pData["texcaWall"]?.[floor]?.[room] || {};
+        return (d.taskIndex > 2) ? 100 : ((d.taskIndex === 2) ? (d.progress || 0) : 0);
+      }
+      if (key === "ceilingRoomFraming") {
+        return pData["ceiling"]?.[floor]?.[room]?.progress_room_framing || 0;
+      }
+      if (key === "ceilingBathroomFraming") {
+        return pData["ceiling"]?.[floor]?.[room]?.progress_bathroom_framing || 0;
+      }
+      if (key === "ceilingBoard") {
+        const d = pData["ceiling"]?.[floor]?.[room] || {};
+        return Math.round(((d.progress_room_board || 0) + (d.progress_bathroom_board || 0)) / 2);
+      }
+      if (key === "above_ceiling_inspection") {
+        return pData["ceiling"]?.[floor]?.[room]?.progress_above_ceiling_inspection || 0;
+      }
+      if (key === "skimAndPaintCombined") {
+        const d = pData["skimAndPaint"]?.[floor]?.[room] || {};
+        return d.taskIndex === 1 ? Math.round(50 + ((d.progress || 0) / 2)) : Math.round((d.progress || 0) / 2);
+      }
+      if (key === "paintOnly") {
+        const d = pData["skimAndPaint"]?.[floor]?.[room] || {};
+        return d.taskIndex === 1 ? (d.progress || 0) : 0;
+      }
+      if (key === "kitchenOnly") {
+        const d = pData["furniture"]?.[floor]?.[room] || {};
+        return (d.taskIndex >= 1) ? 100 : (d.progress || 0);
+      }
+      if (key === "showerScreenInspection") {
+        const d = pData["showerScreen"]?.[floor]?.[room] || {};
+        return (d.taskIndex >= 1) ? 100 : (d.progress || 0);
+      }
+      if (key === "showerScreen") {
+        const d = pData["showerScreen"]?.[floor]?.[room] || {};
+        return (d.taskIndex > 1) ? 100 : (d.taskIndex === 1 ? (d.progress || 0) : 0);
+      }
+      return pData[key]?.[floor]?.[room]?.progress || 0;
+    }
+
+    // 4. Render Task Cards in Modal
+    const tasksContainer = document.getElementById('mobileRoomTasksList');
+    tasksContainer.innerHTML = tasksToRender.map(t => {
+      const val = getTaskVal(t.key);
+      let badgeClass = 'bg-slate-100 text-slate-700 border-slate-400 shadow-[0_2px_0_#94a3b8]';
+      if (val >= 100) {
+        badgeClass = 'bg-emerald-50 text-emerald-800 border-[#064e3b] shadow-[0_2px_0_#064e3b]';
+      } else if (val > 0) {
+        badgeClass = 'bg-indigo-50 text-indigo-700 border-[#0f172a] shadow-[0_2px_0_#0f172a]';
+      }
+
+      return `
+        <div class="task-card-item bg-white p-3.5 rounded-2xl border-2 border-[#1e293b] shadow-[0_3px_0_#cbd5e1] space-y-2.5 transition-all" data-taskkey="${t.key}">
+          <div class="flex justify-between items-center gap-2">
+            <div class="flex items-center gap-2 min-w-0">
+              <span class="text-base shrink-0">${t.emoji}</span>
+              <span class="font-black text-slate-800 text-xs sm:text-sm truncate">${t.name}</span>
+            </div>
+            <span class="task-badge inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-black border-2 shrink-0 ${badgeClass}">
+              <span class="task-val">${val}</span>%
+            </span>
+          </div>
+
+          <!-- Soft Ink Presets -->
+          <div class="flex items-center gap-1.5 flex-wrap">
+            <span class="text-[11px] font-bold text-slate-500 mr-1 select-none">ทางลัด:</span>
+            <button type="button" onclick="setQuickTaskPreset(this, 0)" class="px-2.5 py-1 text-xs font-black rounded-lg border-2 border-[#1e293b] shadow-[0_2px_0_#1e293b] bg-slate-50 active:translate-y-0.5 active:shadow-none hover:bg-slate-100 transition-all cursor-pointer">0%</button>
+            <button type="button" onclick="setQuickTaskPreset(this, 25)" class="px-2.5 py-1 text-xs font-black rounded-lg border-2 border-[#1e293b] shadow-[0_2px_0_#1e293b] bg-slate-50 active:translate-y-0.5 active:shadow-none hover:bg-slate-100 transition-all cursor-pointer">25%</button>
+            <button type="button" onclick="setQuickTaskPreset(this, 50)" class="px-2.5 py-1 text-xs font-black rounded-lg border-2 border-[#1e293b] shadow-[0_2px_0_#1e293b] bg-amber-50 text-amber-900 active:translate-y-0.5 active:shadow-none hover:bg-amber-100 transition-all cursor-pointer">50%</button>
+            <button type="button" onclick="setQuickTaskPreset(this, 75)" class="px-2.5 py-1 text-xs font-black rounded-lg border-2 border-[#1e293b] shadow-[0_2px_0_#1e293b] bg-indigo-50 text-indigo-900 active:translate-y-0.5 active:shadow-none hover:bg-indigo-100 transition-all cursor-pointer">75%</button>
+            <button type="button" onclick="setQuickTaskPreset(this, 100)" class="px-3 py-1 text-xs font-black rounded-lg border-2 border-[#064e3b] shadow-[0_2px_0_#064e3b] bg-emerald-100 text-emerald-900 active:translate-y-0.5 active:shadow-none hover:bg-emerald-200 transition-all cursor-pointer">100% ✨</button>
+          </div>
+
+          <!-- Slider with real-time sync -->
+          <div class="pt-1">
+            <input
+              type="range"
+              min="0"
+              max="100"
+              step="5"
+              value="${val}"
+              oninput="syncQuickTaskSlider(this)"
+              class="subtask-slider w-full cursor-pointer"
+              style="--val: ${val}%;"
+            />
+          </div>
+        </div>
+      `;
+    }).join('');
+
+    // 5. Update top overall percentage bar
+    window.updateQuickModalOverall();
+
+    // 6. Hook "Set All 100%" Button
+    const all100Btn = document.getElementById('mobileRoomSetAll100Btn');
+    if (all100Btn) {
+      all100Btn.onclick = function() {
+        tasksContainer.querySelectorAll('.task-card-item').forEach(card => {
+          const slider = card.querySelector('input[type="range"]');
+          if (slider) {
+            slider.value = 100;
+            window.syncQuickTaskSlider(slider);
+          }
+        });
+        window.updateQuickModalOverall();
+      };
+    }
+
+    // 7. Hook Save Button
+    const saveBtn = document.getElementById('saveMobileRoomQuickBtn');
+    if (saveBtn) {
+      saveBtn.onclick = async function() {
+        const originalText = document.getElementById('saveMobileRoomQuickBtnText').textContent;
+        document.getElementById('saveMobileRoomQuickBtnText').textContent = 'กำลังบันทึก...';
+        saveBtn.disabled = true;
+
+        try {
+          const targetPData = (typeof window.getProjectData === 'function') ? window.getProjectData() : (window.projectData || {});
+
+          // Gather all values from the modal cards
+          tasksContainer.querySelectorAll('.task-card-item').forEach(card => {
+            const tKey = card.dataset.taskkey;
+            const slider = card.querySelector('input[type="range"]');
+            const val = slider ? (parseInt(slider.value, 10) || 0) : 0;
+
+            if (tKey === "texcaWallOnly") {
+              if (!targetPData["texcaWall"]) targetPData["texcaWall"] = {};
+              if (!targetPData["texcaWall"][floor]) targetPData["texcaWall"][floor] = {};
+              if (!targetPData["texcaWall"][floor][room]) targetPData["texcaWall"][floor][room] = {};
+              targetPData["texcaWall"][floor][room].taskIndex = (val >= 100 ? 3 : 2);
+              targetPData["texcaWall"][floor][room].progress = val;
+            } else if (tKey === "ceilingRoomFraming") {
+              if (!targetPData["ceiling"]) targetPData["ceiling"] = {};
+              if (!targetPData["ceiling"][floor]) targetPData["ceiling"][floor] = {};
+              if (!targetPData["ceiling"][floor][room]) targetPData["ceiling"][floor][room] = {};
+              targetPData["ceiling"][floor][room].progress_room_framing = val;
+            } else if (tKey === "ceilingBathroomFraming") {
+              if (!targetPData["ceiling"]) targetPData["ceiling"] = {};
+              if (!targetPData["ceiling"][floor]) targetPData["ceiling"][floor] = {};
+              if (!targetPData["ceiling"][floor][room]) targetPData["ceiling"][floor][room] = {};
+              targetPData["ceiling"][floor][room].progress_bathroom_framing = val;
+            } else if (tKey === "ceilingBoard") {
+              if (!targetPData["ceiling"]) targetPData["ceiling"] = {};
+              if (!targetPData["ceiling"][floor]) targetPData["ceiling"][floor] = {};
+              if (!targetPData["ceiling"][floor][room]) targetPData["ceiling"][floor][room] = {};
+              targetPData["ceiling"][floor][room].progress_room_board = val;
+              targetPData["ceiling"][floor][room].progress_bathroom_board = val;
+            } else if (tKey === "above_ceiling_inspection") {
+              if (!targetPData["ceiling"]) targetPData["ceiling"] = {};
+              if (!targetPData["ceiling"][floor]) targetPData["ceiling"][floor] = {};
+              if (!targetPData["ceiling"][floor][room]) targetPData["ceiling"][floor][room] = {};
+              targetPData["ceiling"][floor][room].progress_above_ceiling_inspection = val;
+            } else if (tKey === "skimAndPaintCombined") {
+              if (!targetPData["skimAndPaint"]) targetPData["skimAndPaint"] = {};
+              if (!targetPData["skimAndPaint"][floor]) targetPData["skimAndPaint"][floor] = {};
+              if (!targetPData["skimAndPaint"][floor][room]) targetPData["skimAndPaint"][floor][room] = {};
+              const unitData = targetPData["skimAndPaint"][floor][room];
+              if (val > 50) {
+                unitData.taskIndex = 1;
+                unitData.progress = (val - 50) * 2;
+              } else {
+                unitData.taskIndex = 0;
+                unitData.progress = val * 2;
+              }
+            } else if (tKey === "paintOnly") {
+              if (!targetPData["skimAndPaint"]) targetPData["skimAndPaint"] = {};
+              if (!targetPData["skimAndPaint"][floor]) targetPData["skimAndPaint"][floor] = {};
+              if (!targetPData["skimAndPaint"][floor][room]) targetPData["skimAndPaint"][floor][room] = {};
+              targetPData["skimAndPaint"][floor][room].taskIndex = 1;
+              targetPData["skimAndPaint"][floor][room].progress = val;
+            } else if (tKey === "kitchenOnly") {
+              if (!targetPData["furniture"]) targetPData["furniture"] = {};
+              if (!targetPData["furniture"][floor]) targetPData["furniture"][floor] = {};
+              if (!targetPData["furniture"][floor][room]) targetPData["furniture"][floor][room] = {};
+              targetPData["furniture"][floor][room].taskIndex = (val >= 100 ? 1 : 0);
+              targetPData["furniture"][floor][room].progress = val;
+            } else if (tKey === "showerScreenInspection") {
+              if (!targetPData["showerScreen"]) targetPData["showerScreen"] = {};
+              if (!targetPData["showerScreen"][floor]) targetPData["showerScreen"][floor] = {};
+              if (!targetPData["showerScreen"][floor][room]) targetPData["showerScreen"][floor][room] = {};
+              targetPData["showerScreen"][floor][room].taskIndex = (val >= 100 ? 1 : 0);
+              targetPData["showerScreen"][floor][room].progress = val;
+            } else if (tKey === "showerScreen") {
+              if (!targetPData["showerScreen"]) targetPData["showerScreen"] = {};
+              if (!targetPData["showerScreen"][floor]) targetPData["showerScreen"][floor] = {};
+              if (!targetPData["showerScreen"][floor][room]) targetPData["showerScreen"][floor][room] = {};
+              targetPData["showerScreen"][floor][room].taskIndex = (val >= 100 ? 2 : 1);
+              targetPData["showerScreen"][floor][room].progress = val;
+            } else {
+              if (!targetPData[tKey]) targetPData[tKey] = {};
+              if (!targetPData[tKey][floor]) targetPData[tKey][floor] = {};
+              if (!targetPData[tKey][floor][room]) targetPData[tKey][floor][room] = {};
+              targetPData[tKey][floor][room].progress = val;
+              if (val >= 100) targetPData[tKey][floor][room].taskIndex = 1;
+            }
+          });
+
+          // Save to Database
+          if (typeof window.saveProjectDataToDB === 'function') {
+            await window.saveProjectDataToDB();
+          }
+
+          if (typeof window.showToast === 'function') {
+            window.showToast(`บันทึกข้อมูลห้อง ${roomStr} สำเร็จ ✨`);
+          }
+
+          if (typeof window.renderTable === 'function') {
+            window.renderTable();
+          }
+
+          if (typeof window.closeModal === 'function') {
+            window.closeModal('mobileRoomQuickModal');
+          } else {
+            modal.style.display = 'none';
+            modal.classList.add('hidden');
+          }
+        } catch (err) {
+          console.error('Error saving mobile room data:', err);
+          alert('เกิดข้อผิดพลาดในการบันทึกข้อมูล');
+        } finally {
+          document.getElementById('saveMobileRoomQuickBtnText').textContent = originalText;
+          saveBtn.disabled = false;
+        }
+      };
+    }
+
+    // 8. Open modal
+    if (typeof window.openModal === 'function') {
+      window.openModal('mobileRoomQuickModal');
+    } else {
+      modal.style.display = 'flex';
+      modal.classList.remove('hidden');
     }
   };
 
