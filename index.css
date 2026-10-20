@@ -5576,8 +5576,214 @@ body.modal-open #schedule-quick-filter-floating {
 }
 
 @media (max-width: 768px), (pointer: coarse) {
+    html, body {
+        max-width: 100vw !important;
+        overflow-x: hidden !important;
+        position: relative !important;
+    }
+
+    #main-app-container,
+    #capture-area {
+        max-width: 100vw !important;
+        overflow-x: hidden !important;
+        width: 100% !important;
+    }
+
+    main {
+        max-width: 100vw !important;
+        width: 100% !important;
+        overflow-x: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+        overscroll-behavior-x: contain !important;
+    }
+
+    /* 1. Mobile Header: 2-Row Clean Stacked Layout */
+    #main-header {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 0.5rem !important;
+        padding: 0.65rem 0.75rem !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+        position: relative !important;
+        border-bottom: 2px solid #1e3a8a !important;
+    }
+
+    #home-btn-container {
+        order: 1 !important;
+        width: 100% !important;
+        display: flex !important;
+        justify-content: flex-start !important;
+        align-items: center !important;
+        gap: 0.6rem !important;
+        padding-right: 140px !important; /* Space for date pill */
+        box-sizing: border-box !important;
+    }
+
+    #home-btn {
+        padding: 0.4rem !important;
+        min-width: 38px !important;
+        min-height: 38px !important;
+        border-radius: 0.65rem !important;
+        flex-shrink: 0 !important;
+    }
+
+    #home-btn svg {
+        width: 18px !important;
+        height: 18px !important;
+    }
+
+    #main-header h1 {
+        font-size: 1.15rem !important;
+        font-weight: 900 !important;
+        line-height: 1.1 !important;
+        margin: 0 !important;
+        white-space: nowrap !important;
+        color: #1e3a8a !important;
+    }
+
+    #main-header p {
+        font-size: 0.52rem !important;
+        letter-spacing: 0.12em !important;
+        margin-top: 0.15rem !important;
+        white-space: nowrap !important;
+    }
+
+    #header-date-container {
+        order: 2 !important;
+        position: absolute !important;
+        top: 0.65rem !important;
+        right: 0.75rem !important;
+        display: flex !important;
+        justify-content: flex-end !important;
+        align-items: center !important;
+        margin: 0 !important;
+        z-index: 10 !important;
+    }
+
+    #header-date-container > div {
+        background: #f8fafc !important;
+        border: 1px solid #cbd5e1 !important;
+        border-radius: 9999px !important;
+        padding: 0.25rem 0.6rem !important;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05) !important;
+        display: inline-flex !important;
+        align-items: center !important;
+        gap: 0.3rem !important;
+        white-space: nowrap !important;
+    }
+
+    #header-date-container span {
+        font-size: 0.72rem !important;
+        font-weight: 700 !important;
+        color: #334155 !important;
+    }
+
+    #header-date-container #update-date {
+        font-weight: 900 !important;
+        color: #0f172a !important;
+    }
+
+    #header-date-container svg {
+        width: 13px !important;
+        height: 13px !important;
+        color: #64748b !important;
+    }
+
+    #header-title-container {
+        order: 3 !important;
+        width: 100% !important;
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        padding: 0.35rem 0.5rem !important;
+        background: #f1f5f9 !important;
+        border-radius: 0.65rem !important;
+        border: 1px solid #e2e8f0 !important;
+        box-sizing: border-box !important;
+        margin: 0 !important;
+    }
+
+    #status-title {
+        font-size: 0.95rem !important;
+        font-weight: 900 !important;
+        color: #1e3a8a !important;
+        letter-spacing: -0.01em !important;
+        text-align: center !important;
+        line-height: 1.25 !important;
+        white-space: normal !important;
+    }
+
+    /* 2. Frozen Room Column & Mobile Table Precision */
+    #main-table {
+        border-collapse: separate !important;
+        border-spacing: 0 !important;
+    }
+
+    #main-table th:first-child,
+    #main-table td:first-child,
+    #main-table th.sticky,
+    #main-table td.sticky {
+        position: -webkit-sticky !important;
+        position: sticky !important;
+        left: 0 !important;
+        z-index: 25 !important;
+        background-color: #f8fafc !important;
+        min-width: 54px !important;
+        width: 58px !important;
+        max-width: 62px !important;
+        border-right: 2.5px solid #1e293b !important;
+        box-shadow: 4px 0 10px -2px rgba(15, 23, 42, 0.16) !important;
+        font-weight: 900 !important;
+        font-size: 0.85rem !important;
+        color: #0f172a !important;
+    }
+
+    #main-table tbody tr:nth-child(even) td:first-child {
+        background-color: #f1f5f9 !important;
+    }
+
+    #main-table tbody tr:nth-child(odd) td:first-child {
+        background-color: #ffffff !important;
+    }
+
+    #main-table thead th {
+        position: -webkit-sticky !important;
+        position: sticky !important;
+        top: 0 !important;
+        z-index: 20 !important;
+        font-size: 0.72rem !important;
+        padding: 0.5rem 0.25rem !important;
+        white-space: nowrap !important;
+    }
+
+    #main-table thead th:first-child {
+        position: -webkit-sticky !important;
+        position: sticky !important;
+        top: 0 !important;
+        left: 0 !important;
+        z-index: 40 !important;
+        background-color: #e2e8f0 !important;
+        color: #0f172a !important;
+    }
+
+    /* Touch target comfort on mobile: 44px min height for easier thumb taps */
+    #main-table td {
+        min-height: 44px !important;
+        height: 44px !important;
+        padding: 0.35rem 0.25rem !important;
+        font-size: 0.78rem !important;
+        touch-action: manipulation !important;
+    }
+
+    #main-table td:active {
+        filter: brightness(0.92);
+        transform: scale(0.98);
+    }
+
+    /* 3. Unified Controls Floating Dock */
     #unified-controls {
-        bottom: max(1rem, env(safe-area-inset-bottom, 1rem)) !important;
+        bottom: max(0.85rem, env(safe-area-inset-bottom, 0.85rem)) !important;
         padding: 0.35rem 0.65rem !important;
         gap: 0.4rem !important;
         max-width: 96vw !important;
@@ -5612,11 +5818,21 @@ body.modal-open #schedule-quick-filter-floating {
     #updateModal select {
         font-size: 16px !important;
     }
+}
 
-    input[type="range"] {
-        height: 24px !important;
-        cursor: pointer !important;
-    }
+/* Room Flash Animation for Mobile Quick Navigator */
+@keyframes roomRowFlash {
+    0% { background-color: #fef08a !important; outline: 3px solid #eab308; }
+    50% { background-color: #fef9c3 !important; outline: 2px solid #facc15; }
+    100% { background-color: transparent; outline: none; }
+}
+.room-row-flash td {
+    animation: roomRowFlash 1.6s ease-out;
+}
+
+/* Hide mobile-only navigator during high-res executive capture */
+.is-line-capturing #mobile-room-strip {
+    display: none !important;
 }
 
 /* 5.1 SOFT INK FLAT POP AESTHETIC SYSTEM */

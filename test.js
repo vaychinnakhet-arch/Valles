@@ -2364,9 +2364,9 @@
           }
           mainTable.classList.remove("hidden");
 
-          // Reset table border classes (Schedule view might have changed them)
-          mainTable.classList.remove("border-separate", "border-spacing-0");
-          mainTable.classList.add("border-collapse");
+          // Ensure table border classes support sticky positioning on all mobile viewports
+          mainTable.classList.remove("border-collapse");
+          mainTable.classList.add("border-separate", "border-spacing-0");
 
           const floorSelection = document.getElementById(
             "summary-report-floor-selection",
