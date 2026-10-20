@@ -5861,6 +5861,24 @@ body.modal-open #schedule-quick-filter-floating {
     box-shadow: 0 3px 0 #0f172a !important;
 }
 
+/* Soft Ink Flat Pop Room Navigator Buttons (Header & Footer) */
+.room-nav-btn {
+    font-family: 'Montserrat', sans-serif !important;
+    user-select: none !important;
+    -webkit-user-select: none !important;
+    touch-action: manipulation !important;
+}
+
+.room-nav-btn:not(:disabled):hover {
+    transform: translateY(-1px) !important;
+    box-shadow: 0 3px 0 #0f172a !important;
+}
+
+.room-nav-btn:not(:disabled):active {
+    transform: translateY(1.5px) !important;
+    box-shadow: 0 0.5px 0 #0f172a !important;
+}
+
 #mobile-room-strip {
     touch-action: pan-x pan-y;
     -webkit-overflow-scrolling: touch;

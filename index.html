@@ -8748,89 +8748,156 @@ input[type="range"]:active::-moz-range-thumb,
     <!-- ROOM QUICK-UPDATE MODAL (SOFT INK FLAT POP) -->
     <div
       id="mobileRoomQuickModal"
-      class="modal fixed inset-0 w-full h-full items-center justify-center p-3 sm:p-4 z-[10001] backdrop-blur-xs"
+      class="modal fixed inset-0 w-full h-full items-center justify-center p-2.5 sm:p-4 z-[10001] backdrop-blur-xs"
       role="dialog"
       aria-modal="true"
       aria-labelledby="mobileRoomQuickModalTitle"
     >
       <div
-        class="bg-[#FFFDF9] rounded-3xl border-2 sm:border-3 border-[#1e293b] shadow-[0_10px_0_#1e293b,0_20px_35px_rgba(0,0,0,0.18)] w-full max-w-lg overflow-hidden flex flex-col max-h-[88vh] max-h-[88dvh] my-auto transform transition-all duration-200 relative"
+        class="bg-[#FFFDF9] rounded-2xl sm:rounded-3xl border-2 sm:border-3 border-[#1e293b] shadow-[0_8px_0_#1e293b,0_20px_35px_rgba(0,0,0,0.18)] w-full max-w-lg overflow-hidden flex flex-col max-h-[90vh] max-h-[90dvh] my-auto transform transition-all duration-200 relative"
       >
         <!-- Top Paper Card Tag (Soft Ink Signature) -->
-        <div class="absolute top-0 left-6 sm:left-8 px-4 py-0.5 bg-[#4f46e5] text-white text-[10px] font-black rounded-b-lg shadow-xs tracking-wider uppercase border-b-2 border-x-2 border-[#1e293b]">
+        <div class="absolute top-0 left-5 sm:left-8 px-3.5 sm:px-4 py-0.5 bg-[#4f46e5] text-white text-[9px] sm:text-[10px] font-black rounded-b-lg shadow-xs tracking-wider uppercase border-b-2 border-x-2 border-[#1e293b]">
           ROOM PROGRESS HUB • บันทึกงานห้อง
         </div>
 
-        <!-- Modal Header -->
-        <div class="px-5 pt-6 pb-3.5 border-b-2 border-slate-200 flex justify-between items-center bg-slate-50/90 shrink-0">
-          <div class="flex items-center gap-2.5">
-            <div class="w-10 h-10 rounded-2xl bg-indigo-50 border-2 border-[#1e293b] shadow-[0_2px_0_#1e293b] flex items-center justify-center text-lg shrink-0">
+        <!-- Modal Header with Room Navigator -->
+        <div class="px-3.5 sm:px-5 pt-5 sm:pt-6 pb-2.5 sm:pb-3 border-b-2 border-[#1e293b] flex justify-between items-center bg-slate-50/90 shrink-0">
+          <div class="flex items-center gap-2 sm:gap-2.5 min-w-0">
+            <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-2xl bg-indigo-50 border-2 border-[#1e293b] shadow-[0_2px_0_#1e293b] flex items-center justify-center text-base sm:text-lg shrink-0 select-none">
               🚪
             </div>
-            <div>
-              <div class="flex items-center gap-2">
-                <h3 id="mobileRoomQuickModalTitle" class="font-black text-slate-900 text-lg sm:text-xl tracking-tight">
+            <div class="min-w-0">
+              <div class="flex items-center gap-1.5 sm:gap-2">
+                <h2 id="mobileRoomQuickModalTitle" class="font-black text-slate-900 text-base sm:text-xl tracking-tight truncate">
                   ห้อง 701
-                </h3>
-                <span id="mobileRoomQuickModalFloorBadge" class="px-2 py-0.5 rounded-full text-[11px] font-black bg-slate-200 text-slate-700 border border-slate-400">
+                </h2>
+                <span id="mobileRoomQuickModalFloorBadge" class="px-2 py-0.5 rounded-full text-[10px] sm:text-[11px] font-black bg-slate-200 text-slate-700 border border-slate-400 shrink-0">
                   ชั้น 7
                 </span>
               </div>
-              <p id="mobileRoomQuickModalSubtitle" class="text-xs text-slate-500 font-bold mt-0.5">
+              <p id="mobileRoomQuickModalSubtitle" class="text-[11px] sm:text-xs text-slate-500 font-bold mt-0.5 truncate">
                 อัปเดตความคืบหน้ารายงานสรุป
               </p>
             </div>
           </div>
-          <button
-            type="button"
-            onclick="closeModal('mobileRoomQuickModal')"
-            class="w-9 h-9 rounded-xl border-2 border-[#1e293b] shadow-[0_2px_0_#1e293b] active:translate-y-0.5 active:shadow-none bg-white text-slate-600 hover:text-slate-900 hover:bg-slate-100 flex items-center justify-center transition-all cursor-pointer font-black text-sm"
-            title="ปิดหน้าต่าง"
-          >
-            ✕
-          </button>
+
+          <!-- Top Navigation Controls -->
+          <div class="flex items-center gap-1 sm:gap-1.5 shrink-0">
+            <!-- Top Prev Room Button -->
+            <button
+              type="button"
+              id="quickModalTopPrevBtn"
+              class="room-nav-btn px-2 sm:px-2.5 py-1.5 rounded-xl border-2 border-[#0f172a] shadow-[0_2px_0_#0f172a] active:translate-y-0.5 active:shadow-none bg-white hover:bg-slate-50 text-slate-800 text-[11px] sm:text-xs font-black transition-all cursor-pointer flex items-center gap-1 disabled:opacity-35 disabled:cursor-not-allowed disabled:shadow-none disabled:translate-y-0"
+              title="ไปยังห้องก่อนหน้า"
+            >
+              <span>◀</span>
+              <span id="quickModalTopPrevText">--</span>
+            </button>
+
+            <!-- Top Next Room Button -->
+            <button
+              type="button"
+              id="quickModalTopNextBtn"
+              class="room-nav-btn px-2 sm:px-2.5 py-1.5 rounded-xl border-2 border-[#0f172a] shadow-[0_2px_0_#0f172a] active:translate-y-0.5 active:shadow-none bg-white hover:bg-slate-50 text-slate-800 text-[11px] sm:text-xs font-black transition-all cursor-pointer flex items-center gap-1 disabled:opacity-35 disabled:cursor-not-allowed disabled:shadow-none disabled:translate-y-0"
+              title="ไปยังห้องถัดไป"
+            >
+              <span id="quickModalTopNextText">--</span>
+              <span>▶</span>
+            </button>
+
+            <!-- Close Modal Button -->
+            <button
+              type="button"
+              onclick="closeModal('mobileRoomQuickModal')"
+              class="w-8 h-8 sm:w-9 sm:h-9 rounded-xl border-2 border-[#1e293b] shadow-[0_2px_0_#1e293b] active:translate-y-0.5 active:shadow-none bg-white text-slate-600 hover:text-slate-900 hover:bg-slate-100 flex items-center justify-center transition-all cursor-pointer font-black text-xs sm:text-sm ml-0.5 select-none"
+              title="ปิดหน้าต่าง"
+            >
+              ✕
+            </button>
+          </div>
         </div>
 
-        <!-- Quick Action Banner: All Complete Shortcut -->
-        <div class="px-5 py-2.5 bg-gradient-to-r from-indigo-50/80 to-slate-50 border-b-2 border-slate-200 flex items-center justify-between gap-3 shrink-0">
-          <div class="flex items-center gap-2 min-w-0">
-            <span class="text-xs font-black text-slate-700 whitespace-nowrap">เฉลี่ย:</span>
-            <div class="w-20 sm:w-28 bg-slate-200 border border-slate-300 rounded-full h-3 overflow-hidden shrink-0">
+        <!-- Quick Action Banner: Meter + Undo + All Complete -->
+        <div class="px-3.5 sm:px-5 py-2 sm:py-2.5 bg-gradient-to-r from-indigo-50/80 to-slate-50 border-b-2 border-[#1e293b] flex items-center justify-between gap-2 shrink-0 flex-wrap">
+          <div class="flex items-center gap-1.5 sm:gap-2 min-w-0">
+            <span class="text-[11px] sm:text-xs font-black text-slate-700 whitespace-nowrap">เฉลี่ย:</span>
+            <div class="w-16 sm:w-24 bg-slate-200 border border-slate-300 rounded-full h-2.5 sm:h-3 overflow-hidden shrink-0">
               <div id="mobileRoomQuickOverallFill" class="bg-gradient-to-r from-indigo-500 to-emerald-500 h-full w-0 transition-all duration-300"></div>
             </div>
-            <span id="mobileRoomQuickOverallText" class="text-xs font-black text-indigo-700">0%</span>
+            <span id="mobileRoomQuickOverallText" class="text-[11px] sm:text-xs font-black text-indigo-700">0%</span>
           </div>
-          <button
-            type="button"
-            id="mobileRoomSetAll100Btn"
-            class="px-3 py-1.5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 text-white font-black text-xs border-2 border-[#064e3b] shadow-[0_3px_0_#064e3b] active:translate-y-0.5 active:shadow-[0_1px_0_#064e3b] flex items-center gap-1 shrink-0 transition-all cursor-pointer whitespace-nowrap"
-          >
-            <span>⚡ 100% ทุกงาน</span>
-          </button>
+
+          <div class="flex items-center gap-1.5 shrink-0">
+            <!-- Undo / Revert Button -->
+            <button
+              type="button"
+              id="mobileRoomUndoBtn"
+              class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-amber-50 text-amber-900 hover:bg-amber-100 font-black text-[11px] sm:text-xs border-2 border-[#78350f] shadow-[0_2px_0_#78350f] active:translate-y-0.5 active:shadow-none flex items-center gap-1 shrink-0 transition-all cursor-pointer whitespace-nowrap"
+              title="คืนค่าเดิมของห้องนี้"
+            >
+              <span>↺</span>
+              <span>คืนค่าเดิม</span>
+            </button>
+
+            <!-- All 100% Button -->
+            <button
+              type="button"
+              id="mobileRoomSetAll100Btn"
+              class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 text-white hover:brightness-105 font-black text-[11px] sm:text-xs border-2 border-[#064e3b] shadow-[0_2px_0_#064e3b] active:translate-y-0.5 active:shadow-none flex items-center gap-1 shrink-0 transition-all cursor-pointer whitespace-nowrap"
+              title="ตั้งค่าทุกงานเป็น 100%"
+            >
+              <span>⚡ 100% ทุกงาน</span>
+            </button>
+          </div>
         </div>
 
         <!-- Scrollable Task List -->
-        <div id="mobileRoomTasksList" class="p-4 space-y-3 overflow-y-auto max-h-[55vh] max-h-[55dvh]">
+        <div id="mobileRoomTasksList" class="p-3 sm:p-4 space-y-2.5 sm:space-y-3 overflow-y-auto max-h-[50vh] max-h-[50dvh]">
           <!-- Injected Task Cards -->
         </div>
 
-        <!-- Modal Footer Actions -->
-        <div class="px-5 py-3.5 border-t-2 border-slate-200 bg-white flex justify-between items-center gap-3 shrink-0">
-          <button
-            type="button"
-            onclick="closeModal('mobileRoomQuickModal')"
-            class="btn-soft-ink-secondary px-4 py-2 text-xs sm:text-sm font-black rounded-xl border-2 border-[#334155] shadow-[0_3px_0_#94a3b8] active:translate-y-0.5 active:shadow-none bg-white text-slate-700 cursor-pointer"
-          >
-            ยกเลิก
-          </button>
-          <button
-            type="button"
-            id="saveMobileRoomQuickBtn"
-            class="btn-soft-ink-pop px-5 py-2.5 text-xs sm:text-sm font-black rounded-xl bg-gradient-to-r from-indigo-600 to-indigo-700 text-white border-2 border-[#0f172a] shadow-[0_4px_0_#0f172a] active:translate-y-0.5 active:shadow-[0_1px_0_#0f172a] flex items-center gap-2 cursor-pointer transition-all"
-          >
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
-            <span id="saveMobileRoomQuickBtnText">บันทึกข้อมูลห้อง</span>
-          </button>
+        <!-- Modal Footer Actions with Bottom Room Navigators -->
+        <div class="px-3.5 sm:px-5 py-2.5 sm:py-3 border-t-2 border-[#1e293b] bg-white flex flex-col gap-2 shrink-0">
+          <!-- Bottom Room Navigation Row -->
+          <div class="flex items-center justify-between gap-2">
+            <button
+              type="button"
+              id="quickModalBottomPrevBtn"
+              class="room-nav-btn flex-1 py-1.5 px-2 rounded-xl border-2 border-[#0f172a] shadow-[0_2px_0_#0f172a] active:translate-y-0.5 active:shadow-none bg-slate-50 hover:bg-indigo-50 hover:border-indigo-600 text-slate-800 text-[11px] sm:text-xs font-black transition-all cursor-pointer flex items-center justify-center gap-1 disabled:opacity-35 disabled:cursor-not-allowed disabled:shadow-none"
+            >
+              <span>◀</span>
+              <span>ห้อง <strong id="quickModalBottomPrevText">--</strong></span>
+            </button>
+
+            <button
+              type="button"
+              id="quickModalBottomNextBtn"
+              class="room-nav-btn flex-1 py-1.5 px-2 rounded-xl border-2 border-[#0f172a] shadow-[0_2px_0_#0f172a] active:translate-y-0.5 active:shadow-none bg-slate-50 hover:bg-indigo-50 hover:border-indigo-600 text-slate-800 text-[11px] sm:text-xs font-black transition-all cursor-pointer flex items-center justify-center gap-1 disabled:opacity-35 disabled:cursor-not-allowed disabled:shadow-none"
+            >
+              <span>ห้อง <strong id="quickModalBottomNextText">--</strong></span>
+              <span>▶</span>
+            </button>
+          </div>
+
+          <!-- Bottom Action Buttons: Cancel and Save -->
+          <div class="flex justify-between items-center gap-2.5 pt-0.5">
+            <button
+              type="button"
+              onclick="closeModal('mobileRoomQuickModal')"
+              class="btn-soft-ink-secondary px-3.5 sm:px-4 py-2 text-xs sm:text-sm font-black rounded-xl border-2 border-[#334155] shadow-[0_2px_0_#94a3b8] active:translate-y-0.5 active:shadow-none bg-white text-slate-700 cursor-pointer"
+            >
+              ยกเลิก
+            </button>
+            <button
+              type="button"
+              id="saveMobileRoomQuickBtn"
+              class="btn-soft-ink-pop flex-1 py-2 sm:py-2.5 px-4 text-xs sm:text-sm font-black rounded-xl bg-gradient-to-r from-indigo-600 to-indigo-700 text-white border-2 border-[#0f172a] shadow-[0_3px_0_#0f172a] active:translate-y-0.5 active:shadow-none flex items-center justify-center gap-2 cursor-pointer transition-all"
+            >
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+              <span id="saveMobileRoomQuickBtnText">บันทึกข้อมูลห้อง</span>
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -10584,6 +10651,87 @@ document.addEventListener('DOMContentLoaded', function() {
         : 'ตรวจงาน: รายงานสรุป WET WORK';
     }
 
+    // 2.1 Calculate Prev/Next Room for Continuous Inspection
+    let allRooms = [];
+    const mainTbl = document.getElementById('main-table');
+    if (mainTbl) {
+      mainTbl.querySelectorAll('tbody td:first-child').forEach(td => {
+        const t = td.textContent.trim();
+        if (/^\d{3,4}$/.test(t) && !allRooms.includes(t)) {
+          allRooms.push(t);
+        }
+      });
+    }
+    if (allRooms.length === 0) {
+      for (let i = 1; i <= 22; i++) {
+        allRooms.push(String(floor * 100 + i));
+      }
+    }
+
+    const currentIndex = allRooms.indexOf(roomStr);
+    const prevRoom = (currentIndex > 0) ? allRooms[currentIndex - 1] : null;
+    const nextRoom = (currentIndex >= 0 && currentIndex < allRooms.length - 1) ? allRooms[currentIndex + 1] : null;
+
+    // Configure Top Prev/Next Buttons
+    const topPrevBtn = document.getElementById('quickModalTopPrevBtn');
+    const topNextBtn = document.getElementById('quickModalTopNextBtn');
+    const topPrevText = document.getElementById('quickModalTopPrevText');
+    const topNextText = document.getElementById('quickModalTopNextText');
+
+    // Configure Bottom Prev/Next Buttons
+    const bottomPrevBtn = document.getElementById('quickModalBottomPrevBtn');
+    const bottomNextBtn = document.getElementById('quickModalBottomNextBtn');
+    const bottomPrevText = document.getElementById('quickModalBottomPrevText');
+    const bottomNextText = document.getElementById('quickModalBottomNextText');
+
+    if (prevRoom) {
+      if (topPrevText) topPrevText.textContent = prevRoom;
+      if (bottomPrevText) bottomPrevText.textContent = prevRoom;
+      if (topPrevBtn) {
+        topPrevBtn.disabled = false;
+        topPrevBtn.onclick = () => window.openMobileRoomQuickModal(floor, prevRoom);
+      }
+      if (bottomPrevBtn) {
+        bottomPrevBtn.disabled = false;
+        bottomPrevBtn.onclick = () => window.openMobileRoomQuickModal(floor, prevRoom);
+      }
+    } else {
+      if (topPrevText) topPrevText.textContent = '--';
+      if (bottomPrevText) bottomPrevText.textContent = '--';
+      if (topPrevBtn) {
+        topPrevBtn.disabled = true;
+        topPrevBtn.onclick = null;
+      }
+      if (bottomPrevBtn) {
+        bottomPrevBtn.disabled = true;
+        bottomPrevBtn.onclick = null;
+      }
+    }
+
+    if (nextRoom) {
+      if (topNextText) topNextText.textContent = nextRoom;
+      if (bottomNextText) bottomNextText.textContent = nextRoom;
+      if (topNextBtn) {
+        topNextBtn.disabled = false;
+        topNextBtn.onclick = () => window.openMobileRoomQuickModal(floor, nextRoom);
+      }
+      if (bottomNextBtn) {
+        bottomNextBtn.disabled = false;
+        bottomNextBtn.onclick = () => window.openMobileRoomQuickModal(floor, nextRoom);
+      }
+    } else {
+      if (topNextText) topNextText.textContent = '--';
+      if (bottomNextText) bottomNextText.textContent = '--';
+      if (topNextBtn) {
+        topNextBtn.disabled = true;
+        topNextBtn.onclick = null;
+      }
+      if (bottomNextBtn) {
+        bottomNextBtn.disabled = true;
+        bottomNextBtn.onclick = null;
+      }
+    }
+
     // 3. Collect active tasks for this room
     const pData = (typeof window.getProjectData === 'function') ? window.getProjectData() : (window.projectData || {});
 
@@ -10660,10 +10808,16 @@ document.addEventListener('DOMContentLoaded', function() {
       return pData[key]?.[floor]?.[room]?.progress || 0;
     }
 
+    // Capture initial values for Undo / Revert feature
+    const initialSnapshot = {};
+    tasksToRender.forEach(t => {
+      initialSnapshot[t.key] = getTaskVal(t.key);
+    });
+
     // 4. Render Task Cards in Modal
     const tasksContainer = document.getElementById('mobileRoomTasksList');
     tasksContainer.innerHTML = tasksToRender.map(t => {
-      const val = getTaskVal(t.key);
+      const val = initialSnapshot[t.key];
       let badgeClass = 'bg-slate-100 text-slate-700 border-slate-400 shadow-[0_2px_0_#94a3b8]';
       if (val >= 100) {
         badgeClass = 'bg-emerald-50 text-emerald-800 border-[#064e3b] shadow-[0_2px_0_#064e3b]';
@@ -10725,6 +10879,26 @@ document.addEventListener('DOMContentLoaded', function() {
           }
         });
         window.updateQuickModalOverall();
+      };
+    }
+
+    // 6.1 Hook "Undo / คืนค่าเดิม" Button
+    const undoBtn = document.getElementById('mobileRoomUndoBtn');
+    if (undoBtn) {
+      undoBtn.onclick = function() {
+        tasksContainer.querySelectorAll('.task-card-item').forEach(card => {
+          const tKey = card.dataset.taskkey;
+          const origVal = (initialSnapshot[tKey] !== undefined) ? initialSnapshot[tKey] : 0;
+          const slider = card.querySelector('input[type="range"]');
+          if (slider) {
+            slider.value = origVal;
+            window.syncQuickTaskSlider(slider);
+          }
+        });
+        window.updateQuickModalOverall();
+        if (typeof window.showToast === 'function') {
+          window.showToast(`↺ คืนค่าเดิมของห้อง ${roomStr} เรียบร้อย`);
+        }
       };
     }
 
