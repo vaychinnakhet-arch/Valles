@@ -6495,6 +6495,7 @@
           }
 
           currentSummaryPlanData = { floor, room, taskKey, isMultiSelect };
+          window.currentSummaryPlanData = currentSummaryPlanData;
 
           let planData = projectData.plans?.[floor]?.[room]?.[taskKey] || {};
 
@@ -6719,6 +6720,9 @@
           renderSummaryPlanHistory();
           updateSummaryPlanDelayInfo();
           openModal("summaryPlanModal");
+          if (typeof window.setupSummaryPlanModalUI === "function") {
+            window.setupSummaryPlanModalUI(floor, room, taskKey, isMultiSelect);
+          }
         window.openSummaryPlanModal = openSummaryPlanModal;
         window.projectData = projectData;
         window.getProjectData = () => projectData;
