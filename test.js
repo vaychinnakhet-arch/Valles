@@ -8712,13 +8712,13 @@
               _tbodyRows.forEach(tr => {
                 const curH = tr.offsetHeight;
                 const nH = Math.round(curH + _extraTr);
-                tr.style.height = nH + "px";
+                tr.style.setProperty("height", nH + "px", "important");
                 tr.querySelectorAll("td").forEach(td => {
-                  td.style.height = nH + "px";
+                  td.style.setProperty("height", nH + "px", "important");
                 });
               });
-              captureArea.style.height = _target4x3H + "px";
-              captureArea.style.minHeight = _target4x3H + "px";
+              captureArea.style.setProperty("height", _target4x3H + "px", "important");
+              captureArea.style.setProperty("min-height", _target4x3H + "px", "important");
             }
           }
 
@@ -8731,37 +8731,7 @@
 
             // Helper to transform any captured canvas into EXACT 4:3 VERTICAL (portrait 3:4 aspect ratio)
             function toPortrait4x3Canvas(srcCanvas) {
-              const TARGET_RATIO = 3 / 4; // 0.75:1
-              const sw = srcCanvas.width || srcCanvas.naturalWidth;
-              const sh = srcCanvas.height || srcCanvas.naturalHeight;
-              const srcRatio = sw / sh;
-              if (Math.abs(srcRatio - TARGET_RATIO) < 0.015) {
-                return srcCanvas;
-              }
-              let finalW, finalH, dx, dy;
-              if (srcRatio > TARGET_RATIO) {
-                // Wide table: keep width, extend height to match 4:3 portrait ratio
-                finalW = sw;
-                finalH = Math.round(sw / TARGET_RATIO); // sw * 4 / 3
-                dx = 0;
-                dy = 0;
-              } else {
-                // Tall content: keep height, extend width to match 4:3 portrait ratio
-                finalH = sh;
-                finalW = Math.round(sh * TARGET_RATIO); // sh * 3 / 4
-                dx = Math.round((finalW - sw) / 2);
-                dy = 0;
-              }
-              const pCanvas = document.createElement("canvas");
-              pCanvas.width = finalW;
-              pCanvas.height = finalH;
-              const ctx = pCanvas.getContext("2d");
-              ctx.imageSmoothingEnabled = true;
-              ctx.imageSmoothingQuality = "high";
-              ctx.fillStyle = "#ffffff";
-              ctx.fillRect(0, 0, finalW, finalH);
-              ctx.drawImage(srcCanvas, dx, dy);
-              return pCanvas;
+              return srcCanvas;
             }
 
             function cleanup() {
