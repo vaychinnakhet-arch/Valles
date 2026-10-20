@@ -5620,11 +5620,22 @@ body:not(.is-line-capturing) .modal .modal-content {
 #main-table {
     border-collapse: separate !important;
     border-spacing: 0 !important;
-    border: 1.5px solid #334155 !important;
-    border-radius: 0.75rem !important;
-    overflow: hidden !important;
+    border-top: 1px solid #94a3b8 !important;
+    border-left: 1px solid #94a3b8 !important;
+    border-right: none !important;
+    border-bottom: none !important;
+    overflow: visible !important;
     box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.06) !important;
     background: #ffffff !important;
+}
+
+#main-table th,
+#main-table td {
+    border-top: none !important;
+    border-left: none !important;
+    border-right: 1px solid #94a3b8 !important;
+    border-bottom: 1px solid #94a3b8 !important;
+    box-sizing: border-box !important;
 }
 
 #main-table th {
@@ -5633,25 +5644,13 @@ body:not(.is-line-capturing) .modal .modal-content {
     font-weight: 800 !important;
     font-size: 0.75rem !important;
     padding: 0.65rem 0.5rem !important;
-    border-bottom: 1.5px solid #475569 !important;
-    border-right: 1px solid #cbd5e1 !important;
     letter-spacing: -0.01em !important;
-}
-
-#main-table th:last-child {
-    border-right: none !important;
 }
 
 #main-table td {
     padding: 0.5rem 0.35rem !important;
-    border-bottom: 1px solid #e2e8f0 !important;
-    border-right: 1px solid #cbd5e1 !important;
     font-size: 0.82rem !important;
     font-variant-numeric: tabular-nums !important;
-}
-
-#main-table td:last-child {
-    border-right: none !important;
 }
 
 #main-table tbody tr:hover td {
@@ -5662,7 +5661,7 @@ body:not(.is-line-capturing) .modal .modal-content {
     background-color: #ffffff !important;
     color: #0f172a !important;
     font-weight: 900 !important;
-    border-right: 2px solid #64748b !important;
+    border-right: 1px solid #475569 !important;
     box-shadow: 3px 0 8px -2px rgba(15, 23, 42, 0.08) !important;
 }
 
@@ -5724,7 +5723,7 @@ main {
     border-radius: 1rem !important;
     border: 1px solid #cbd5e1 !important;
     box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.07), 0 2px 6px -1px rgba(15, 23, 42, 0.04) !important;
-    overflow: hidden !important;
+    overflow: visible !important;
     margin: 0 auto !important;
     max-width: 100% !important;
     box-sizing: border-box !important;
@@ -5851,10 +5850,23 @@ div[data-report-rule] {
 #main-table {
     border-collapse: separate !important;
     border-spacing: 0 !important;
-    border: 1px solid #cbd5e1 !important;
+    border-top: 1px solid #94a3b8 !important;
+    border-left: 1px solid #94a3b8 !important;
+    border-right: none !important;
+    border-bottom: none !important;
     background: #ffffff !important;
     width: 100% !important;
+    overflow: visible !important;
     font-variant-numeric: tabular-nums !important;
+}
+
+#main-table th,
+#main-table td {
+    border-top: none !important;
+    border-left: none !important;
+    border-right: 1px solid #94a3b8 !important;
+    border-bottom: 1px solid #94a3b8 !important;
+    box-sizing: border-box !important;
 }
 
 #main-table th {
@@ -5863,8 +5875,6 @@ div[data-report-rule] {
     font-weight: 800 !important;
     font-size: 0.8rem !important;
     padding: 0.65rem 0.4rem !important;
-    border-bottom: 2px solid #475569 !important;
-    border-right: 1px solid #cbd5e1 !important;
     text-align: center !important;
     white-space: nowrap !important;
     vertical-align: middle !important;
@@ -5873,14 +5883,11 @@ div[data-report-rule] {
 #main-table th:last-child {
     background-color: #e0f2fe !important;
     color: #0369a1 !important;
-    border-left: 2px solid #0f172a !important;
     font-weight: 900 !important;
 }
 
 #main-table td {
     padding: 0.42rem 0.35rem !important;
-    border-bottom: 1px solid #e2e8f0 !important;
-    border-right: 1px solid #cbd5e1 !important;
     font-size: 0.82rem !important;
     text-align: center !important;
     vertical-align: middle !important;
@@ -5979,7 +5986,7 @@ div[data-report-rule] {
     z-index: 30 !important;
     background-color: #f1f5f9 !important;
     color: #0f172a !important;
-    border-bottom: 2.5px solid #0f172a !important;
+    border-bottom: 1px solid #475569 !important;
 }
 
 #main-table thead th:first-child,
@@ -5991,9 +5998,9 @@ div[data-report-rule] {
     z-index: 50 !important;
     background-color: #e2e8f0 !important;
     color: #0f172a !important;
-    border-right: 2.5px solid #0f172a !important;
-    border-bottom: 2.5px solid #0f172a !important;
-    box-shadow: 4px 4px 10px -2px rgba(15, 23, 42, 0.2) !important;
+    border-right: 1px solid #475569 !important;
+    border-bottom: 1px solid #475569 !important;
+    box-shadow: 4px 4px 10px -2px rgba(15, 23, 42, 0.16) !important;
 }
 
 #main-table tbody td:first-child,
@@ -6006,8 +6013,8 @@ div[data-report-rule] {
     font-size: 0.88rem !important;
     color: #0f172a !important;
     background-color: #ffffff !important;
-    border-right: 2.5px solid #0f172a !important;
-    box-shadow: 4px 0 10px -2px rgba(15, 23, 42, 0.16) !important;
+    border-right: 1px solid #475569 !important;
+    box-shadow: 4px 0 10px -2px rgba(15, 23, 42, 0.14) !important;
 }
 
 #main-table tbody tr:nth-child(even) td:first-child,
@@ -6031,7 +6038,6 @@ div[data-report-rule] {
     background-color: #f0fdf4 !important;
     color: #15803d !important;
     font-weight: 800 !important;
-    border-left: 2px solid #0f172a !important;
 }
 
 /* 5. Minimal Bottom Floating Dock (#unified-controls) */
@@ -6418,7 +6424,7 @@ body.modal-open #schedule-quick-filter-floating {
 @media (max-width: 768px), (pointer: coarse) {
     html, body {
         max-width: 100vw !important;
-        overflow-x: hidden !important;
+        overflow-x: clip !important;
         position: relative !important;
     }
 
@@ -6439,7 +6445,7 @@ body.modal-open #schedule-quick-filter-floating {
         border: 1.5px solid #0f172a !important;
         border-radius: 0.75rem !important;
         box-shadow: 0 4px 15px -2px rgba(15, 23, 42, 0.12) !important;
-        overflow: hidden !important;
+        overflow: visible !important;
         box-sizing: border-box !important;
     }
 
@@ -6455,6 +6461,7 @@ body.modal-open #schedule-quick-filter-floating {
         position: relative !important;
         padding: 0 !important;
         padding-bottom: 2rem !important;
+        border-radius: 0 0 0.75rem 0.75rem !important;
     }
 
     /* 1. Mobile Header: 2-Row Clean Stacked Layout */
@@ -6587,6 +6594,21 @@ body.modal-open #schedule-quick-filter-floating {
         border-spacing: 0 !important;
         width: max-content !important;
         min-width: 100% !important;
+        border-top: 1px solid #94a3b8 !important;
+        border-left: 1px solid #94a3b8 !important;
+        border-right: none !important;
+        border-bottom: none !important;
+        overflow: visible !important;
+    }
+
+    /* Universal single-border grid on all cells: exactly 1px solid #94a3b8 */
+    #main-table th,
+    #main-table td {
+        border-top: none !important;
+        border-left: none !important;
+        border-right: 1px solid #94a3b8 !important;
+        border-bottom: 1px solid #94a3b8 !important;
+        box-sizing: border-box !important;
     }
 
     /* 2.1 Vertical Sticky Header (Columns remain visible when scrolling down) */
@@ -6598,9 +6620,7 @@ body.modal-open #schedule-quick-filter-floating {
         background-color: #f1f5f9 !important;
         color: #0f172a !important;
         font-weight: 800 !important;
-        border-top: none !important;
-        border-bottom: 2.5px solid #0f172a !important;
-        border-right: 1px solid #94a3b8 !important;
+        border-bottom: 1px solid #475569 !important;
         box-shadow: 0 4px 6px -1px rgba(15, 23, 42, 0.12) !important;
         font-size: 0.72rem !important;
         padding: 0.5rem 0.35rem !important;
@@ -6620,9 +6640,8 @@ body.modal-open #schedule-quick-filter-floating {
         min-width: 58px !important;
         width: 62px !important;
         max-width: 68px !important;
-        border-right: 2.5px solid #0f172a !important;
-        border-bottom: 1px solid #cbd5e1 !important;
-        box-shadow: 4px 0 10px -2px rgba(15, 23, 42, 0.18) !important;
+        border-right: 1px solid #475569 !important;
+        box-shadow: 4px 0 10px -2px rgba(15, 23, 42, 0.16) !important;
         font-weight: 900 !important;
         font-size: 0.85rem !important;
         color: #0f172a !important;
@@ -6647,9 +6666,9 @@ body.modal-open #schedule-quick-filter-floating {
         z-index: 50 !important; /* Top layer above both vertical and horizontal sticky elements */
         background-color: #e2e8f0 !important;
         color: #0f172a !important;
-        border-right: 2.5px solid #0f172a !important;
-        border-bottom: 2.5px solid #0f172a !important;
-        box-shadow: 4px 4px 10px -2px rgba(15, 23, 42, 0.22) !important;
+        border-right: 1px solid #475569 !important;
+        border-bottom: 1px solid #475569 !important;
+        box-shadow: 4px 4px 10px -2px rgba(15, 23, 42, 0.20) !important;
     }
 
     /* 2.4 Active Room Row Glow */
@@ -7473,7 +7492,7 @@ input[type="range"]:active::-moz-range-thumb,
     <div id="main-app-container">
       <div
         id="capture-area"
-        class="max-w-full mx-auto bg-white md:rounded-xl shadow-lg overflow-hidden border-0 md:border border-slate-200"
+        class="max-w-full mx-auto bg-white md:rounded-xl shadow-lg border-0 md:border border-slate-200"
       >
         <!-- Header -->
         <header
