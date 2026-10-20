@@ -8544,6 +8544,50 @@
             ? execDashboard.style.maxWidth
             : "";
 
+          const _exitFloatingBtn = document.getElementById("exitCaptureModeFloatingBtn");
+          if (_exitFloatingBtn) {
+            _exitFloatingBtn.style.setProperty("display", "none", "important");
+            _exitFloatingBtn.style.setProperty("visibility", "hidden", "important");
+            _exitFloatingBtn.style.setProperty("opacity", "0", "important");
+          }
+          const _legendEl = document.getElementById("legend");
+          if (_legendEl) {
+            if (!_legendEl.innerHTML || !_legendEl.innerHTML.trim() || currentView === "summaryReport") {
+              _legendEl.innerHTML = `
+                <div class="flex items-center gap-2 text-slate-900 uppercase tracking-wider text-xs font-black whitespace-nowrap flex-shrink-0">
+                  <div class="p-1.5 bg-indigo-50 rounded-lg border border-indigo-200">
+                    <svg class="w-4 h-4 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path></svg>
+                  </div>
+                  สัญลักษณ์:
+                </div>
+                <div class="flex items-center gap-2.5 flex-wrap">
+                  <div class="flex items-center gap-1.5 bg-emerald-50 px-3 py-1 rounded-full border border-black shadow-xs flex-shrink-0">
+                    <div class="w-3.5 h-3.5 flex items-center justify-center rounded-full bg-emerald-500 text-white text-[10px] font-black">✓</div>
+                    <span class="text-emerald-900 font-bold text-xs whitespace-nowrap">เสร็จสมบูรณ์ 100%</span>
+                  </div>
+                  <div class="flex items-center gap-1.5 bg-sky-50 px-3 py-1 rounded-full border border-black shadow-xs flex-shrink-0">
+                    <div class="w-3.5 h-3.5 rounded-full bg-sky-500"></div>
+                    <span class="text-sky-900 font-bold text-xs whitespace-nowrap">% กำลังดำเนินการ</span>
+                  </div>
+                  <div class="flex items-center gap-1.5 bg-amber-50 px-3 py-1 rounded-full border border-black shadow-xs flex-shrink-0">
+                    <div class="w-3.5 h-3.5 rounded-full bg-amber-500"></div>
+                    <span class="text-amber-900 font-bold text-xs whitespace-nowrap">หมายเหตุ / ล่าช้า</span>
+                  </div>
+                  <div class="flex items-center gap-1.5 bg-slate-50 px-3 py-1 rounded-full border border-black shadow-xs flex-shrink-0">
+                    <span class="text-slate-500 font-black text-xs px-1">-</span>
+                    <span class="text-slate-700 font-bold text-xs whitespace-nowrap">รอเริ่มดำเนินงาน</span>
+                  </div>
+                  <div class="flex items-center gap-1.5 bg-blue-50 px-3 py-1 rounded-full border border-black shadow-xs flex-shrink-0">
+                    <div class="w-3.5 h-3.5 rounded-full bg-blue-600"></div>
+                    <span class="text-blue-900 font-bold text-xs whitespace-nowrap">คะแนนรวมหมวดงาน</span>
+                  </div>
+                </div>
+              `;
+            }
+            _legendEl.style.setProperty("display", "flex", "important");
+            _legendEl.style.setProperty("opacity", "1", "important");
+            _legendEl.style.setProperty("visibility", "visible", "important");
+          }
           captureArea.style.width = fullWidth + "px";
           document.body.style.width = fullWidth + "px";
           document.documentElement.style.width = fullWidth + "px";
