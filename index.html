@@ -11135,18 +11135,117 @@ document.addEventListener('DOMContentLoaded', function() {
       if (!floor && typeof getActiveFloor === 'function') {
         floor = getActiveFloor();
       }
-      floor = floor || '7';
-      const roomStr = String(room || '');
+      const floorStr = String(floor || '7');
 
-      // Resolve task name
-      let taskName = '';
-      if (typeof ys === 'function') {
-        taskName = ys(taskKey);
-      } else if (window.taskDefinitions && window.taskDefinitions[taskKey]) {
-        taskName = window.taskDefinitions[taskKey].reportName || window.taskDefinitions[taskKey].name;
-      } else {
-        taskName = taskKey || 'แผนงาน';
+      // Resolve task name with human-readable Thai label
+      function getSummaryTaskName(key) {
+        if (typeof window.ys === 'function') {
+          const res = window.ys(key);
+          if (res && res !== key) return res;
+        }
+        const dict = {
+          texcaWallOnly: 'INSEE WALL',
+          texcaWall: 'INSEE WALL',
+          ceilingRoomFraming: 'โครงฝ้า(พัก)',
+          ceilingBathroomFraming: 'โครงฝ้า(น้ำ)',
+          ceilingBoard: 'ปิดแผ่น',
+          above_ceiling_inspection: 'ตรวจเหนือฝ้า',
+          skimAndPaintCombined: 'งานสกิมทาสี',
+          kitchenOnly: 'งานติดตั้งชุดครัว',
+          paintOnly: 'งานสี end product',
+          skimOnly: 'งานสกิม',
+          showerScreenInspection: 'ตรวจรับพื้นที่ (Shower)',
+          showerScreen: 'ฉากกั้นอาบน้ำ',
+          tiling: 'งานปูกระเบื้อง',
+          topping: 'งานเทปรับระดับพื้นห้องพัก',
+          waterproofing: 'งานกันซึม',
+          laminate: 'งานพื้นลามิเนต',
+          door: 'งานประตู-หน้าต่าง',
+          sanitary: 'งานสุขภัณฑ์',
+          furniture: 'งานเฟอร์นิเจอร์ Built-in',
+          electrical: 'งานระบบไฟฟ้า',
+          plumbing: 'งานระบบสุขาภิบาล',
+          qcSummary: 'สรุปผล QC'
+        };
+        if (dict[key]) return dict[key];
+        if (window.taskDefinitions && window.taskDefinitions[key]) {
+          return window.taskDefinitions[key].reportName || window.taskDefinitions[key].name || key;
+        }
+        return key || 'แผนงาน';
       }
+
+      const taskName = getSummaryTaskName(taskKey);
+
+      // 1. Build room list for current floor
+      const floorRooms = [];
+      const seenKeys = new Set();
+      const mainTbl = document.getElementById('main-table');
+
+      if (mainTbl) {
+        const floorCells = mainTbl.querySelectorAll(`td[data-floor="${floorStr}"][data-room]`);
+        floorCells.forEach(cell => {
+          const dKey = String(cell.dataset.room || '').trim();
+          if (dKey && !seenKeys.has(dKey)) {
+            seenKeys.add(dKey);
+            const tr = cell.closest('tr');
+            const firstTd = tr ? tr.querySelector('td:first-child') : null;
+            let displayNum = firstTd ? firstTd.textContent.trim() : '';
+            if (!/^\d{3,4}$/.test(displayNum)) {
+              const rNum = parseInt(dKey, 10) || 1;
+              displayNum = String(Number(floorStr) * 100 + rNum);
+            }
+            floorRooms.push({
+              dataKey: dKey,
+              display: displayNum,
+              num: parseInt(dKey, 10) || (parseInt(displayNum, 10) % 100) || 0
+            });
+          }
+        });
+      }
+
+      // Fallback: If not found from table, generate from CONFIG or default 12 rooms
+      if (floorRooms.length === 0) {
+        let maxRooms = 12;
+        if (window.CONFIG && typeof window.CONFIG.getRoomsOnFloor === 'function') {
+          maxRooms = window.CONFIG.getRoomsOnFloor(Number(floorStr)) || 12;
+        } else if (window.CONFIG && window.CONFIG.ROOMS_BY_FLOOR && window.CONFIG.ROOMS_BY_FLOOR[floorStr]) {
+          maxRooms = window.CONFIG.ROOMS_BY_FLOOR[floorStr];
+        }
+        for (let i = 1; i <= maxRooms; i++) {
+          floorRooms.push({
+            dataKey: String(i),
+            display: String(Number(floorStr) * 100 + i),
+            num: i
+          });
+        }
+      }
+
+      floorRooms.sort((a, b) => a.num - b.num);
+
+      // Find current room
+      const rawRoomStr = String(room || '').trim();
+      let currentIndex = floorRooms.findIndex(r => r.dataKey === rawRoomStr || r.display === rawRoomStr);
+
+      if (currentIndex === -1) {
+        const parsed = parseInt(rawRoomStr, 10);
+        if (!isNaN(parsed)) {
+          if (parsed > 100) {
+            const mod100 = String(parsed % 100);
+            currentIndex = floorRooms.findIndex(r => r.dataKey === mod100 || r.display === String(parsed));
+          } else {
+            currentIndex = floorRooms.findIndex(r => r.dataKey === String(parsed));
+          }
+        }
+      }
+      if (currentIndex === -1) currentIndex = 0;
+
+      const currentRoom = floorRooms[currentIndex] || {
+        dataKey: rawRoomStr || '1',
+        display: (parseInt(rawRoomStr, 10) > 100) ? rawRoomStr : String(Number(floorStr) * 100 + (parseInt(rawRoomStr, 10) || 1))
+      };
+
+      const prevRoom = (currentIndex > 0) ? floorRooms[currentIndex - 1] : null;
+      const nextRoom = (currentIndex >= 0 && currentIndex < floorRooms.length - 1) ? floorRooms[currentIndex + 1] : null;
 
       // Title & Subtitle & Floor Badge
       const titleEl = document.getElementById('summaryPlanModalTitle');
@@ -11159,43 +11258,23 @@ document.addEventListener('DOMContentLoaded', function() {
         if (floorBadge) floorBadge.classList.add('hidden');
         if (subtitleEl) subtitleEl.textContent = `อัปเดตหลายห้องพร้อมกัน (${taskName})`;
         if (bottomRoomText) bottomRoomText.textContent = 'หลายห้อง';
-      } else if (roomStr) {
+      } else {
         if (titleEl) {
-          titleEl.innerHTML = `<span class="text-indigo-600 font-black">ห้อง ${roomStr}</span> <span class="text-slate-400 font-bold">•</span> <span class="text-slate-900 font-black">${taskName}</span>`;
+          titleEl.innerHTML = `<span class="text-indigo-600 font-black">ห้อง ${currentRoom.display}</span> <span class="text-slate-400 font-bold">•</span> <span class="text-slate-900 font-black">${taskName}</span>`;
         }
         if (floorBadge) {
-          floorBadge.textContent = `ชั้น ${floor}`;
+          floorBadge.textContent = `ชั้น ${floorStr}`;
           floorBadge.classList.remove('hidden');
         }
         if (subtitleEl) {
           subtitleEl.textContent = `บันทึกแผนงาน: ${taskName}`;
         }
         if (bottomRoomText) {
-          bottomRoomText.textContent = `ห้อง ${roomStr}`;
+          bottomRoomText.textContent = `ห้อง ${currentRoom.display}`;
         }
       }
 
-      // Room Navigation calculation
-      let allRooms = [];
-      const mainTbl = document.getElementById('main-table');
-      if (mainTbl) {
-        mainTbl.querySelectorAll('tbody td:first-child').forEach(td => {
-          const t = td.textContent.trim();
-          if (/^\d{3,4}$/.test(t) && !allRooms.includes(t)) {
-            allRooms.push(t);
-          }
-        });
-      }
-      if (allRooms.length === 0) {
-        for (let i = 1; i <= 22; i++) {
-          allRooms.push(String(Number(floor) * 100 + i));
-        }
-      }
-
-      const currentIndex = allRooms.indexOf(roomStr);
-      const prevRoom = (currentIndex > 0) ? allRooms[currentIndex - 1] : null;
-      const nextRoom = (currentIndex >= 0 && currentIndex < allRooms.length - 1) ? allRooms[currentIndex + 1] : null;
-
+      // Buttons
       const topPrevBtn = document.getElementById('summaryPlanTopPrevBtn');
       const topNextBtn = document.getElementById('summaryPlanTopNextBtn');
       const topPrevText = document.getElementById('summaryPlanTopPrevText');
@@ -11207,23 +11286,20 @@ document.addEventListener('DOMContentLoaded', function() {
       const bottomNextText = document.getElementById('summaryPlanBottomNextText');
 
       if (prevRoom && !isMultiSelect) {
-        if (topPrevText) topPrevText.textContent = prevRoom;
-        if (bottomPrevText) bottomPrevText.textContent = prevRoom;
+        if (topPrevText) topPrevText.textContent = prevRoom.display;
+        if (bottomPrevText) bottomPrevText.textContent = prevRoom.display;
+        const doPrev = () => {
+          if (typeof window.openSummaryPlanModal === 'function') {
+            window.openSummaryPlanModal(floorStr, prevRoom.dataKey, taskKey);
+          }
+        };
         if (topPrevBtn) {
           topPrevBtn.disabled = false;
-          topPrevBtn.onclick = () => {
-            if (typeof window.openSummaryPlanModal === 'function') {
-              window.openSummaryPlanModal(floor, prevRoom, taskKey);
-            }
-          };
+          topPrevBtn.onclick = doPrev;
         }
         if (bottomPrevBtn) {
           bottomPrevBtn.disabled = false;
-          bottomPrevBtn.onclick = () => {
-            if (typeof window.openSummaryPlanModal === 'function') {
-              window.openSummaryPlanModal(floor, prevRoom, taskKey);
-            }
-          };
+          bottomPrevBtn.onclick = doPrev;
         }
       } else {
         if (topPrevText) topPrevText.textContent = '--';
@@ -11239,23 +11315,20 @@ document.addEventListener('DOMContentLoaded', function() {
       }
 
       if (nextRoom && !isMultiSelect) {
-        if (topNextText) topNextText.textContent = nextRoom;
-        if (bottomNextText) bottomNextText.textContent = nextRoom;
+        if (topNextText) topNextText.textContent = nextRoom.display;
+        if (bottomNextText) bottomNextText.textContent = nextRoom.display;
+        const doNext = () => {
+          if (typeof window.openSummaryPlanModal === 'function') {
+            window.openSummaryPlanModal(floorStr, nextRoom.dataKey, taskKey);
+          }
+        };
         if (topNextBtn) {
           topNextBtn.disabled = false;
-          topNextBtn.onclick = () => {
-            if (typeof window.openSummaryPlanModal === 'function') {
-              window.openSummaryPlanModal(floor, nextRoom, taskKey);
-            }
-          };
+          topNextBtn.onclick = doNext;
         }
         if (bottomNextBtn) {
           bottomNextBtn.disabled = false;
-          bottomNextBtn.onclick = () => {
-            if (typeof window.openSummaryPlanModal === 'function') {
-              window.openSummaryPlanModal(floor, nextRoom, taskKey);
-            }
-          };
+          bottomNextBtn.onclick = doNext;
         }
       } else {
         if (topNextText) topNextText.textContent = '--';

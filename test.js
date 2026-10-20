@@ -6729,6 +6729,7 @@
         window.renderTable = renderTable;
         window.saveProjectDataToDB = saveProjectDataToDB;
         window.showToast = showToast;
+        window.ys = getTaskName;
 
         function renderSummaryPlanHistory() {
           const { floor, room, taskKey } = currentSummaryPlanData;
