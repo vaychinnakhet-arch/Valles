@@ -8652,17 +8652,22 @@
         function captureForLineNew(mode = "download", btnId = "captureNewBtn", isUltraHD = false) {
           const captureArea = document.getElementById("capture-area");
           const captureBtn = document.getElementById(btnId);
+          if (!captureArea || !captureBtn) return;
           const originalBtnHTML = captureBtn.innerHTML;
 
           captureBtn.innerHTML = "กำลังแคปเจอร์...";
           captureBtn.disabled = true;
 
-          // Save scroll position
+          // Save scroll positions
           const scrollX = window.scrollX || window.pageXOffset;
           const scrollY = window.scrollY || window.pageYOffset;
+          const mainEl = document.querySelector("main");
+          const mainScrollLeft = mainEl ? mainEl.scrollLeft : 0;
 
-          // Scroll to top-left to avoid clipping issues
+          // Reset scrolls to top-left so horizontal table scroll doesn't shift output
           window.scrollTo(0, 0);
+          if (mainEl) mainEl.scrollLeft = 0;
+          captureArea.scrollLeft = 0;
 
           document.documentElement.classList.add("is-line-capturing");
           document.body.classList.add("is-line-capturing");
@@ -8670,64 +8675,135 @@
           const table = document.getElementById("main-table");
           const fullWidth =
             table && !table.classList.contains("hidden")
-              ? Math.max(table.scrollWidth, table.offsetWidth)
+              ? Math.max(table.scrollWidth, table.offsetWidth, captureArea.scrollWidth, 1200)
               : Math.max(captureArea.scrollWidth, 1200);
 
-          // Force inline widths to prevent clipping
+          // Force inline widths to prevent clipping across mobile, tablet, and PC
           const originalCaptureAreaWidth = captureArea.style.width;
           const originalBodyWidth = document.body.style.width;
           const originalHtmlWidth = document.documentElement.style.width;
-          const mainAppContainer =
-            document.getElementById("main-app-container");
-          const originalMainAppWidth = mainAppContainer.style.width;
+          const mainAppContainer = document.getElementById("main-app-container");
+          const originalMainAppWidth = mainAppContainer ? mainAppContainer.style.width : "";
 
-          const execDashboard = document.getElementById(
-            "executive-summary-dashboard",
-          );
-          const originalExecWidth = execDashboard
-            ? execDashboard.style.width
-            : "";
-          const originalExecMaxWidth = execDashboard
-            ? execDashboard.style.maxWidth
-            : "";
+          const execDashboard = document.getElementById("executive-summary-dashboard");
+          const originalExecWidth = execDashboard ? execDashboard.style.width : "";
+          const originalExecMaxWidth = execDashboard ? execDashboard.style.maxWidth : "";
 
           captureArea.style.width = fullWidth + "px";
           document.body.style.width = fullWidth + "px";
           document.documentElement.style.width = fullWidth + "px";
-          mainAppContainer.style.width = fullWidth + "px";
-          if (execDashboard && currentView === "schedule") {
-            execDashboard.style.width = fullWidth + "px";
-            execDashboard.style.maxWidth = fullWidth + "px";
+          if (mainAppContainer) mainAppContainer.style.width = fullWidth + "px";
+          if (table && !table.classList.contains("hidden")) {
+            table.style.width = fullWidth + "px";
+            table.style.minWidth = fullWidth + "px";
+          }
+          if (execDashboard && !execDashboard.classList.contains("hidden")) {
+            execDashboard.style.width = "100%";
+            execDashboard.style.maxWidth = "100%";
           }
 
           setTimeout(() => {
-            const finalWidth = captureArea.scrollWidth;
-            const finalHeight = captureArea.scrollHeight;
+            const finalWidth = Math.ceil(captureArea.getBoundingClientRect().width || captureArea.offsetWidth || fullWidth);
+            const finalHeight = Math.ceil(captureArea.getBoundingClientRect().height || captureArea.offsetHeight);
 
-            // For LINE App specifically, too large an image causes aggressive compression and bluriness.
-            // Using a scale between 1.5 to 2 is optimal for LINE readability.
-            const isMobile = window.innerWidth <= 768;
-            const captureScale = isUltraHD ? (isMobile ? 3 : 4) : (isMobile ? 1.5 : 2);
-            
-            // Use html-to-image which handles SVGs and scaling much better
-            const captureOptions = {
-                quality: isUltraHD ? 1.0 : 0.9,
-                backgroundColor: "#ffffff",
-                pixelRatio: captureScale,
-                width: finalWidth,
-                height: finalHeight,
-                style: {
-                  transformOrigin: "top left",
-                },
-            };
-            
-            const capturePromise = isUltraHD 
-                ? htmlToImage.toPng(captureArea, captureOptions)
-                : htmlToImage.toJpeg(captureArea, captureOptions);
+            // Unified crisp scale: 2.0x for standard, 3.0x for Ultra HD across all devices
+            const captureScale = isUltraHD ? 3.0 : 2.0;
+
+            // Helper to transform any captured canvas into EXACT 4:3 VERTICAL (portrait 3:4 aspect ratio)
+            function toPortrait4x3Canvas(srcCanvas) {
+              const TARGET_RATIO = 3 / 4; // 0.75:1
+              const sw = srcCanvas.width;
+              const sh = srcCanvas.height;
+              const srcRatio = sw / sh;
+              let finalW, finalH, dx, dy;
+              if (srcRatio > TARGET_RATIO) {
+                // Wide table: keep width, extend height to match 4:3 portrait ratio
+                finalW = sw;
+                finalH = Math.round(sw / TARGET_RATIO); // sw * 4 / 3
+                dx = 0;
+                dy = 0;
+              } else {
+                // Tall content: keep height, extend width to match 4:3 portrait ratio
+                finalH = sh;
+                finalW = Math.round(sh * TARGET_RATIO); // sh * 3 / 4
+                dx = Math.round((finalW - sw) / 2);
+                dy = 0;
+              }
+              const pCanvas = document.createElement("canvas");
+              pCanvas.width = finalW;
+              pCanvas.height = finalH;
+              const ctx = pCanvas.getContext("2d");
+              ctx.imageSmoothingEnabled = true;
+              ctx.imageSmoothingQuality = "high";
+              ctx.fillStyle = "#ffffff";
+              ctx.fillRect(0, 0, finalW, finalH);
+              ctx.drawImage(srcCanvas, dx, dy);
+              return pCanvas;
+            }
+
+            function cleanup() {
+              document.documentElement.classList.remove("is-line-capturing");
+              document.body.classList.remove("is-line-capturing");
+              captureArea.style.width = originalCaptureAreaWidth;
+              document.body.style.width = originalBodyWidth;
+              document.documentElement.style.width = originalHtmlWidth;
+              if (mainAppContainer) mainAppContainer.style.width = originalMainAppWidth;
+              if (table) {
+                table.style.width = "";
+                table.style.minWidth = "";
+              }
+              if (execDashboard) {
+                execDashboard.style.width = originalExecWidth;
+                execDashboard.style.maxWidth = originalExecMaxWidth;
+              }
+              if (mainEl) mainEl.scrollLeft = mainScrollLeft;
+              captureBtn.innerHTML = originalBtnHTML;
+              captureBtn.disabled = false;
+              window.scrollTo(scrollX, scrollY);
+            }
+
+            const capturePromise = (typeof html2canvas === "function")
+              ? html2canvas(captureArea, {
+                  scale: captureScale,
+                  useCORS: true,
+                  allowTaint: false,
+                  backgroundColor: "#ffffff",
+                  width: finalWidth,
+                  height: finalHeight,
+                  windowWidth: finalWidth,
+                  windowHeight: finalHeight,
+                  scrollX: 0,
+                  scrollY: 0,
+                }).then((rawCanvas) => toPortrait4x3Canvas(rawCanvas))
+              : htmlToImage.toPng(captureArea, {
+                  quality: isUltraHD ? 1.0 : 0.95,
+                  backgroundColor: "#ffffff",
+                  pixelRatio: captureScale,
+                  width: finalWidth,
+                  height: finalHeight,
+                  style: { transformOrigin: "top left" },
+                }).then((dataUrl) => {
+                  return new Promise((resolve, reject) => {
+                    const img = new Image();
+                    img.onload = () => {
+                      const c = document.createElement("canvas");
+                      c.width = img.naturalWidth || img.width;
+                      c.height = img.naturalHeight || img.height;
+                      const ctx = c.getContext("2d");
+                      ctx.drawImage(img, 0, 0);
+                      resolve(toPortrait4x3Canvas(c));
+                    };
+                    img.onerror = reject;
+                    img.src = dataUrl;
+                  });
+                });
 
             capturePromise
-              .then((dataUrl) => {
-                const filename = `${getFileExportName()}.${isUltraHD ? 'png' : 'jpg'}`;
+              .then((pCanvas) => {
+                const format = isUltraHD ? "image/png" : "image/jpeg";
+                const ext = isUltraHD ? "png" : "jpg";
+                const filename = `${getFileExportName()}.${ext}`;
+                const dataUrl = pCanvas.toDataURL(format, isUltraHD ? 1.0 : 0.92);
 
                 function fallbackDownload() {
                   const link = document.createElement("a");
@@ -8738,34 +8814,21 @@
                   document.body.removeChild(link);
                 }
 
-                if (mode === "share") {
-                  // Try to use Web Share API if available
-                  if (navigator.share && navigator.canShare) {
-                    fetch(dataUrl)
-                      .then((res) => res.blob())
-                      .then((blob) => {
-                        const file = new File([blob], filename, {
-                          type: isUltraHD ? "image/png" : "image/jpeg",
-                        });
-                        if (navigator.canShare({ files: [file] })) {
-                          navigator
-                            .share({
-                              files: [file],
-                              title: "รายงานความคืบหน้า",
-                            })
-                            .catch((err) => {
-                              console.error("Share failed:", err);
-                              if (err.name !== "AbortError") {
-                                fallbackDownload();
-                              }
-                            });
-                        } else {
-                          fallbackDownload();
-                        }
-                      });
-                  } else {
-                    fallbackDownload();
-                  }
+                if (mode === "share" && navigator.share && navigator.canShare) {
+                  fetch(dataUrl)
+                    .then((res) => res.blob())
+                    .then((blob) => {
+                      const file = new File([blob], filename, { type: format });
+                      if (navigator.canShare({ files: [file] })) {
+                        navigator.share({ files: [file], title: "รายงานความคืบหน้า" })
+                          .catch((err) => {
+                            if (err.name !== "AbortError") fallbackDownload();
+                          });
+                      } else {
+                        fallbackDownload();
+                      }
+                    })
+                    .catch(() => fallbackDownload());
                 } else {
                   fallbackDownload();
                 }
@@ -8774,32 +8837,16 @@
                 console.error("Capture failed:", err);
                 showNotificationModal(
                   "เกิดข้อผิดพลาด",
-                  "ไม่สามารถสร้างไฟล์ภาพได้ (อาจเกิดจากข้อจำกัดของเบราว์เซอร์หรือรูปภาพข้ามโดเมน)",
+                  "ไม่สามารถสร้างไฟล์ภาพได้ กรุณาลองใหม่อีกครั้ง",
                 );
               })
               .finally(() => {
-                document.documentElement.classList.remove("is-line-capturing");
-                document.body.classList.remove("is-line-capturing");
-
-                // Restore inline widths
-                captureArea.style.width = originalCaptureAreaWidth;
-                document.body.style.width = originalBodyWidth;
-                document.documentElement.style.width = originalHtmlWidth;
-                mainAppContainer.style.width = originalMainAppWidth;
-                if (execDashboard) {
-                  execDashboard.style.width = originalExecWidth;
-                  execDashboard.style.maxWidth = originalExecMaxWidth;
-                }
-
-                captureBtn.innerHTML = originalBtnHTML;
-                captureBtn.disabled = false;
-                // Restore scroll position
-                window.scrollTo(scrollX, scrollY);
+                cleanup();
               });
-          }, 500);
+          }, 350);
         }
 
-        function exportAsPdfNew() {
+                function exportAsPdfNew() {
           const captureArea = document.getElementById("capture-area");
           const captureBtn = document.getElementById("exportPdfBtn");
           if (!captureBtn || !captureArea) return;

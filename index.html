@@ -12,7 +12,7 @@
     <meta property="og:description" content="VALLES HAUS - Construction Progress Dashboard" />
     <script src="https://cdn.tailwindcss.com"></script>
     <link
-      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Sarabun:wght@400;500;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&family=Sarabun:wght@400;500;600;700;800;900&display=swap"
       rel="stylesheet"
       crossorigin="anonymous"
     />
@@ -6792,13 +6792,19 @@ body.modal-open #schedule-quick-filter-floating {
     display: none !important;
 }
 
-/* 6. PERFECT EXECUTIVE CAPTURE SYSTEM (.is-line-capturing) */
+/* 6. PERFECT EXECUTIVE CAPTURE SYSTEM (.is-line-capturing)
+   Unified 4:3 Portrait Executive Layout for Desktop, Tablet, and Mobile */
 html.is-line-capturing,
 body.is-line-capturing {
     background-color: #ffffff !important;
     margin: 0 !important;
     padding: 0 !important;
     width: max-content !important;
+    min-width: 1200px !important;
+    overflow: visible !important;
+    -webkit-font-smoothing: antialiased !important;
+    -moz-osx-font-smoothing: grayscale !important;
+    text-rendering: optimizeLegibility !important;
 }
 
 .is-line-capturing #main-app-container {
@@ -6820,30 +6826,32 @@ body.is-line-capturing {
     max-height: none !important;
 }
 
-/* Frame the capture like an official document */
+/* Formal Document Frame (Standardized across Desktop, Tablet, and Mobile) */
 .is-line-capturing #capture-area {
     box-sizing: border-box !important;
     width: 100% !important;
+    min-width: 1200px !important;
     max-width: none !important;
     margin: 0 auto !important;
-    padding: 24px 28px !important;
+    padding: 24px 28px 32px 28px !important;
     background: #ffffff !important;
-    border: 2px solid #0f172a !important;
-    border-radius: 8px !important;
+    border: none !important;
+    border-radius: 0 !important;
     box-shadow: none !important;
-    display: block !important;
+    display: flex !important;
+    flex-direction: column !important;
     overflow: visible !important;
     transform: none !important;
     height: auto !important;
     max-height: none !important;
 }
 
-/* Clean Header in Capture Mode */
+/* 3-Column Formal Header (Locked to single-row executive layout across all viewports) */
 .is-line-capturing #main-header {
     background: #ffffff !important;
-    border-bottom: 2px solid #0f172a !important;
-    padding: 0.75rem 0 1rem 0 !important;
-    margin-bottom: 1rem !important;
+    border-bottom: 2.5px solid #1e3a8a !important;
+    padding: 0.5rem 0 1rem 0 !important;
+    margin-bottom: 1.25rem !important;
     display: grid !important;
     grid-template-columns: minmax(0, 1.2fr) minmax(0, 1.6fr) minmax(0, 1.2fr) !important;
     align-items: center !important;
@@ -6869,17 +6877,21 @@ body.is-line-capturing {
 }
 
 .is-line-capturing #main-header h1 {
-    font-size: 1.75rem !important;
+    font-family: Montserrat, Sarabun, sans-serif !important;
+    font-size: 1.85rem !important;
     font-weight: 900 !important;
     color: #1e3a8a !important;
-    line-height: 1 !important;
+    line-height: 1.1 !important;
+    letter-spacing: -0.02em !important;
     margin: 0 !important;
 }
 
 .is-line-capturing #main-header p {
-    font-size: 0.65rem !important;
-    color: #64748b !important;
-    letter-spacing: 0.25em !important;
+    font-family: Montserrat, Sarabun, sans-serif !important;
+    font-size: 0.7rem !important;
+    font-weight: 700 !important;
+    color: #475569 !important;
+    letter-spacing: 0.22em !important;
     margin-top: 4px !important;
     line-height: 1 !important;
 }
@@ -6902,8 +6914,9 @@ body.is-line-capturing {
 }
 
 .is-line-capturing #status-title {
-    font-size: 1.6rem !important;
-    font-weight: 900 !important;
+    font-family: Sarabun, sans-serif !important;
+    font-size: 1.65rem !important;
+    font-weight: 800 !important;
     color: #0f172a !important;
     letter-spacing: -0.01em !important;
     line-height: 1.25 !important;
@@ -6925,22 +6938,23 @@ body.is-line-capturing {
 
 .is-line-capturing #header-date-container > div {
     background: #f8fafc !important;
-    border: 1.5px solid #0f172a !important;
+    border: 1.5px solid #1e3a8a !important;
     border-radius: 9999px !important;
-    padding: 0.35rem 1rem !important;
+    padding: 0.35rem 1.15rem !important;
     display: inline-flex !important;
     align-items: center !important;
     justify-content: center !important;
 }
 
 .is-line-capturing #header-date-container span {
-    font-size: 0.82rem !important;
+    font-family: Sarabun, sans-serif !important;
+    font-size: 0.85rem !important;
     font-weight: 700 !important;
     color: #0f172a !important;
     white-space: nowrap !important;
 }
 
-/* Formal Grid in Capture Mode */
+/* Formal Grid & Table Alignment */
 .is-line-capturing #main-table {
     table-layout: auto !important;
     border-collapse: collapse !important;
@@ -6949,17 +6963,19 @@ body.is-line-capturing {
     width: 100% !important;
     min-width: 100% !important;
     max-width: 100% !important;
-    border: 2px solid #0f172a !important;
+    border: 2px solid #1e3a8a !important;
+    font-variant-numeric: tabular-nums !important;
 }
 
 .is-line-capturing #main-table th {
-    border: 1px solid #0f172a !important;
-    border-bottom: 2px solid #0f172a !important;
+    border: 1px solid #94a3b8 !important;
+    border-bottom: 2px solid #1e3a8a !important;
     background-color: #f1f5f9 !important;
     color: #0f172a !important;
-    font-weight: 900 !important;
-    font-size: 0.8rem !important;
-    line-height: 1.35 !important;
+    font-family: Sarabun, sans-serif !important;
+    font-weight: 800 !important;
+    font-size: 0.82rem !important;
+    line-height: 1.4 !important;
     padding: 0.6rem 0.35rem !important;
     text-align: center !important;
     vertical-align: middle !important;
@@ -6973,25 +6989,29 @@ body.is-line-capturing {
     flex-direction: column !important;
     align-items: center !important;
     justify-content: center !important;
-    min-height: 26px !important;
+    min-height: 28px !important;
 }
 
 .is-line-capturing #main-table th:last-child {
     background-color: #e0f2fe !important;
     color: #0369a1 !important;
-    border-left: 2px solid #0f172a !important;
+    border-left: 2px solid #1e3a8a !important;
 }
 
 .is-line-capturing #main-table td {
-    border: 1px solid #64748b !important;
+    border: 1px solid #cbd5e1 !important;
     padding: 0.45rem 0.35rem !important;
-    font-size: 0.8rem !important;
+    font-family: Sarabun, sans-serif !important;
+    font-size: 0.8125rem !important;
+    font-weight: 700 !important;
+    color: #0f172a !important;
     text-align: center !important;
     vertical-align: middle !important;
     position: static !important;
     box-shadow: none !important;
     overflow: visible !important;
     height: auto !important;
+    line-height: 1.35 !important;
 }
 
 .is-line-capturing #main-table td > div {
@@ -7003,6 +7023,14 @@ body.is-line-capturing {
     align-items: center !important;
     justify-content: center !important;
     gap: 2px !important;
+    line-height: 1.35 !important;
+}
+
+.is-line-capturing #main-table td.text-left > div,
+.is-line-capturing #main-table td[class*="text-left"] > div {
+    align-items: flex-start !important;
+    text-align: left !important;
+    padding-left: 0.35rem !important;
 }
 
 .is-line-capturing #main-table td div,
@@ -7022,7 +7050,22 @@ body.is-line-capturing {
     display: block !important;
 }
 
-/* Capture mode zebra striping only for empty cells */
+.is-line-capturing #main-table .floor-separator {
+    border-top: 2.5px solid #1e3a8a !important;
+}
+
+.is-line-capturing #main-table .separator-cell {
+    background-color: #cbd5e1 !important;
+    border: 1px solid #94a3b8 !important;
+    border-left: 1.5px solid #64748b !important;
+    border-right: 1.5px solid #64748b !important;
+    width: 8px !important;
+    min-width: 8px !important;
+    max-width: 8px !important;
+    padding: 0 !important;
+}
+
+/* Status Heatmap Contrast */
 .is-line-capturing #main-table td.cell-status-empty,
 .is-line-capturing #main-table td:not([class*="cell-status-"]):not([class*="bg-emerald"]):not([class*="bg-teal"]):not([class*="bg-rose"]):not([class*="bg-sky"]) {
     background-color: #ffffff !important;
@@ -7033,15 +7076,10 @@ body.is-line-capturing {
     background-color: #f8fafc !important;
 }
 
-/* ==========================================================================
-   EXECUTIVE HEATMAP & STATUS CONTRAST SYSTEM (CAPTURE MODE)
-   ========================================================================== */
-
-/* A. 100% Complete in Capture */
 .is-line-capturing #main-table td.cell-status-done,
 .is-line-capturing #main-table td[class*="bg-emerald"],
 .is-line-capturing #main-table td[class*="bg-teal"] {
-    background-color: #dcfce7 !important; /* Soft Mint Green */
+    background-color: #dcfce7 !important;
     color: #14532d !important;
     font-weight: 800 !important;
 }
@@ -7054,11 +7092,10 @@ body.is-line-capturing {
     stroke-width: 3.5 !important;
 }
 
-/* B. In Progress / WIP in Capture */
 .is-line-capturing #main-table td.cell-status-wip,
 .is-line-capturing #main-table td[class*="bg-sky"],
 .is-line-capturing #main-table td:has(.text-blue-600) {
-    background-color: #e0f2fe !important; /* Sky Blue */
+    background-color: #e0f2fe !important;
     color: #0369a1 !important;
     font-weight: 800 !important;
 }
@@ -7070,15 +7107,13 @@ body.is-line-capturing {
     font-weight: 900 !important;
 }
 
-/* C. Delayed / Defect in Capture */
 .is-line-capturing #main-table td.cell-status-delay,
 .is-line-capturing #main-table td[class*="bg-rose"] {
-    background-color: #ffe4e6 !important; /* Soft Rose */
+    background-color: #ffe4e6 !important;
     color: #9f1239 !important;
     font-weight: 800 !important;
 }
 
-/* D. Unstarted / Empty in Capture */
 .is-line-capturing #main-table td.cell-status-empty,
 .is-line-capturing #main-table td:has(span:only-child) {
     color: #94a3b8 !important;
@@ -7093,9 +7128,9 @@ body.is-line-capturing {
     position: static !important;
     background-color: #f1f5f9 !important;
     color: #0f172a !important;
-    font-weight: 900 !important;
+    font-weight: 800 !important;
     font-size: 0.84rem !important;
-    border-right: 2px solid #0f172a !important;
+    border-right: 2px solid #1e3a8a !important;
     box-shadow: none !important;
 }
 
@@ -7103,10 +7138,57 @@ body.is-line-capturing {
     background-color: #f0fdf4 !important;
     color: #15803d !important;
     font-weight: 800 !important;
-    border-left: 2px solid #0f172a !important;
+    border-left: 2px solid #1e3a8a !important;
 }
 
-/* COMPLETE REMOVAL OF UNWANTED UI AND WORKFLOW STEPS LEGEND FROM CAPTURED IMAGE */
+/* Executive Dashboard & Signatures locked to Desktop Grid */
+.is-line-capturing #executive-summary-dashboard {
+    box-sizing: border-box !important;
+    width: 100% !important;
+    min-width: 100% !important;
+    max-width: 100% !important;
+    margin: 1.25rem 0 0 0 !important;
+    display: block !important;
+}
+
+.is-line-capturing .executive-summary-compact {
+    width: 100% !important;
+    min-width: 100% !important;
+    max-width: 100% !important;
+    box-shadow: none !important;
+    box-sizing: border-box !important;
+    border: 1.5px solid #475569 !important;
+    border-top: 4px solid #1d4ed8 !important;
+    margin: 0 !important;
+}
+
+.is-line-capturing #executive-summary-dashboard .exec-metrics-strip {
+    grid-template-columns: 1.25fr 1fr 1fr 1fr 1.15fr !important;
+    width: 100% !important;
+    display: grid !important;
+}
+
+.is-line-capturing #executive-summary-dashboard .exec-detail-grid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr) !important;
+    display: grid !important;
+}
+
+.is-line-capturing #executive-summary-dashboard .exec-signature-row {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    display: grid !important;
+}
+
+.is-line-capturing #executive-summary-dashboard .exec-signature-box {
+    border-bottom: 0 !important;
+    border-right: 1px solid #94a3b8 !important;
+}
+
+.is-line-capturing #executive-summary-dashboard .exec-signature-box:last-child {
+    border-bottom: 0 !important;
+    border-right: 0 !important;
+}
+
+/* Clean Document: Hide interactive controls in Capture Mode */
 .is-line-capturing #legend,
 .is-line-capturing #legend *,
 .is-line-capturing #unified-controls,
@@ -7115,6 +7197,8 @@ body.is-line-capturing {
 .is-line-capturing #primary-action-buttons-container,
 .is-line-capturing #secondary-action-buttons-container,
 .is-line-capturing #schedule-quick-filter-floating,
+.is-line-capturing #mobile-room-strip,
+.is-line-capturing #mobileRoomQuickModal,
 .is-line-capturing #toast,
 .is-line-capturing .modal,
 .is-line-capturing #quick-update-mode-container {
@@ -7130,7 +7214,6 @@ body.is-line-capturing {
     border: none !important;
     overflow: hidden !important;
 }
-
 
 /* ==========================================================================
    SOFT INK FLAT POP RANGE SLIDER SYSTEM
