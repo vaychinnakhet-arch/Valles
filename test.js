@@ -2755,10 +2755,10 @@
                     completedDateDisplay = `<span class="text-sm font-bold text-emerald-700 mt-0.5">${formatShortThaiDate(planData.currentPlanDate)}</span>`;
                   }
                   rowHTML += `
-                                    <td class="border border-slate-400 p-1 text-center bg-emerald-50 text-emerald-600 cursor-pointer hover:bg-emerald-100 transition-colors table-cell relative" data-floor="${floor}" data-room="${room}" data-taskkey="${taskDef.key}">
+                                    <td class="border border-slate-400 p-1 text-center bg-emerald-50 text-emerald-600 cell-status-done cursor-pointer hover:bg-emerald-100 transition-colors table-cell relative" data-floor="${floor}" data-room="${room}" data-taskkey="${taskDef.key}">
                                         ${noteIcon}
                                         <div class="flex flex-col items-center justify-center gap-0.5 pointer-events-none w-full overflow-hidden">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check"><path d="M20 6 9 17l-5-5"/></svg>
+                                            <span class="cell-check-mark font-black text-emerald-700 text-xl leading-none inline-flex items-center justify-center select-none" style="font-size: 22px; font-weight: 900; line-height: 1; color: #15803d; -webkit-user-select: none;">✓</span>
                                             ${completedDateDisplay}
                                             ${noteDisplay}
                                         </div>
@@ -8787,6 +8787,26 @@
                   windowHeight: finalHeight,
                   scrollX: 0,
                   scrollY: 0,
+                  onclone: (clonedDoc) => {
+                    clonedDoc.querySelectorAll('#main-table td.cell-status-done, #main-table td[class*="bg-emerald"], #main-table td[class*="bg-teal"]').forEach((td) => {
+                      const svg = td.querySelector('svg.lucide-check, svg');
+                      const existingCheck = td.querySelector('.cell-check-mark');
+                      if (!existingCheck) {
+                        const span = clonedDoc.createElement('span');
+                        span.className = 'cell-check-mark';
+                        span.textContent = '✓';
+                        span.style.cssText = 'display: inline-flex !important; align-items: center !important; justify-content: center !important; font-size: 22px !important; font-weight: 900 !important; line-height: 1 !important; color: #15803d !important; margin: 0 auto !important; -webkit-user-select: none;';
+                        if (svg && svg.parentNode) {
+                          svg.style.display = 'none';
+                          svg.parentNode.insertBefore(span, svg);
+                        } else {
+                          td.appendChild(span);
+                        }
+                      } else {
+                        existingCheck.style.cssText = 'display: inline-flex !important; align-items: center !important; justify-content: center !important; font-size: 22px !important; font-weight: 900 !important; line-height: 1 !important; color: #15803d !important; margin: 0 auto !important; -webkit-user-select: none;';
+                      }
+                    });
+                  },
                 }).then((rawCanvas) => toPortrait4x3Canvas(rawCanvas))
               : htmlToImage.toPng(captureArea, {
                   quality: isUltraHD ? 1.0 : 0.95,

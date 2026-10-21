@@ -5941,6 +5941,22 @@ div[data-report-rule] {
     filter: drop-shadow(0 1px 1px rgba(22, 163, 74, 0.3)) !important;
 }
 
+#main-table td.cell-status-done .cell-check-mark,
+#main-table td[class*="bg-emerald"] .cell-check-mark,
+#main-table td[class*="bg-teal"] .cell-check-mark,
+#main-table td .cell-check-mark {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-size: 20px !important;
+    font-weight: 900 !important;
+    line-height: 1 !important;
+    color: #15803d !important;
+    margin: 0 auto !important;
+    user-select: none !important;
+    -webkit-user-select: none !important;
+}
+
 #main-table td.cell-status-done:hover,
 #main-table td[class*="bg-emerald"]:hover {
     background-color: #bbf7d0 !important;
@@ -7250,6 +7266,22 @@ body.is-line-capturing {
     stroke: #15803d !important;
     stroke-width: 3.5px !important;
     margin: 0 auto !important;
+}
+
+.is-line-capturing #main-table td.cell-status-done .cell-check-mark,
+.is-line-capturing #main-table td[class*="bg-emerald"] .cell-check-mark,
+.is-line-capturing #main-table td[class*="bg-teal"] .cell-check-mark,
+.is-line-capturing #main-table td .cell-check-mark {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-size: 22px !important;
+    font-weight: 900 !important;
+    line-height: 1 !important;
+    color: #15803d !important;
+    margin: 0 auto !important;
+    user-select: none !important;
+    -webkit-user-select: none !important;
 }
 
 .is-line-capturing #main-table td.cell-status-wip,
