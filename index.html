@@ -6108,8 +6108,9 @@ div[data-report-rule] {
     color: #0f172a !important;
 }
 
+/* Keep task cell status colors intact */
 #main-table tbody tr.is-active-row td:not(:first-child):not(.room-col-cell):not(.sticky) {
-    background-color: #eff6ff !important;
+    /* No background color override */
 }
 
 #main-table tbody tr.is-active-row td:first-child,
@@ -6780,9 +6781,10 @@ body.modal-open #schedule-quick-filter-floating {
     }
 
     /* 2.4 Active Room Row Glow */
-    #main-table tbody tr.is-active-row td:not(:first-child):not(.room-col-cell):not(.sticky) {
-        background-color: #eff6ff !important;
-    }
+    /* Keep task cell status colors intact */
+#main-table tbody tr.is-active-row td:not(:first-child):not(.room-col-cell):not(.sticky) {
+    /* No background color override */
+}
     #main-table tbody tr.is-active-row td:first-child,
     #main-table tbody tr.is-active-row td.sticky,
     #main-table tbody tr.is-active-row td.room-col-cell,
@@ -7607,6 +7609,29 @@ input[type="range"]:active::-moz-range-thumb,
     transform: scale(0.95) !important;
 }
 
+
+/* In capture mode, suppress any active row highlight completely */
+html.is-line-capturing #main-table tr.is-active-row td,
+body.is-line-capturing #main-table tr.is-active-row td,
+.is-line-capturing #main-table tr.is-active-row td {
+    box-shadow: none !important;
+}
+html.is-line-capturing #main-table tr.is-active-row td:first-child,
+html.is-line-capturing #main-table tr.is-active-row td.room-col-cell,
+body.is-line-capturing #main-table tr.is-active-row td:first-child,
+body.is-line-capturing #main-table tr.is-active-row td.room-col-cell {
+    background-color: #ffffff !important;
+    color: #0f172a !important;
+    border: 1px solid #000000 !important;
+    border-right: 1px solid #000000 !important;
+    box-shadow: none !important;
+}
+html.is-line-capturing #main-table tr.is-active-row td:first-child .room-number-badge,
+html.is-line-capturing #main-table tr.is-active-row td.room-col-cell .room-number-badge,
+body.is-line-capturing #main-table tr.is-active-row td:first-child .room-number-badge,
+body.is-line-capturing #main-table tr.is-active-row td.room-col-cell .room-number-badge {
+    color: #0f172a !important;
+}
 </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html-to-image/1.11.11/html-to-image.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -7615,7 +7640,7 @@ input[type="range"]:active::-moz-range-thumb,
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     
     
-    <script defer src="./assets/index.js?v=20261021_v5_active_room_fix"></script>
+    <script defer src="./assets/index.js?v=20261021_v6_score_and_capture_fix"></script>
   </head>
   <body class="p-0 md:p-4 bg-slate-50 relative">
     <!-- Splash Screen -->
@@ -9367,6 +9392,52 @@ input[type="range"]:active::-moz-range-thumb,
                 <span class="text-[11px] text-slate-500 font-medium block">ทำเครื่องหมายเมื่อดำเนินงานเสร็จสิ้นครบถ้วน</span>
               </div>
             </label>
+          </div>
+
+          
+          <!-- 2.5 INSPECTION SCORE CONTAINER (For wetWork / endProduct) -->
+          <div
+            id="summaryPlanScoreContainer"
+            class="bg-indigo-50/50 p-4 sm:p-5 rounded-2xl border-2 border-[#1e293b] shadow-[0_4px_0_#1e293b] hidden space-y-3"
+          >
+            <div class="flex justify-between items-center gap-2 flex-wrap">
+              <div class="flex items-center gap-2">
+                <label for="summaryPlanScoreInput" class="text-xs sm:text-sm font-black text-slate-800 tracking-tight">
+                  คะแนนประเมิน (1 - 100)
+                </label>
+                <span id="summaryPlanScoreBadge" class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-black bg-white text-indigo-700 border-2 border-[#0f172a] shadow-[0_2px_0_#0f172a] hidden">
+                  <span id="summaryPlanScoreBadgeVal">--</span> คะแนน
+                </span>
+              </div>
+              <div class="text-[11px] font-bold text-slate-500">เกณฑ์ผ่าน: 85 คะแนนขึ้นไป</div>
+            </div>
+            <div class="flex gap-2">
+              <input
+                type="number"
+                id="summaryPlanScoreInput"
+                min="1"
+                max="100"
+                placeholder="กรอกคะแนน 1-100 (หากยังไม่ตรวจ ให้เว้นว่างไว้ใส่วันที่)"
+                class="flex-1 h-11 px-3 text-sm font-bold text-slate-800 bg-white border-2 border-slate-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all"
+              />
+              <button
+                type="button"
+                id="clearSummaryPlanScoreBtn"
+                class="h-11 px-3.5 bg-rose-50 text-rose-600 border-2 border-rose-200 rounded-xl text-xs font-bold hover:bg-rose-100 transition-colors whitespace-nowrap cursor-pointer shadow-xs active:scale-95 flex items-center gap-1.5"
+              >
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                <span>ล้างคะแนน</span>
+              </button>
+            </div>
+            <div class="space-y-1">
+              <div class="text-[11px] font-bold text-slate-400">ปุ่มลัดคะแนน:</div>
+              <div class="grid grid-cols-4 gap-1.5 sm:gap-2">
+                <button type="button" class="score-preset-btn py-2 rounded-xl text-xs font-black bg-white border-2 border-slate-300 text-slate-700 shadow-[0_2px_0_#94a3b8] active:translate-y-[2px] active:shadow-none cursor-pointer" data-score="85">85 (ผ่าน)</button>
+                <button type="button" class="score-preset-btn py-2 rounded-xl text-xs font-black bg-white border-2 border-slate-300 text-slate-700 shadow-[0_2px_0_#94a3b8] active:translate-y-[2px] active:shadow-none cursor-pointer" data-score="90">90</button>
+                <button type="button" class="score-preset-btn py-2 rounded-xl text-xs font-black bg-white border-2 border-slate-300 text-slate-700 shadow-[0_2px_0_#94a3b8] active:translate-y-[2px] active:shadow-none cursor-pointer" data-score="95">95</button>
+                <button type="button" class="score-preset-btn py-2 rounded-xl text-xs font-black bg-emerald-500 border-2 border-emerald-800 text-white shadow-[0_2px_0_#064e3b] active:translate-y-[2px] active:shadow-none cursor-pointer" data-score="100">100</button>
+              </div>
+            </div>
           </div>
 
           <!-- 3. DATE AND NOTES (Neat secondary sections) -->
@@ -11729,6 +11800,47 @@ document.addEventListener('DOMContentLoaded', function() {
           if (typeof window.showToast === 'function') {
             window.showToast('คืนค่าเดิมความคืบหน้าเรียบร้อย ↺');
           }
+        };
+      }
+      // Inspection Score Container Setup (for wetWork and endProduct)
+      const isInspection = (taskKey === 'wetWork' || taskKey === 'endProduct' || (window.taskDefinitions && window.taskDefinitions[taskKey] && window.taskDefinitions[taskKey].type === 'inspection'));
+      const scoreContainer = document.getElementById('summaryPlanScoreContainer');
+      const scoreInput = document.getElementById('summaryPlanScoreInput');
+      const clearScoreBtn = document.getElementById('clearSummaryPlanScoreBtn');
+      const progressContainer = document.getElementById('summaryPlanProgressContainer');
+      const subtasksContainer = document.getElementById('summaryPlanSubTasksContainer');
+
+      if (isInspection) {
+        if (scoreContainer) scoreContainer.classList.remove('hidden');
+        if (progressContainer) progressContainer.classList.add('hidden');
+        if (subtasksContainer) subtasksContainer.classList.add('hidden');
+        
+        const pData = (typeof window.getProjectData === 'function' ? window.getProjectData() : window.projectData) || {};
+        const roomObj = (pData[taskKey] && pData[taskKey][floorStr] && pData[taskKey][floorStr][currentRoom.dataKey]) || {};
+        const exScore = roomObj.qcScore || roomObj.cmScore || '';
+        if (scoreInput) {
+          scoreInput.value = (exScore > 0) ? exScore : '';
+        }
+      } else {
+        if (scoreContainer) scoreContainer.classList.add('hidden');
+      }
+
+      if (scoreContainer) {
+        scoreContainer.querySelectorAll('.score-preset-btn').forEach(btn => {
+          btn.onclick = (e) => {
+            e.preventDefault();
+            if (scoreInput) {
+              scoreInput.value = btn.dataset.score;
+              scoreInput.dispatchEvent(new Event('input'));
+            }
+          };
+        });
+      }
+      if (clearScoreBtn && scoreInput) {
+        clearScoreBtn.onclick = (e) => {
+          e.preventDefault();
+          scoreInput.value = '';
+          scoreInput.dispatchEvent(new Event('input'));
         };
       }
     } catch (e) {

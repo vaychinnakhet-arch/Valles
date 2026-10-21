@@ -5776,8 +5776,9 @@ body.modal-open #schedule-quick-filter-floating {
         color: #0f172a !important;
     }
 
+    /* Keep task cell status colors intact */
     #main-table tbody tr.is-active-row td:not(:first-child):not(.room-col-cell):not(.sticky) {
-        background-color: #eff6ff !important;
+        /* No background color override - preserves cell status colors */
     }
     #main-table tbody tr.is-active-row td:first-child,
     #main-table tbody tr.is-active-row td.sticky,
@@ -6345,4 +6346,27 @@ input[type="range"]:active::-moz-range-thumb,
 }
 .slider-notch-step:active {
     transform: scale(0.95) !important;
+}
+
+/* In capture mode, suppress any active row highlight completely */
+html.is-line-capturing #main-table tr.is-active-row td,
+body.is-line-capturing #main-table tr.is-active-row td,
+.is-line-capturing #main-table tr.is-active-row td {
+    box-shadow: none !important;
+}
+html.is-line-capturing #main-table tr.is-active-row td:first-child,
+html.is-line-capturing #main-table tr.is-active-row td.room-col-cell,
+body.is-line-capturing #main-table tr.is-active-row td:first-child,
+body.is-line-capturing #main-table tr.is-active-row td.room-col-cell {
+    background-color: #ffffff !important;
+    color: #0f172a !important;
+    border: 1px solid #000000 !important;
+    border-right: 1px solid #000000 !important;
+    box-shadow: none !important;
+}
+html.is-line-capturing #main-table tr.is-active-row td:first-child .room-number-badge,
+html.is-line-capturing #main-table tr.is-active-row td.room-col-cell .room-number-badge,
+body.is-line-capturing #main-table tr.is-active-row td:first-child .room-number-badge,
+body.is-line-capturing #main-table tr.is-active-row td.room-col-cell .room-number-badge {
+    color: #0f172a !important;
 }
