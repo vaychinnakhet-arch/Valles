@@ -5912,13 +5912,13 @@ div[data-report-rule] {
 }
 
 /* Zebra striping ONLY for empty/unstarted cells */
-#main-table tbody tr:nth-child(even) td.cell-status-empty,
-#main-table tbody tr:nth-child(even) td:not([class*="cell-status-"]):not([class*="bg-emerald"]):not([class*="bg-teal"]):not([class*="bg-rose"]):not([class*="bg-sky"]) {
+#main-table tbody tr:not(.is-active-row):nth-child(even) td.cell-status-empty,
+#main-table tbody tr:not(.is-active-row):nth-child(even) td:not(:first-child):not(.room-col-cell):not(.sticky):not([class*="cell-status-"]):not([class*="bg-emerald"]):not([class*="bg-teal"]):not([class*="bg-rose"]):not([class*="bg-sky"]) {
     background-color: #f8fafc !important;
 }
 
-#main-table tbody tr:nth-child(odd) td.cell-status-empty,
-#main-table tbody tr:nth-child(odd) td:not([class*="cell-status-"]):not([class*="bg-emerald"]):not([class*="bg-teal"]):not([class*="bg-rose"]):not([class*="bg-sky"]) {
+#main-table tbody tr:not(.is-active-row):nth-child(odd) td.cell-status-empty,
+#main-table tbody tr:not(.is-active-row):nth-child(odd) td:not(:first-child):not(.room-col-cell):not(.sticky):not([class*="cell-status-"]):not([class*="bg-emerald"]):not([class*="bg-teal"]):not([class*="bg-rose"]):not([class*="bg-sky"]) {
     background-color: #ffffff !important;
 }
 
@@ -6108,23 +6108,39 @@ div[data-report-rule] {
     color: #0f172a !important;
 }
 
+#main-table tbody tr.is-active-row td:not(:first-child):not(.room-col-cell):not(.sticky) {
+    background-color: #eff6ff !important;
+}
+
 #main-table tbody tr.is-active-row td:first-child,
 #main-table tbody tr.is-active-row td.sticky,
-#main-table tbody tr.is-active-row td.room-col-cell {
-    background-color: #312e81 !important;
-    color: #ffffff !important;
-    box-shadow: 4px 0 14px rgba(49, 46, 129, 0.45) !important;
+#main-table tbody tr.is-active-row td.room-col-cell,
+#main-table tr.is-active-row td:first-child,
+#main-table tr.is-active-row td.sticky,
+#main-table tr.is-active-row td.room-col-cell {
+    background-color: #e0e7ff !important;
+    color: #1e1b4b !important;
+    border-right: 3px solid #4338ca !important;
+    box-shadow: 4px 0 14px rgba(67, 56, 202, 0.25) !important;
 }
 
 #main-table tbody tr.is-active-row td:first-child .room-number-badge,
 #main-table tbody tr.is-active-row td.sticky .room-number-badge,
-#main-table tbody tr.is-active-row td.room-col-cell .room-number-badge {
-    color: #ffffff !important;
+#main-table tbody tr.is-active-row td.room-col-cell .room-number-badge,
+#main-table tbody tr.is-active-row td:first-child > span,
+#main-table tbody tr.is-active-row td.room-col-cell > span,
+#main-table tr.is-active-row td:first-child .room-number-badge,
+#main-table tr.is-active-row td.sticky .room-number-badge,
+#main-table tr.is-active-row td.room-col-cell .room-number-badge,
+#main-table tr.is-active-row td:first-child > span,
+#main-table tr.is-active-row td.room-col-cell > span {
+    color: #1e1b4b !important;
+    font-weight: 900 !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    display: inline-block !important;
 }
 
-#main-table tbody tr.is-active-row td {
-    background-color: #eff6ff !important;
-}
 
 #main-table tbody td:first-child:active,
 #main-table tbody td.room-col-cell:active {
@@ -6764,20 +6780,35 @@ body.modal-open #schedule-quick-filter-floating {
     }
 
     /* 2.4 Active Room Row Glow */
-    #main-table tbody tr.is-active-row td {
+    #main-table tbody tr.is-active-row td:not(:first-child):not(.room-col-cell):not(.sticky) {
         background-color: #eff6ff !important;
     }
     #main-table tbody tr.is-active-row td:first-child,
     #main-table tbody tr.is-active-row td.sticky,
-    #main-table tbody tr.is-active-row td.room-col-cell {
-        background-color: #312e81 !important;
-        color: #ffffff !important;
-        box-shadow: 4px 0 14px rgba(49, 46, 129, 0.45) !important;
+    #main-table tbody tr.is-active-row td.room-col-cell,
+    #main-table tr.is-active-row td:first-child,
+    #main-table tr.is-active-row td.sticky,
+    #main-table tr.is-active-row td.room-col-cell {
+        background-color: #e0e7ff !important;
+        color: #1e1b4b !important;
+        border-right: 3px solid #4338ca !important;
+        box-shadow: 4px 0 14px rgba(67, 56, 202, 0.25) !important;
     }
     #main-table tbody tr.is-active-row td:first-child .room-number-badge,
     #main-table tbody tr.is-active-row td.sticky .room-number-badge,
-    #main-table tbody tr.is-active-row td.room-col-cell .room-number-badge {
-        color: #ffffff !important;
+    #main-table tbody tr.is-active-row td.room-col-cell .room-number-badge,
+    #main-table tbody tr.is-active-row td:first-child > span,
+    #main-table tbody tr.is-active-row td.room-col-cell > span,
+    #main-table tr.is-active-row td:first-child .room-number-badge,
+    #main-table tr.is-active-row td.sticky .room-number-badge,
+    #main-table tr.is-active-row td.room-col-cell .room-number-badge,
+    #main-table tr.is-active-row td:first-child > span,
+    #main-table tr.is-active-row td.room-col-cell > span {
+        color: #1e1b4b !important;
+        font-weight: 900 !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        display: inline-block !important;
     }
 
     /* Touch target comfort on mobile: 44px min height for easier thumb taps */
@@ -7584,7 +7615,7 @@ input[type="range"]:active::-moz-range-thumb,
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     
     
-    <script defer src="./assets/index.js?v=20261021_v4_table_restored"></script>
+    <script defer src="./assets/index.js?v=20261021_v5_active_room_fix"></script>
   </head>
   <body class="p-0 md:p-4 bg-slate-50 relative">
     <!-- Splash Screen -->

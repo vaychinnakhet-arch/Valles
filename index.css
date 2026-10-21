@@ -5776,20 +5776,35 @@ body.modal-open #schedule-quick-filter-floating {
         color: #0f172a !important;
     }
 
-    #main-table tbody tr.is-active-row td {
+    #main-table tbody tr.is-active-row td:not(:first-child):not(.room-col-cell):not(.sticky) {
         background-color: #eff6ff !important;
     }
     #main-table tbody tr.is-active-row td:first-child,
     #main-table tbody tr.is-active-row td.sticky,
-    #main-table tbody tr.is-active-row td.room-col-cell {
-        background-color: #312e81 !important;
-        color: #ffffff !important;
-        box-shadow: 4px 0 14px rgba(49, 46, 129, 0.45) !important;
+    #main-table tbody tr.is-active-row td.room-col-cell,
+    #main-table tr.is-active-row td:first-child,
+    #main-table tr.is-active-row td.sticky,
+    #main-table tr.is-active-row td.room-col-cell {
+        background-color: #e0e7ff !important;
+        color: #1e1b4b !important;
+        border-right: 3px solid #4338ca !important;
+        box-shadow: 4px 0 14px rgba(67, 56, 202, 0.25) !important;
     }
     #main-table tbody tr.is-active-row td:first-child .room-number-badge,
     #main-table tbody tr.is-active-row td.sticky .room-number-badge,
-    #main-table tbody tr.is-active-row td.room-col-cell .room-number-badge {
-        color: #ffffff !important;
+    #main-table tbody tr.is-active-row td.room-col-cell .room-number-badge,
+    #main-table tbody tr.is-active-row td:first-child > span,
+    #main-table tbody tr.is-active-row td.room-col-cell > span,
+    #main-table tr.is-active-row td:first-child .room-number-badge,
+    #main-table tr.is-active-row td.sticky .room-number-badge,
+    #main-table tr.is-active-row td.room-col-cell .room-number-badge,
+    #main-table tr.is-active-row td:first-child > span,
+    #main-table tr.is-active-row td.room-col-cell > span {
+        color: #1e1b4b !important;
+        font-weight: 900 !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        display: inline-block !important;
     }
 
     #main-table thead th {
