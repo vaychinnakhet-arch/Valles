@@ -5724,7 +5724,8 @@ body.modal-open #schedule-quick-filter-floating {
     #main-table th:first-child,
     #main-table td:first-child,
     #main-table th.sticky,
-    #main-table td.sticky {
+    #main-table td.sticky,
+    #main-table .room-col-cell {
         position: -webkit-sticky !important;
         position: sticky !important;
         left: 0 !important;
@@ -5738,14 +5739,57 @@ body.modal-open #schedule-quick-filter-floating {
         font-weight: 900 !important;
         font-size: 0.85rem !important;
         color: #0f172a !important;
+        user-select: none !important;
+        -webkit-user-select: none !important;
+        -webkit-touch-callout: none !important;
+        transform: none !important;
+        -webkit-transform: none !important;
+        filter: none !important;
+        backface-visibility: visible !important;
+        -webkit-backface-visibility: visible !important;
     }
 
-    #main-table tbody tr:nth-child(even) td:first-child {
+    #main-table tbody tr:not(.is-active-row):nth-child(even) td:first-child,
+    #main-table tbody tr:not(.is-active-row):nth-child(even) td.sticky,
+    #main-table tbody tr:not(.is-active-row):nth-child(even) td.room-col-cell {
         background-color: #f1f5f9 !important;
+        color: #0f172a !important;
     }
 
-    #main-table tbody tr:nth-child(odd) td:first-child {
+    #main-table tbody tr:not(.is-active-row):nth-child(odd) td:first-child,
+    #main-table tbody tr:not(.is-active-row):nth-child(odd) td.sticky,
+    #main-table tbody tr:not(.is-active-row):nth-child(odd) td.room-col-cell {
         background-color: #ffffff !important;
+        color: #0f172a !important;
+    }
+
+    #main-table tbody tr:hover td:first-child:not(.is-active-row),
+    #main-table tbody tr:hover td.sticky:not(.is-active-row),
+    #main-table tbody tr:hover td.room-col-cell:not(.is-active-row) {
+        background-color: #e2e8f0 !important;
+        color: #0f172a !important;
+    }
+
+    #main-table tbody tr:hover td:first-child:not(.is-active-row) .room-number-badge,
+    #main-table tbody tr:hover td.sticky:not(.is-active-row) .room-number-badge,
+    #main-table tbody tr:hover td.room-col-cell:not(.is-active-row) .room-number-badge {
+        color: #0f172a !important;
+    }
+
+    #main-table tbody tr.is-active-row td {
+        background-color: #eff6ff !important;
+    }
+    #main-table tbody tr.is-active-row td:first-child,
+    #main-table tbody tr.is-active-row td.sticky,
+    #main-table tbody tr.is-active-row td.room-col-cell {
+        background-color: #312e81 !important;
+        color: #ffffff !important;
+        box-shadow: 4px 0 14px rgba(49, 46, 129, 0.45) !important;
+    }
+    #main-table tbody tr.is-active-row td:first-child .room-number-badge,
+    #main-table tbody tr.is-active-row td.sticky .room-number-badge,
+    #main-table tbody tr.is-active-row td.room-col-cell .room-number-badge {
+        color: #ffffff !important;
     }
 
     #main-table thead th {
@@ -5777,9 +5821,24 @@ body.modal-open #schedule-quick-filter-floating {
         touch-action: manipulation !important;
     }
 
-    #main-table td:active {
+    #main-table td:not(:first-child):not(.room-col-cell):not(.sticky):active {
         filter: brightness(0.92);
         transform: scale(0.98);
+    }
+
+    #main-table td:first-child:active,
+    #main-table td.sticky:active,
+    #main-table td.room-col-cell:active {
+        background-color: #cbd5e1 !important;
+        color: #0f172a !important;
+        transform: none !important;
+        filter: none !important;
+    }
+
+    #main-table td:first-child:active .room-number-badge,
+    #main-table td.sticky:active .room-number-badge,
+    #main-table td.room-col-cell:active .room-number-badge {
+        color: #0f172a !important;
     }
 
     /* 3. Unified Controls Floating Dock */

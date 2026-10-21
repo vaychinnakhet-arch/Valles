@@ -2571,7 +2571,7 @@
               row.className = "hover:bg-slate-50 transition-colors";
 
               let rowHTML = `
-                            <td class="border border-slate-400 p-2 font-bold text-center sticky left-0 z-20 bg-white">${floor * 100 + room}</td>
+                            <td class="border border-slate-400 p-2 font-bold text-center sticky left-0 z-20 bg-white select-none room-col-cell" style="user-select: none; -webkit-user-select: none;" data-room="${floor * 100 + room}"><span class="room-number-badge font-extrabold text-slate-900 select-none pointer-events-none inline-block">${floor * 100 + room}</span></td>
                         `;
 
               activeTasks.forEach((taskDef) => {

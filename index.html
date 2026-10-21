@@ -5982,12 +5982,12 @@ div[data-report-rule] {
 
 /* D. Unstarted / Empty (-) */
 #main-table td.cell-status-empty,
-#main-table td:has(span:only-child) {
+#main-table td:not(:first-child):not(.room-col-cell):has(span:only-child) {
     color: #94a3b8 !important;
     font-weight: 500 !important;
 }
 
-#main-table tbody tr:hover td {
+#main-table tbody tr:hover td:not(:first-child):not(.room-col-cell):not(.sticky) {
     filter: brightness(0.97);
 }
 
@@ -6003,8 +6003,6 @@ div[data-report-rule] {
     box-shadow: 0 2px 4px -1px rgba(15, 23, 42, 0.12) !important;
     -webkit-backface-visibility: hidden !important;
     backface-visibility: hidden !important;
-    transform: translateZ(0) !important;
-    -webkit-transform: translateZ(0) !important;
 }
 
 #main-table thead th:first-child,
@@ -6019,8 +6017,6 @@ div[data-report-rule] {
     border-right: 1px solid #475569 !important;
     border-bottom: 1px solid #475569 !important;
     box-shadow: 4px 4px 10px -2px rgba(15, 23, 42, 0.16) !important;
-    transform: translateZ(0) !important;
-    -webkit-transform: translateZ(0) !important;
 }
 
 #main-table tbody td:first-child,
@@ -6036,54 +6032,91 @@ div[data-report-rule] {
     background-color: #ffffff !important;
     border-right: 1px solid #475569 !important;
     box-shadow: 4px 0 10px -2px rgba(15, 23, 42, 0.14) !important;
-    isolation: isolate !important;
     user-select: none !important;
     -webkit-user-select: none !important;
     -webkit-touch-callout: none !important;
-    transform: translateZ(0) !important;
-    -webkit-transform: translateZ(0) !important;
+    transform: none !important;
+    -webkit-transform: none !important;
+    filter: none !important;
 }
 
 .room-number-badge,
-#main-table tbody td:first-child > span {
+#main-table tbody td:first-child > span,
+#main-table tbody td.room-col-cell > span {
     display: inline-block !important;
-    position: relative !important;
-    z-index: 2 !important;
+    position: static !important;
+    color: #0f172a !important;
+    font-weight: 900 !important;
     user-select: none !important;
     -webkit-user-select: none !important;
     -webkit-touch-callout: none !important;
     pointer-events: none !important;
-    transform: translateZ(0) !important;
-    -webkit-transform: translateZ(0) !important;
-    backface-visibility: hidden !important;
-    -webkit-backface-visibility: hidden !important;
-    will-change: transform !important;
+    transform: none !important;
+    -webkit-transform: none !important;
+    backface-visibility: visible !important;
+    -webkit-backface-visibility: visible !important;
+    will-change: auto !important;
     font-variant-numeric: tabular-nums !important;
 }
 
-#main-table tbody tr:nth-child(even) td:first-child,
-#main-table tbody tr:nth-child(even) td.sticky {
+#main-table tbody tr:not(.is-active-row):nth-child(even) td:first-child,
+#main-table tbody tr:not(.is-active-row):nth-child(even) td.sticky,
+#main-table tbody tr:not(.is-active-row):nth-child(even) td.room-col-cell {
     background-color: #f1f5f9 !important;
+    color: #0f172a !important;
+}
+
+#main-table tbody tr:not(.is-active-row):nth-child(odd) td:first-child,
+#main-table tbody tr:not(.is-active-row):nth-child(odd) td.sticky,
+#main-table tbody tr:not(.is-active-row):nth-child(odd) td.room-col-cell {
+    background-color: #ffffff !important;
+    color: #0f172a !important;
 }
 
 #main-table tbody tr:hover td:first-child:not(.is-active-row),
-#main-table tbody tr:hover td.sticky:not(.is-active-row) {
+#main-table tbody tr:hover td.sticky:not(.is-active-row),
+#main-table tbody tr:hover td.room-col-cell:not(.is-active-row),
+#main-table tbody td.room-col-cell:hover:not(.is-active-row) {
     background-color: #e2e8f0 !important;
     color: #0f172a !important;
 }
 
-#main-table tbody tr.is-active-row td:first-child,
-#main-table tbody tr.is-active-row td.sticky {
-    background-color: #4f46e5 !important;
-    color: #ffffff !important;
+#main-table tbody tr:hover td:first-child:not(.is-active-row) .room-number-badge,
+#main-table tbody tr:hover td.sticky:not(.is-active-row) .room-number-badge,
+#main-table tbody tr:hover td.room-col-cell:not(.is-active-row) .room-number-badge,
+#main-table tbody td.room-col-cell:hover:not(.is-active-row) .room-number-badge {
+    color: #0f172a !important;
 }
 
-#main-table tbody tr.is-active-row td:first-child .room-number-badge {
+#main-table tbody tr.is-active-row td:first-child,
+#main-table tbody tr.is-active-row td.sticky,
+#main-table tbody tr.is-active-row td.room-col-cell {
+    background-color: #312e81 !important;
+    color: #ffffff !important;
+    box-shadow: 4px 0 14px rgba(49, 46, 129, 0.45) !important;
+}
+
+#main-table tbody tr.is-active-row td:first-child .room-number-badge,
+#main-table tbody tr.is-active-row td.sticky .room-number-badge,
+#main-table tbody tr.is-active-row td.room-col-cell .room-number-badge {
     color: #ffffff !important;
 }
 
 #main-table tbody tr.is-active-row td {
     background-color: #eff6ff !important;
+}
+
+#main-table tbody td:first-child:active,
+#main-table tbody td.room-col-cell:active {
+    background-color: #cbd5e1 !important;
+    color: #0f172a !important;
+    transform: none !important;
+    filter: none !important;
+}
+
+#main-table tbody td:first-child:active .room-number-badge,
+#main-table tbody td.room-col-cell:active .room-number-badge {
+    color: #0f172a !important;
 }
 
 #main-table td:last-child {
@@ -6640,7 +6673,8 @@ body.modal-open #schedule-quick-filter-floating {
     #main-table th:first-child,
     #main-table td:first-child,
     #main-table th.sticky,
-    #main-table td.sticky {
+    #main-table td.sticky,
+    #main-table .room-col-cell {
         position: -webkit-sticky !important;
         position: sticky !important;
         left: 0 !important;
@@ -6655,14 +6689,43 @@ body.modal-open #schedule-quick-filter-floating {
         font-size: 0.85rem !important;
         color: #0f172a !important;
         text-align: center !important;
+        user-select: none !important;
+        -webkit-user-select: none !important;
+        -webkit-touch-callout: none !important;
+        transform: none !important;
+        -webkit-transform: none !important;
+        filter: none !important;
+        backface-visibility: visible !important;
+        -webkit-backface-visibility: visible !important;
     }
 
-    #main-table tbody tr:nth-child(even) td:first-child {
+    #main-table tbody tr:not(.is-active-row):nth-child(even) td:first-child,
+    #main-table tbody tr:not(.is-active-row):nth-child(even) td.sticky,
+    #main-table tbody tr:not(.is-active-row):nth-child(even) td.room-col-cell {
         background-color: #f1f5f9 !important;
+        color: #0f172a !important;
     }
 
-    #main-table tbody tr:nth-child(odd) td:first-child {
+    #main-table tbody tr:not(.is-active-row):nth-child(odd) td:first-child,
+    #main-table tbody tr:not(.is-active-row):nth-child(odd) td.sticky,
+    #main-table tbody tr:not(.is-active-row):nth-child(odd) td.room-col-cell {
         background-color: #ffffff !important;
+        color: #0f172a !important;
+    }
+
+    #main-table tbody tr:hover td:first-child:not(.is-active-row),
+    #main-table tbody tr:hover td.sticky:not(.is-active-row),
+    #main-table tbody tr:hover td.room-col-cell:not(.is-active-row),
+    #main-table tbody td.room-col-cell:hover:not(.is-active-row) {
+        background-color: #e2e8f0 !important;
+        color: #0f172a !important;
+    }
+
+    #main-table tbody tr:hover td:first-child:not(.is-active-row) .room-number-badge,
+    #main-table tbody tr:hover td.sticky:not(.is-active-row) .room-number-badge,
+    #main-table tbody tr:hover td.room-col-cell:not(.is-active-row) .room-number-badge,
+    #main-table tbody td.room-col-cell:hover:not(.is-active-row) .room-number-badge {
+        color: #0f172a !important;
     }
 
     /* 2.3 Corner Intersection Cell ("ห้อง": Sticky both top and left) */
@@ -6684,10 +6747,17 @@ body.modal-open #schedule-quick-filter-floating {
     #main-table tbody tr.is-active-row td {
         background-color: #eff6ff !important;
     }
-    #main-table tbody tr.is-active-row td:first-child {
-        background-color: #4f46e5 !important;
+    #main-table tbody tr.is-active-row td:first-child,
+    #main-table tbody tr.is-active-row td.sticky,
+    #main-table tbody tr.is-active-row td.room-col-cell {
+        background-color: #312e81 !important;
         color: #ffffff !important;
-        box-shadow: 4px 0 14px rgba(79, 70, 229, 0.45) !important;
+        box-shadow: 4px 0 14px rgba(49, 46, 129, 0.45) !important;
+    }
+    #main-table tbody tr.is-active-row td:first-child .room-number-badge,
+    #main-table tbody tr.is-active-row td.sticky .room-number-badge,
+    #main-table tbody tr.is-active-row td.room-col-cell .room-number-badge {
+        color: #ffffff !important;
     }
 
     /* Touch target comfort on mobile: 44px min height for easier thumb taps */
@@ -6699,9 +6769,24 @@ body.modal-open #schedule-quick-filter-floating {
         touch-action: manipulation !important;
     }
 
-    #main-table td:active {
+    #main-table td:not(:first-child):not(.room-col-cell):not(.sticky):active {
         filter: brightness(0.92);
         transform: scale(0.98);
+    }
+
+    #main-table td:first-child:active,
+    #main-table td.sticky:active,
+    #main-table td.room-col-cell:active {
+        background-color: #cbd5e1 !important;
+        color: #0f172a !important;
+        transform: none !important;
+        filter: none !important;
+    }
+
+    #main-table td:first-child:active .room-number-badge,
+    #main-table td.sticky:active .room-number-badge,
+    #main-table td.room-col-cell:active .room-number-badge {
+        color: #0f172a !important;
     }
 
     /* 3. Unified Controls Static Flow under table for Mobile */
