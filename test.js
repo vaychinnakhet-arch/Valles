@@ -2728,7 +2728,7 @@
                   ? `<div class="absolute top-0.5 right-0.5 text-amber-500" title="${planData.note.replace(/"/g, "&quot;")}"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg></div>`
                   : "";
                 const noteDisplay = planData.note
-                  ? `<div class="text-[11px] leading-tight text-amber-600 mt-0.5 truncate w-full max-w-[80px] mx-auto" title="${planData.note.replace(/"/g, "&quot;")}">${planData.note}</div>`
+                  ? `<div class="cell-summary-note text-[13px] sm:text-sm leading-tight text-amber-700 font-bold mt-0.5 px-0.5 max-w-[130px] w-full mx-auto break-words" title="${planData.note.replace(/"/g, "&quot;")}">${planData.note}</div>`
                   : "";
 
                 if (taskDef.type === "inspection" && scoreToShow > 0) {
@@ -2744,7 +2744,7 @@
                                     <td class="border border-slate-400 p-1 text-center ${bgClass} cursor-pointer transition-colors table-cell relative" data-floor="${floor}" data-room="${room}" data-taskkey="${taskDef.key}">
                                         ${noteIcon}
                                         <div class="flex flex-col items-center justify-center gap-0.5 pointer-events-none w-full overflow-hidden">
-                                            <div class="font-bold text-lg">${Number.isInteger(scoreToShow) ? scoreToShow : scoreToShow.toFixed(2)}</div>
+                                            <div class="cell-summary-score font-black text-lg md:text-xl">${Number.isInteger(scoreToShow) ? scoreToShow : scoreToShow.toFixed(2)}</div>
                                             ${completedDateDisplay}
                                             ${noteDisplay}
                                         </div>
@@ -2811,7 +2811,7 @@
                                             ${
                                               hasProgress
                                                 ? `
-                                            <div class="${planData.currentPlanDate ? "text-xs" : "text-sm"} font-bold text-blue-600">
+                                            <div class="cell-summary-progress ${planData.currentPlanDate ? "text-sm sm:text-base" : "text-base sm:text-lg"} font-black text-blue-600 tracking-tight">
                                                 ${Math.round(progress)}%
                                             </div>
                                             `

@@ -7632,6 +7632,98 @@ body.is-line-capturing #main-table tr.is-active-row td:first-child .room-number-
 body.is-line-capturing #main-table tr.is-active-row td.room-col-cell .room-number-badge {
     color: #0f172a !important;
 }
+
+/* ==========================================================================
+   TYPESET: Summary Report Progress (%) and Notes Enhancements
+   ========================================================================== */
+
+/* Progress Value (%) Typography */
+.cell-summary-progress {
+    font-family: Montserrat, "Sarabun", -apple-system, sans-serif;
+    font-variant-numeric: tabular-nums;
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    color: #0369a1;
+}
+
+/* Inspection Score Typography */
+.cell-summary-score {
+    font-family: Montserrat, "Sarabun", -apple-system, sans-serif;
+    font-variant-numeric: tabular-nums;
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+}
+
+/* Note Typography */
+.cell-summary-note {
+    font-family: "Sarabun", sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1.25;
+    color: #b45309;
+    word-break: break-word;
+    overflow-wrap: break-word;
+    white-space: normal;
+    max-width: 130px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Color coordination for notes in different cell states */
+.cell-status-done .cell-summary-note {
+    color: #166534 !important;
+}
+
+td:not(.cell-status-done) .cell-summary-note {
+    color: #b45309 !important;
+}
+
+/* ==========================================================================
+   CAPTURE MODE TYPESETTING: Special high-contrast, larger font scaling
+   Specifically for when the user captures/downloads the table image
+   ========================================================================== */
+html.is-line-capturing #main-table .cell-summary-progress,
+body.is-line-capturing #main-table .cell-summary-progress,
+.is-line-capturing #main-table .cell-summary-progress {
+    font-size: 1.18rem !important; /* ~19px, prominent and easy to scan */
+    font-weight: 900 !important;
+    line-height: 1.1 !important;
+    letter-spacing: -0.025em !important;
+    color: #0284c7 !important;
+}
+
+html.is-line-capturing #main-table .cell-summary-score,
+body.is-line-capturing #main-table .cell-summary-score,
+.is-line-capturing #main-table .cell-summary-score {
+    font-size: 1.25rem !important; /* 20px */
+    font-weight: 900 !important;
+    line-height: 1.1 !important;
+}
+
+html.is-line-capturing #main-table .cell-summary-note,
+body.is-line-capturing #main-table .cell-summary-note,
+.is-line-capturing #main-table .cell-summary-note {
+    font-size: 0.88rem !important; /* ~14px vs old 11px */
+    font-weight: 800 !important;   /* Extra solid bold stroke for clear rasterization */
+    line-height: 1.25 !important;
+    max-width: 100% !important;
+    white-space: normal !important;
+    word-break: break-word !important;
+}
+
+html.is-line-capturing #main-table .cell-status-done .cell-summary-note,
+body.is-line-capturing #main-table .cell-status-done .cell-summary-note,
+.is-line-capturing #main-table .cell-status-done .cell-summary-note {
+    color: #15803d !important;
+}
+
+html.is-line-capturing #main-table td:not(.cell-status-done) .cell-summary-note,
+body.is-line-capturing #main-table td:not(.cell-status-done) .cell-summary-note,
+.is-line-capturing #main-table td:not(.cell-status-done) .cell-summary-note {
+    color: #c2410c !important;
+}
 </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html-to-image/1.11.11/html-to-image.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -7640,7 +7732,7 @@ body.is-line-capturing #main-table tr.is-active-row td.room-col-cell .room-numbe
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     
     
-    <script defer src="./assets/index.js?v=20261021_v6_score_and_capture_fix"></script>
+    <script defer src="./assets/index.js?v=20261022_v1_typeset_percent_and_notes"></script>
   </head>
   <body class="p-0 md:p-4 bg-slate-50 relative">
     <!-- Splash Screen -->
