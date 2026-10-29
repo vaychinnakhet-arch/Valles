@@ -7767,7 +7767,7 @@ body.is-line-capturing #main-table td:not(.cell-status-done) .cell-summary-note,
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     
     
-    <script defer src="./assets/index.js?v=20261029_v2_valles_7fixes"></script>
+    <script defer src="./assets/index.js?v=20261029_v3_laminate_fix"></script>
   </head>
   <body class="p-0 md:p-4 bg-slate-50 relative">
     <!-- Splash Screen -->
@@ -11265,8 +11265,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
   window.openMobileRoomQuickModal = function(floor, room) {
     floor = parseInt(floor, 10) || getActiveFloor();
-    room = parseInt(room, 10);
-    const roomStr = String(room);
+    const rawRoomNum = parseInt(room, 10) || 1;
+    const roomStr = String(rawRoomNum > 100 ? rawRoomNum : (floor * 100 + rawRoomNum));
+    room = rawRoomNum > 100 ? (rawRoomNum % 100) : rawRoomNum;
 
     // 1. Highlight the chip in the mobile strip and scroll table row
     document.querySelectorAll('.room-pill-btn').forEach(btn => {
@@ -11603,11 +11604,23 @@ document.addEventListener('DOMContentLoaded', function() {
                 unitData.progress = val * 2;
               }
             } else if (tKey === "paintOnly") {
-              if (!targetPData["skimAndPaint"]) targetPData["skimAndPaint"] = {};
-              if (!targetPData["skimAndPaint"][floor]) targetPData["skimAndPaint"][floor] = {};
-              if (!targetPData["skimAndPaint"][floor][room]) targetPData["skimAndPaint"][floor][room] = {};
-              targetPData["skimAndPaint"][floor][room].taskIndex = 1;
-              targetPData["skimAndPaint"][floor][room].progress = val;
+              if (!targetPData["paintOnly"]) targetPData["paintOnly"] = {};
+              if (!targetPData["paintOnly"][floor]) targetPData["paintOnly"][floor] = {};
+              if (!targetPData["paintOnly"][floor][room]) targetPData["paintOnly"][floor][room] = {};
+              targetPData["paintOnly"][floor][room].taskIndex = (val > 0 ? 1 : 0);
+              targetPData["paintOnly"][floor][room].progress = val;
+            } else if (tKey === "laminate") {
+              if (!targetPData["laminate"]) targetPData["laminate"] = {};
+              if (!targetPData["laminate"][floor]) targetPData["laminate"][floor] = {};
+              if (!targetPData["laminate"][floor][room]) targetPData["laminate"][floor][room] = {};
+              targetPData["laminate"][floor][room].taskIndex = (val > 0 ? 1 : 0);
+              targetPData["laminate"][floor][room].progress = val;
+            } else if (tKey === "aluminum") {
+              if (!targetPData["aluminum"]) targetPData["aluminum"] = {};
+              if (!targetPData["aluminum"][floor]) targetPData["aluminum"][floor] = {};
+              if (!targetPData["aluminum"][floor][room]) targetPData["aluminum"][floor][room] = {};
+              targetPData["aluminum"][floor][room].progress_kitchen = val;
+              targetPData["aluminum"][floor][room].progress_balcony = val;
             } else if (tKey === "kitchenOnly") {
               if (!targetPData["furniture"]) targetPData["furniture"] = {};
               if (!targetPData["furniture"][floor]) targetPData["furniture"][floor] = {};
