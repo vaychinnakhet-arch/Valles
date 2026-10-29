@@ -6000,6 +6000,39 @@ div[data-report-rule] {
     background-color: #fecdd3 !important;
 }
 
+/* C2. Inspection Score Failed (< 85) - Distinct Warm Amber/Orange (Never overlaps with red overdue border) */
+#main-table td.cell-status-score-fail,
+.is-line-capturing #main-table td.cell-status-score-fail {
+    background-color: #ffedd5 !important; /* Warm Orange 100 */
+    color: #9a3412 !important;            /* Deep Burnt Orange 800 */
+    font-weight: 900 !important;
+    box-shadow: none !important;
+}
+
+#main-table td.cell-status-score-fail:hover {
+    background-color: #fed7aa !important;
+}
+
+#main-table td.cell-status-score-fail .cell-summary-score,
+.is-line-capturing #main-table td.cell-status-score-fail .cell-summary-score {
+    color: #c2410c !important;
+}
+
+.cell-score-fail-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1px 6px;
+    border-radius: 9999px;
+    background-color: #ea580c !important;
+    color: #ffffff !important;
+    font-size: 10px;
+    font-weight: 800;
+    line-height: 1.25;
+    letter-spacing: 0.01em;
+    margin-top: 1px;
+}
+
 /* D. Unstarted / Empty (-) */
 #main-table td.cell-status-empty,
 #main-table td:not(:first-child):not(.room-col-cell):has(span:only-child) {
@@ -6156,7 +6189,7 @@ div[data-report-rule] {
     color: #0f172a !important;
 }
 
-#main-table td:last-child {
+#main-table td.summary-cell:last-child {
     background-color: #f0fdf4 !important;
     color: #15803d !important;
     font-weight: 800 !important;
@@ -7367,10 +7400,12 @@ body.is-line-capturing {
 }
 
 .is-line-capturing #main-table td:last-child {
+    border-left: 2px solid #000000 !important;
+}
+.is-line-capturing #main-table td.summary-cell:last-child {
     background-color: #f0fdf4 !important;
     color: #15803d !important;
     font-weight: 800 !important;
-    border-left: 2px solid #000000 !important;
 }
 
 /* Executive Dashboard & Signatures locked to Desktop Grid */
@@ -7732,7 +7767,7 @@ body.is-line-capturing #main-table td:not(.cell-status-done) .cell-summary-note,
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     
     
-    <script defer src="./assets/index.js?v=20261022_v1_typeset_percent_and_notes"></script>
+    <script defer src="./assets/index.js?v=20261029_v2_valles_7fixes"></script>
   </head>
   <body class="p-0 md:p-4 bg-slate-50 relative">
     <!-- Splash Screen -->
@@ -9424,7 +9459,7 @@ body.is-line-capturing #main-table td:not(.cell-status-done) .cell-summary-note,
           <!-- 2. SINGLE PROGRESS CONTAINER (Top when single progress) -->
           <div id="summaryPlanProgressContainer" class="bg-white p-4 sm:p-5 rounded-2xl border-2 border-[#1e293b] shadow-[0_4px_0_#1e293b] space-y-3">
             <!-- Header with Dynamic Soft Ink Pop Badge & Reset -->
-            <div class="flex justify-between items-center gap-2 flex-wrap">
+            <div id="summaryPlanSliderHeader" class="flex justify-between items-center gap-2 flex-wrap">
               <div class="flex items-center gap-2.5">
                 <label for="summaryPlanProgressSlider" class="text-xs sm:text-sm font-black text-slate-800 tracking-tight cursor-pointer">
                   ระดับความคืบหน้า
@@ -9448,7 +9483,7 @@ body.is-line-capturing #main-table td:not(.cell-status-done) .cell-summary-note,
             </div>
 
             <!-- Soft Ink Flat Pop Slider Track -->
-            <div class="relative w-full px-0.5 pt-1">
+            <div id="summaryPlanSliderTrackWrap" class="relative w-full px-0.5 pt-1">
               <input
                 type="range"
                 id="summaryPlanProgressSlider"
@@ -9461,7 +9496,7 @@ body.is-line-capturing #main-table td:not(.cell-status-done) .cell-summary-note,
             </div>
 
             <!-- 5 Milestone Preset Chips (0%, 25%, 50%, 75%, 100%) -->
-            <div class="space-y-1">
+            <div id="summaryPlanPresetChipsWrap" class="space-y-1">
               <div class="text-[11px] font-bold text-slate-400">เลือกความคืบหน้าแบบรวดเร็ว</div>
               <div class="grid grid-cols-5 gap-1.5 sm:gap-2">
                 <button type="button" class="single-preset-btn py-2 rounded-xl text-xs font-black bg-white border-2 border-slate-300 text-slate-700 shadow-[0_2px_0_#94a3b8] active:translate-y-[2px] active:shadow-none cursor-pointer" data-val="0">0%</button>
@@ -9473,15 +9508,15 @@ body.is-line-capturing #main-table td:not(.cell-status-done) .cell-summary-note,
             </div>
 
             <!-- Completion Checkbox -->
-            <label class="flex items-center gap-3 p-2.5 rounded-xl bg-slate-50 border-2 border-slate-200/80 hover:bg-emerald-50/50 hover:border-emerald-300 cursor-pointer transition-all">
+            <label class="flex items-center gap-3 p-3 rounded-xl bg-slate-50 border-2 border-slate-200/80 hover:bg-emerald-50/50 hover:border-emerald-300 cursor-pointer transition-all select-none">
               <input
                 type="checkbox"
                 id="summaryPlanCompletedCheckbox"
                 class="w-5 h-5 text-emerald-600 rounded border-2 border-slate-300 focus:ring-emerald-500 cursor-pointer shrink-0"
               />
               <div class="min-w-0">
-                <span class="text-xs sm:text-sm font-bold text-slate-800 block">งานนี้แล้วเสร็จสมบูรณ์ (100%)</span>
-                <span class="text-[11px] text-slate-500 font-medium block">ทำเครื่องหมายเมื่อดำเนินงานเสร็จสิ้นครบถ้วน</span>
+                <span id="summaryPlanCompletedLabelTitle" class="text-xs sm:text-sm font-bold text-slate-800 block">งานนี้แล้วเสร็จสมบูรณ์ (100%)</span>
+                <span id="summaryPlanCompletedLabelDesc" class="text-[11px] text-slate-500 font-medium block">ทำเครื่องหมายเมื่อดำเนินงานเสร็จสิ้นครบถ้วน</span>
               </div>
             </label>
           </div>
@@ -9506,10 +9541,11 @@ body.is-line-capturing #main-table td:not(.cell-status-done) .cell-summary-note,
             <div class="flex gap-2">
               <input
                 type="number"
+                step="0.01"
                 id="summaryPlanScoreInput"
                 min="1"
                 max="100"
-                placeholder="กรอกคะแนน 1-100 (หากยังไม่ตรวจ ให้เว้นว่างไว้ใส่วันที่)"
+                placeholder="กรอกคะแนน 1-100 (ทศนิยมได้ 2 ตำแหน่ง เช่น 85.50)"
                 class="flex-1 h-11 px-3 text-sm font-bold text-slate-800 bg-white border-2 border-slate-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all"
               />
               <button
@@ -9530,6 +9566,18 @@ body.is-line-capturing #main-table td:not(.cell-status-done) .cell-summary-note,
                 <button type="button" class="score-preset-btn py-2 rounded-xl text-xs font-black bg-emerald-500 border-2 border-emerald-800 text-white shadow-[0_2px_0_#064e3b] active:translate-y-[2px] active:shadow-none cursor-pointer" data-score="100">100</button>
               </div>
             </div>
+            <!-- Major Defect Checkbox -->
+            <label class="flex items-center gap-3 p-3 rounded-xl bg-rose-50/90 border-2 border-rose-200 hover:bg-rose-100/70 hover:border-rose-300 cursor-pointer transition-all select-none">
+              <input
+                type="checkbox"
+                id="summaryPlanMajorDefectCheckbox"
+                class="w-5 h-5 text-rose-600 rounded border-2 border-rose-300 focus:ring-rose-500 cursor-pointer shrink-0"
+              />
+              <div class="min-w-0">
+                <span class="text-xs sm:text-sm font-black text-rose-900 block">พบ Major Defect (แสดงเครื่องหมาย ! หลังคะแนน)</span>
+                <span class="text-[11px] text-rose-600 font-medium block">ติ๊กเมื่อพบข้อบกพร่องสำคัญเพื่อแสดงเครื่องหมาย ! ท้ายคะแนน</span>
+              </div>
+            </label>
           </div>
 
           <!-- 3. DATE AND NOTES (Neat secondary sections) -->
@@ -11343,6 +11391,7 @@ document.addEventListener('DOMContentLoaded', function() {
       { key: "ceilingBoard", name: "ปิดแผ่นฝ้า", emoji: "🪵" },
       { key: "above_ceiling_inspection", name: "ตรวจเหนือฝ้า", emoji: "🔍" },
       { key: "skimAndPaintCombined", name: "งานสกิมทาสี", emoji: "🎨" },
+      { key: "inspectionDoc", name: "เอกสาร Inspection", emoji: "📄" },
     ];
 
     const endProductTaskDefs = [
@@ -11659,6 +11708,7 @@ document.addEventListener('DOMContentLoaded', function() {
           ceilingBoard: 'ปิดแผ่น',
           above_ceiling_inspection: 'ตรวจเหนือฝ้า',
           skimAndPaintCombined: 'งานสกิมทาสี',
+          inspectionDoc: 'เอกสาร Inspection',
           kitchenOnly: 'งานติดตั้งชุดครัว',
           paintOnly: 'งานสี end product',
           skimOnly: 'งานสกิม',
@@ -11894,10 +11944,33 @@ document.addEventListener('DOMContentLoaded', function() {
           }
         };
       }
+      // Inspection Document (Checkbox-only mode) vs Standard Single Progress
+      const isCheckboxOnlyDoc = (taskKey === 'inspectionDoc' || (window.taskDefinitions && window.taskDefinitions[taskKey] && window.taskDefinitions[taskKey].isCheckboxOnly));
+      const sliderHeader = document.getElementById('summaryPlanSliderHeader');
+      const sliderTrackWrap = document.getElementById('summaryPlanSliderTrackWrap');
+      const presetChipsWrap = document.getElementById('summaryPlanPresetChipsWrap');
+      const completedTitle = document.getElementById('summaryPlanCompletedLabelTitle');
+      const completedDesc = document.getElementById('summaryPlanCompletedLabelDesc');
+
+      if (isCheckboxOnlyDoc) {
+        if (sliderHeader) sliderHeader.classList.add('hidden');
+        if (sliderTrackWrap) sliderTrackWrap.classList.add('hidden');
+        if (presetChipsWrap) presetChipsWrap.classList.add('hidden');
+        if (completedTitle) completedTitle.textContent = 'จัดทำเอกสาร Inspection เรียบร้อยแล้ว (✓)';
+        if (completedDesc) completedDesc.textContent = 'ติ๊กถูกเมื่อดำเนินการจัดทำเอกสารเสร็จสิ้น';
+      } else {
+        if (sliderHeader) sliderHeader.classList.remove('hidden');
+        if (sliderTrackWrap) sliderTrackWrap.classList.remove('hidden');
+        if (presetChipsWrap) presetChipsWrap.classList.remove('hidden');
+        if (completedTitle) completedTitle.textContent = 'งานนี้แล้วเสร็จสมบูรณ์ (100%)';
+        if (completedDesc) completedDesc.textContent = 'ทำเครื่องหมายเมื่อดำเนินงานเสร็จสิ้นครบถ้วน';
+      }
+
       // Inspection Score Container Setup (for wetWork and endProduct)
       const isInspection = (taskKey === 'wetWork' || taskKey === 'endProduct' || (window.taskDefinitions && window.taskDefinitions[taskKey] && window.taskDefinitions[taskKey].type === 'inspection'));
       const scoreContainer = document.getElementById('summaryPlanScoreContainer');
       const scoreInput = document.getElementById('summaryPlanScoreInput');
+      const majorDefectChk = document.getElementById('summaryPlanMajorDefectCheckbox');
       const clearScoreBtn = document.getElementById('clearSummaryPlanScoreBtn');
       const progressContainer = document.getElementById('summaryPlanProgressContainer');
       const subtasksContainer = document.getElementById('summaryPlanSubTasksContainer');
@@ -11908,13 +11981,17 @@ document.addEventListener('DOMContentLoaded', function() {
         if (subtasksContainer) subtasksContainer.classList.add('hidden');
         
         const pData = (typeof window.getProjectData === 'function' ? window.getProjectData() : window.projectData) || {};
-        const roomObj = (pData[taskKey] && pData[taskKey][floorStr] && pData[taskKey][floorStr][currentRoom.dataKey]) || {};
+        const roomObj = isMultiSelect ? {} : ((pData[taskKey] && pData[taskKey][floorStr] && pData[taskKey][floorStr][currentRoom.dataKey]) || {});
         const exScore = roomObj.qcScore || roomObj.cmScore || '';
         if (scoreInput) {
           scoreInput.value = (exScore > 0) ? exScore : '';
         }
+        if (majorDefectChk) {
+          majorDefectChk.checked = !!(roomObj.qcHasMajorDefect || roomObj.cmHasMajorDefect);
+        }
       } else {
         if (scoreContainer) scoreContainer.classList.add('hidden');
+        if (majorDefectChk) majorDefectChk.checked = false;
       }
 
       if (scoreContainer) {
@@ -11932,6 +12009,7 @@ document.addEventListener('DOMContentLoaded', function() {
         clearScoreBtn.onclick = (e) => {
           e.preventDefault();
           scoreInput.value = '';
+          if (majorDefectChk) majorDefectChk.checked = false;
           scoreInput.dispatchEvent(new Event('input'));
         };
       }

@@ -6463,3 +6463,35 @@ body.is-line-capturing #main-table td:not(.cell-status-done) .cell-summary-note,
     color: #c2410c !important;
 }
 
+/* C2. Inspection Score Failed (< 85) - Distinct Warm Amber/Orange (Never overlaps with red overdue border) */
+#main-table td.cell-status-score-fail,
+.is-line-capturing #main-table td.cell-status-score-fail {
+    background-color: #ffedd5 !important; /* Warm Orange 100 */
+    color: #9a3412 !important;            /* Deep Burnt Orange 800 */
+    font-weight: 900 !important;
+    box-shadow: none !important;
+}
+
+#main-table td.cell-status-score-fail:hover {
+    background-color: #fed7aa !important;
+}
+
+#main-table td.cell-status-score-fail .cell-summary-score,
+.is-line-capturing #main-table td.cell-status-score-fail .cell-summary-score {
+    color: #c2410c !important;
+}
+
+.cell-score-fail-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1px 6px;
+    border-radius: 9999px;
+    background-color: #ea580c !important;
+    color: #ffffff !important;
+    font-size: 10px;
+    font-weight: 800;
+    line-height: 1.25;
+    letter-spacing: 0.01em;
+    margin-top: 1px;
+}
