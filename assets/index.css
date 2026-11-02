@@ -6375,6 +6375,16 @@ body.is-line-capturing #main-table tr.is-active-row td.room-col-cell .room-numbe
    TYPESET: Summary Report Progress (%) and Notes Enhancements
    ========================================================================== */
 
+/* CRITICAL FIX: html2canvas v1.4.1 + Tailwind Preflight (img { display: block })
+   corrupts FontMetrics.parseMetrics baseline measurement by ~10px, shifting all
+   rendered text downward relative to background pills/boxes. Force inline img
+   inside html2canvas metric probe containers and during capture mode. */
+body > div > img,
+html.is-line-capturing img,
+body.is-line-capturing img {
+    display: inline !important;
+}
+
 /* Progress Value (%) Typography */
 .cell-summary-progress {
     font-family: Montserrat, "Sarabun", -apple-system, sans-serif;
@@ -6387,13 +6397,15 @@ body.is-line-capturing #main-table tr.is-active-row td.room-col-cell .room-numbe
 
 /* Inspection Score Typography */
 .cell-score-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    min-height: 38px;
-    padding: 1px 0;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 1.5px !important;
+    width: 100% !important;
+    min-height: 36px !important;
+    height: auto !important;
+    padding: 1px 0 !important;
 }
 
 .cell-summary-score {
@@ -6401,8 +6413,10 @@ body.is-line-capturing #main-table tr.is-active-row td.room-col-cell .room-numbe
     font-variant-numeric: tabular-nums;
     font-weight: 900;
     letter-spacing: -0.02em;
-    line-height: 1.15;
-    margin-bottom: 2px;
+    line-height: 1.1 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    display: block !important;
 }
 
 /* Note Typography */
@@ -6429,17 +6443,50 @@ td:not(.cell-status-done) .cell-summary-note {
     color: #b45309 !important;
 }
 
+/* Inspection Score Failed (< 85) - Distinct Warm Amber/Orange */
+#main-table td.cell-status-score-fail,
+.is-line-capturing #main-table td.cell-status-score-fail {
+    background-color: #ffedd5 !important;
+    color: #9a3412 !important;
+    font-weight: 900 !important;
+    box-shadow: none !important;
+}
+
+#main-table td.cell-status-score-fail:hover {
+    background-color: #fed7aa !important;
+}
+
+#main-table td.cell-status-score-fail .cell-summary-score,
+.is-line-capturing #main-table td.cell-status-score-fail .cell-summary-score {
+    color: #c2410c !important;
+}
+
+.cell-score-fail-badge {
+    display: block !important;
+    text-align: center !important;
+    padding: 1px 6px !important;
+    border-radius: 9999px !important;
+    background-color: #ea580c !important;
+    color: #ffffff !important;
+    font-family: "Sarabun", "Noto Sans Thai", -apple-system, sans-serif !important;
+    font-size: 10px !important;
+    font-weight: 800 !important;
+    line-height: 1.2 !important;
+    letter-spacing: normal !important;
+    margin: 1px auto 0 auto !important;
+    white-space: nowrap !important;
+}
+
 /* ==========================================================================
-   CAPTURE MODE TYPESETTING: Special high-contrast, larger font scaling
-   Specifically for when the user captures/downloads the table image
+   CAPTURE MODE TYPESETTING: Clean, well-proportioned, zero-overlap layout
    ========================================================================== */
 html.is-line-capturing #main-table .cell-summary-progress,
 body.is-line-capturing #main-table .cell-summary-progress,
 .is-line-capturing #main-table .cell-summary-progress {
-    font-size: 1.18rem !important; /* ~19px, prominent and easy to scan */
+    font-size: 15px !important;
     font-weight: 900 !important;
-    line-height: 1.1 !important;
-    letter-spacing: -0.025em !important;
+    line-height: 1.15 !important;
+    letter-spacing: -0.02em !important;
     color: #0284c7 !important;
 }
 
@@ -6447,28 +6494,37 @@ html.is-line-capturing #main-table td,
 body.is-line-capturing #main-table td,
 .is-line-capturing #main-table td {
     height: auto !important;
-    min-height: 48px !important;
-    padding: 4px 2px !important;
+    min-height: 38px !important;
+    padding: 4px 3px !important;
     vertical-align: middle !important;
 }
 
+html.is-line-capturing #main-table td > div.cell-score-container,
+body.is-line-capturing #main-table td > div.cell-score-container,
+.is-line-capturing #main-table td > div.cell-score-container,
 html.is-line-capturing #main-table .cell-score-container,
 body.is-line-capturing #main-table .cell-score-container,
 .is-line-capturing #main-table .cell-score-container {
-    display: block !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 1.5px !important;
     text-align: center !important;
     width: 100% !important;
-    min-height: auto !important;
-    padding: 2px 0 !important;
+    min-height: 36px !important;
+    height: auto !important;
+    padding: 1px 0 !important;
 }
 
 html.is-line-capturing #main-table .cell-summary-score,
 body.is-line-capturing #main-table .cell-summary-score,
 .is-line-capturing #main-table .cell-summary-score {
-    font-size: 1.15rem !important; /* 18.5px */
+    font-size: 15.5px !important;
     font-weight: 900 !important;
-    line-height: 1.2 !important;
-    margin: 0 0 3px 0 !important;
+    line-height: 1.1 !important;
+    margin: 0 !important;
+    padding: 0 !important;
     display: block !important;
     text-align: center !important;
 }
@@ -6476,17 +6532,19 @@ body.is-line-capturing #main-table .cell-summary-score,
 html.is-line-capturing #main-table .cell-score-fail-badge,
 body.is-line-capturing #main-table .cell-score-fail-badge,
 .is-line-capturing #main-table .cell-score-fail-badge {
-    display: inline-block !important;
+    display: block !important;
     text-align: center !important;
-    margin: 2px auto 0 auto !important;
-    padding: 2px 8px 1px 8px !important;
-    border-radius: 9999px !important;
-    background-color: #ea580c !important;
-    color: #ffffff !important;
+    margin: 1px auto 0 auto !important;
+    padding: 0 !important;
+    border: none !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    color: #b91c1c !important;
     font-family: "Sarabun", "Noto Sans Thai", -apple-system, sans-serif !important;
-    font-size: 10.5px !important;
+    font-size: 11px !important;
     font-weight: 800 !important;
-    line-height: 1.35 !important;
+    line-height: 1.15 !important;
     letter-spacing: normal !important;
     white-space: nowrap !important;
 }
@@ -6494,9 +6552,9 @@ body.is-line-capturing #main-table .cell-score-fail-badge,
 html.is-line-capturing #main-table .cell-summary-note,
 body.is-line-capturing #main-table .cell-summary-note,
 .is-line-capturing #main-table .cell-summary-note {
-    font-size: 0.88rem !important; /* ~14px vs old 11px */
-    font-weight: 800 !important;   /* Extra solid bold stroke for clear rasterization */
-    line-height: 1.25 !important;
+    font-size: 11.5px !important;
+    font-weight: 800 !important;
+    line-height: 1.2 !important;
     max-width: 100% !important;
     white-space: normal !important;
     word-break: break-word !important;
@@ -6512,40 +6570,4 @@ html.is-line-capturing #main-table td:not(.cell-status-done) .cell-summary-note,
 body.is-line-capturing #main-table td:not(.cell-status-done) .cell-summary-note,
 .is-line-capturing #main-table td:not(.cell-status-done) .cell-summary-note {
     color: #c2410c !important;
-}
-
-/* C2. Inspection Score Failed (< 85) - Distinct Warm Amber/Orange (Never overlaps with red overdue border) */
-#main-table td.cell-status-score-fail,
-.is-line-capturing #main-table td.cell-status-score-fail {
-    background-color: #ffedd5 !important; /* Warm Orange 100 */
-    color: #9a3412 !important;            /* Deep Burnt Orange 800 */
-    font-weight: 900 !important;
-    box-shadow: none !important;
-}
-
-#main-table td.cell-status-score-fail:hover {
-    background-color: #fed7aa !important;
-}
-
-#main-table td.cell-status-score-fail .cell-summary-score,
-.is-line-capturing #main-table td.cell-status-score-fail .cell-summary-score {
-    color: #c2410c !important;
-}
-
-.cell-score-fail-badge {
-    display: inline-block !important;
-    text-align: center !important;
-    padding: 1.5px 7px 1px 7px !important;
-    border-radius: 9999px !important;
-    background-color: #ea580c !important;
-    color: #ffffff !important;
-    font-family: "Sarabun", "Noto Sans Thai", -apple-system, sans-serif !important;
-    font-size: 10px !important;
-    font-weight: 800 !important;
-    line-height: 1.35 !important;
-    letter-spacing: normal !important;
-    margin-top: 2px !important;
-    white-space: nowrap !important;
-    box-shadow: 0 1px 2px rgba(234, 88, 12, 0.25) !important;
-    vertical-align: middle !important;
 }
