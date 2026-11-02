@@ -6386,12 +6386,23 @@ body.is-line-capturing #main-table tr.is-active-row td.room-col-cell .room-numbe
 }
 
 /* Inspection Score Typography */
+.cell-score-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 38px;
+    padding: 1px 0;
+}
+
 .cell-summary-score {
     font-family: Montserrat, "Sarabun", -apple-system, sans-serif;
     font-variant-numeric: tabular-nums;
     font-weight: 900;
     letter-spacing: -0.02em;
-    line-height: 1.1;
+    line-height: 1.15;
+    margin-bottom: 2px;
 }
 
 /* Note Typography */
@@ -6432,12 +6443,52 @@ body.is-line-capturing #main-table .cell-summary-progress,
     color: #0284c7 !important;
 }
 
+html.is-line-capturing #main-table td,
+body.is-line-capturing #main-table td,
+.is-line-capturing #main-table td {
+    height: auto !important;
+    min-height: 48px !important;
+    padding: 4px 2px !important;
+    vertical-align: middle !important;
+}
+
+html.is-line-capturing #main-table .cell-score-container,
+body.is-line-capturing #main-table .cell-score-container,
+.is-line-capturing #main-table .cell-score-container {
+    display: block !important;
+    text-align: center !important;
+    width: 100% !important;
+    min-height: auto !important;
+    padding: 2px 0 !important;
+}
+
 html.is-line-capturing #main-table .cell-summary-score,
 body.is-line-capturing #main-table .cell-summary-score,
 .is-line-capturing #main-table .cell-summary-score {
-    font-size: 1.25rem !important; /* 20px */
+    font-size: 1.15rem !important; /* 18.5px */
     font-weight: 900 !important;
-    line-height: 1.1 !important;
+    line-height: 1.2 !important;
+    margin: 0 0 3px 0 !important;
+    display: block !important;
+    text-align: center !important;
+}
+
+html.is-line-capturing #main-table .cell-score-fail-badge,
+body.is-line-capturing #main-table .cell-score-fail-badge,
+.is-line-capturing #main-table .cell-score-fail-badge {
+    display: inline-block !important;
+    text-align: center !important;
+    margin: 2px auto 0 auto !important;
+    padding: 2px 8px 1px 8px !important;
+    border-radius: 9999px !important;
+    background-color: #ea580c !important;
+    color: #ffffff !important;
+    font-family: "Sarabun", "Noto Sans Thai", -apple-system, sans-serif !important;
+    font-size: 10.5px !important;
+    font-weight: 800 !important;
+    line-height: 1.35 !important;
+    letter-spacing: normal !important;
+    white-space: nowrap !important;
 }
 
 html.is-line-capturing #main-table .cell-summary-note,
@@ -6482,16 +6533,19 @@ body.is-line-capturing #main-table td:not(.cell-status-done) .cell-summary-note,
 }
 
 .cell-score-fail-badge {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 1px 6px;
-    border-radius: 9999px;
+    display: inline-block !important;
+    text-align: center !important;
+    padding: 1.5px 7px 1px 7px !important;
+    border-radius: 9999px !important;
     background-color: #ea580c !important;
     color: #ffffff !important;
-    font-size: 10px;
-    font-weight: 800;
-    line-height: 1.25;
-    letter-spacing: 0.01em;
-    margin-top: 1px;
+    font-family: "Sarabun", "Noto Sans Thai", -apple-system, sans-serif !important;
+    font-size: 10px !important;
+    font-weight: 800 !important;
+    line-height: 1.35 !important;
+    letter-spacing: normal !important;
+    margin-top: 2px !important;
+    white-space: nowrap !important;
+    box-shadow: 0 1px 2px rgba(234, 88, 12, 0.25) !important;
+    vertical-align: middle !important;
 }
