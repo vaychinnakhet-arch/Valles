@@ -6075,6 +6075,54 @@ div[data-report-rule] {
     box-shadow: 4px 4px 10px -2px rgba(15, 23, 42, 0.16) !important;
 }
 
+/* Multi-row Summary Header Support (Split Table: วันเริ่ม / วันจบ) */
+#main-table thead tr.summary-main-headers-row th {
+    top: 0 !important;
+    height: 42px !important;
+}
+#main-table thead tr.summary-main-headers-row th[rowspan="2"] {
+    top: 0 !important;
+    left: 0 !important;
+    height: 68px !important;
+    z-index: 50 !important;
+}
+#main-table thead tr.summary-subheaders-row th {
+    position: -webkit-sticky !important;
+    position: sticky !important;
+    top: 42px !important;
+    height: 26px !important;
+    z-index: 29 !important;
+    background-color: #f1f5f9 !important;
+    color: #334155 !important;
+    border-bottom: 1px solid #64748b !important;
+    box-shadow: 0 2px 4px -1px rgba(15, 23, 42, 0.1) !important;
+}
+#main-table thead tr.summary-subheaders-row th:first-child {
+    left: auto !important;
+    z-index: 29 !important;
+    box-shadow: 0 2px 4px -1px rgba(15, 23, 42, 0.1) !important;
+}
+#main-table thead tr.summary-subheaders-row th.sub-col-start {
+    background-color: #f8fafc !important;
+    color: #475569 !important;
+    font-weight: 700 !important;
+}
+#main-table thead tr.summary-subheaders-row th.sub-col-finish {
+    background-color: #e2e8f0 !important;
+    color: #0f172a !important;
+    font-weight: 800 !important;
+}
+.cell-start-date-col {
+    background-color: #f8fafc !important;
+    border-right: 1px solid #e2e8f0 !important;
+}
+.cell-start-date-col:hover {
+    background-color: #f1f5f9 !important;
+}
+.cell-finish-date-col {
+    border-right: 1px solid #cbd5e1 !important;
+}
+
 #main-table tbody td:first-child,
 #main-table tbody td.sticky,
 #main-table .room-col-cell {
@@ -6740,6 +6788,29 @@ body.modal-open #schedule-quick-filter-floating {
         font-size: 0.72rem !important;
         padding: 0.5rem 0.35rem !important;
         white-space: nowrap !important;
+    }
+
+    /* Multi-row Summary Header Support on Mobile */
+    #main-table thead tr.summary-main-headers-row th {
+        top: 0 !important;
+        height: 42px !important;
+    }
+    #main-table thead tr.summary-main-headers-row th[rowspan="2"] {
+        top: 0 !important;
+        left: 0 !important;
+        height: 68px !important;
+        z-index: 50 !important;
+    }
+    #main-table thead tr.summary-subheaders-row th {
+        top: 42px !important;
+        height: 26px !important;
+        z-index: 29 !important;
+        font-size: 0.65rem !important;
+        padding: 0.2rem 0.2rem !important;
+    }
+    #main-table thead tr.summary-subheaders-row th:first-child {
+        left: auto !important;
+        z-index: 29 !important;
     }
 
     /* 2.2 Horizontal Frozen Column (Room numbers remain visible when scrolling right) */
@@ -7879,7 +7950,7 @@ body.is-line-capturing #main-table td:not(.cell-status-done) .cell-summary-note,
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     
     
-    <script defer src="./assets/index.js?v=20261102_v5_capture_layout_fix"></script>
+    <script defer src="./assets/index.js?v=20261103_v9_onboard_default_on"></script>
   </head>
   <body class="p-0 md:p-4 bg-slate-50 relative">
     <!-- Splash Screen -->
@@ -8218,6 +8289,41 @@ body.is-line-capturing #main-table td:not(.cell-status-done) .cell-summary-note,
           </div>
         </div>
 
+        <!-- Onboarding Banner for Split Start-Finish Dates Feature (/onboard) -->
+        <div
+          id="summary-split-dates-onboarding"
+          class="no-capture print:hidden mx-2 my-2.5 bg-gradient-to-r from-indigo-50/95 via-sky-50/90 to-slate-50/95 border-2 border-indigo-200/90 rounded-2xl p-3 md:p-4 shadow-sm transition-all duration-300 hidden"
+        >
+          <div class="flex items-start justify-between gap-3">
+            <div class="flex items-start gap-3">
+              <div class="w-9 h-9 rounded-xl bg-indigo-600 text-white flex items-center justify-center shrink-0 shadow-sm mt-0.5">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+              </div>
+              <div class="space-y-1">
+                <div class="flex items-center gap-2 flex-wrap">
+                  <h4 class="font-black text-slate-800 text-xs md:text-sm">ฟังก์ชันใหม่! ตารางแบ่ง "วันเริ่ม" และ "วันจบ" (เปิดใช้งานเป็นค่าเริ่มต้นแล้ว)</h4>
+                  <span class="bg-indigo-100 text-indigo-700 text-[10px] font-extrabold px-2 py-0.5 rounded-full border border-indigo-200">เปิดอัตโนมัติ</span>
+                </div>
+                <p class="text-xs text-slate-600 leading-relaxed">
+                  • <b>ตารางแบ่ง 2 ช่อง:</b> สำหรับงานที่รอเริ่มทำ ตารางจะแบ่งออกเป็น 2 ช่องย่อย <b>"วันเริ่ม"</b> (ซ้าย) และ <b>"วันจบ"</b> (ขวา) พร้อมระบบคำนวณวันเริ่มให้อัตโนมัติจากระยะเวลางานมาตรฐาน<br>
+                  • <b>ยุบรวมเมื่อเริ่มงาน:</b> หากงานมีเปอร์เซ็นต์ความคืบหน้าขึ้น (% คืบหน้า / ติดตั้ง) ตารางจะยุบรวมเหลือช่องเดียวอัตโนมัติเพื่อความกระชับ<br>
+                  • <b>เปิด/ปิดได้ตลอดเวลา:</b> สามารถกดสวิตช์ <b>"แสดงวันเริ่มงาน"</b> ด้านบนเพื่อสลับดูมุมมองแบบเดิมหรือแบบแยกวันได้ทันที
+                </p>
+              </div>
+            </div>
+            <div class="flex items-center gap-2 shrink-0 pt-0.5">
+              <button
+                type="button"
+                onclick="window.dismissSplitDatesOnboarding && window.dismissSplitDatesOnboarding(true)"
+                class="px-3 py-1.5 bg-indigo-600 hover:bg-indigo-700 active:scale-95 text-white text-xs font-bold rounded-xl transition-all shadow-xs flex items-center gap-1 cursor-pointer whitespace-nowrap"
+              >
+                <span>เข้าใจแล้ว</span>
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+
         <!-- Main Content -->
         <main class="p-0 md:p-2 overflow-x-auto">
           <table
@@ -8245,6 +8351,40 @@ body.is-line-capturing #main-table td:not(.cell-status-done) .cell-summary-note,
             <button id="summary-report-wet-btn" type="button" class="view-toggle-btn px-3.5 py-1.5 rounded-md active transition-all whitespace-nowrap text-xs">QC Wet work</button>
             <button id="summary-report-end-btn" type="button" class="view-toggle-btn px-3.5 py-1.5 rounded-md transition-all whitespace-nowrap text-xs">QC End product</button>
           </div>
+        </div>
+
+        <!-- Start Date Toggle in Summary Report (Real iOS/Modern Toggle Switch + NEW Badge) -->
+        <div id="summary-report-start-date-toggle" class="flex items-center gap-2 bg-slate-100 px-3 py-1.5 rounded-xl border border-slate-200 shadow-xs select-none">
+          <div class="flex items-center gap-1.5">
+            <span class="text-xs font-bold text-slate-700">แสดงวันเริ่มงาน</span>
+            <button
+              type="button"
+              onclick="window.showSplitDatesOnboardingModal && window.showSplitDatesOnboardingModal()"
+              class="inline-flex items-center gap-1 bg-indigo-600 hover:bg-indigo-700 text-white text-[10px] font-extrabold px-1.5 py-0.5 rounded-full transition-all cursor-pointer shadow-xs active:scale-95"
+              title="คลิกเพื่อดูวิธีใช้งานฟังก์ชันแบ่งตารางวันเริ่ม-วันจบ"
+            >
+              <span class="relative flex h-1.5 w-1.5">
+                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-300 opacity-75"></span>
+                <span class="relative inline-flex rounded-full h-1.5 w-1.5 bg-white"></span>
+              </span>
+              <span>NEW</span>
+            </button>
+          </div>
+          <button
+            id="toggle-show-start-date-btn"
+            type="button"
+            role="switch"
+            aria-checked="true"
+            class="relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none bg-indigo-600"
+            onclick="window.toggleSummaryStartDate && window.toggleSummaryStartDate()"
+            title="เปิด/ปิดการแสดงวันเริ่มงานคู่กับวันจบในตาราง"
+          >
+            <span class="sr-only">เปิด/ปิดการแสดงวันเริ่มงาน</span>
+            <span
+              id="start-date-toggle-thumb"
+              class="pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow-md ring-0 transition duration-200 ease-in-out translate-x-5"
+            ></span>
+          </button>
         </div>
 
         <!-- Capture New Button -->
@@ -9694,29 +9834,58 @@ body.is-line-capturing #main-table td:not(.cell-status-done) .cell-summary-note,
 
           <!-- 3. DATE AND NOTES (Neat secondary sections) -->
           <div class="border-t-2 border-slate-200/80 pt-3.5 space-y-3.5">
-            <div>
-              <label for="summaryPlanDateInput" class="block text-xs font-bold text-slate-700 mb-1.5"
-                >กำหนดวันที่คาดว่าจะแล้วเสร็จ</label
-              >
-              <div class="flex gap-2">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <!-- Start Date Input -->
+              <div>
+                <div class="flex justify-between items-center mb-1.5">
+                  <label for="summaryPlanStartDateInput" class="block text-xs font-bold text-slate-700">
+                    กำหนดวันเริ่มงาน
+                  </label>
+                  <button
+                    type="button"
+                    id="clearSummaryPlanStartDateBtn"
+                    class="text-[11px] text-rose-500 hover:text-rose-700 font-bold cursor-pointer hover:underline"
+                    title="ล้างวันเริ่มงาน"
+                  >
+                    ล้างวันเริ่ม
+                  </button>
+                </div>
+                <input
+                  type="date"
+                  id="summaryPlanStartDateInput"
+                  class="w-full h-11 px-3 text-xs sm:text-sm font-bold text-slate-800 bg-white border-2 border-slate-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all"
+                />
+              </div>
+
+              <!-- Finish Date Input (currentPlanDate) -->
+              <div>
+                <div class="flex justify-between items-center mb-1.5">
+                  <label for="summaryPlanDateInput" class="block text-xs font-bold text-slate-700">
+                    กำหนดวันจบงาน (แล้วเสร็จ)
+                  </label>
+                  <button
+                    type="button"
+                    id="clearSummaryPlanDateBtn"
+                    class="text-[11px] text-rose-500 hover:text-rose-700 font-bold cursor-pointer hover:underline"
+                    title="ล้างวันจบงาน"
+                  >
+                    ล้างวันจบ
+                  </button>
+                </div>
                 <input
                   type="date"
                   id="summaryPlanDateInput"
-                  class="flex-1 h-11 px-3 text-xs sm:text-sm font-bold text-slate-800 bg-white border-2 border-slate-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all"
+                  class="w-full h-11 px-3 text-xs sm:text-sm font-bold text-slate-800 bg-white border-2 border-slate-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all"
                 />
-                <button
-                  type="button"
-                  id="clearSummaryPlanDateBtn"
-                  class="h-11 px-3.5 bg-rose-50 text-rose-600 border-2 border-rose-200 rounded-xl text-xs font-bold hover:bg-rose-100 transition-colors whitespace-nowrap cursor-pointer shadow-xs active:scale-95 flex items-center gap-1.5"
-                >
-                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
-                  <span>ล้างวันที่</span>
-                </button>
               </div>
-              <div
-                id="summaryPlanDelayInfo"
-                class="text-xs text-rose-500 font-bold mt-1 hidden"
-              ></div>
+            </div>
+
+            <!-- Auto calculation info & Delay hint -->
+            <div class="flex items-center justify-between gap-2 flex-wrap text-xs">
+              <span id="summaryPlanDurationHint" class="text-[11px] font-semibold text-slate-500">
+                ระยะเวลามาตรฐาน: <span id="summaryPlanDurationDays" class="font-bold text-indigo-600">7</span> วัน <span class="text-slate-400 font-normal">(คำนวณวันเริ่มให้อัตโนมัติเมื่อระบุวันจบ)</span>
+              </span>
+              <div id="summaryPlanDelayInfo" class="text-xs text-rose-500 font-bold hidden"></div>
             </div>
 
             <div id="summaryPlanNoteContainer">
