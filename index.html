@@ -11968,7 +11968,9 @@ document.addEventListener('DOMContentLoaded', function() {
           furniture: 'งานเฟอร์นิเจอร์ Built-in',
           electrical: 'งานระบบไฟฟ้า',
           plumbing: 'งานระบบสุขาภิบาล',
-          qcSummary: 'สรุปผล QC'
+          qcSummary: 'สรุปผล QC',
+          wetWork: 'WET WORK (รอบแรก)',
+          reWetWork: 'RE-WETWORK (ตรวจซ้ำ / แก้ไข)'
         };
         if (dict[key]) return dict[key];
         if (window.taskDefinitions && window.taskDefinitions[key]) {
@@ -12189,6 +12191,22 @@ document.addEventListener('DOMContentLoaded', function() {
           }
         };
       }
+      // Hide start date container for wetWork and reWetWork (only finish date needed)
+      const startDateInputEl = document.getElementById('summaryPlanStartDateInput');
+      const startDateBox = startDateInputEl ? startDateInputEl.closest('div') : null;
+      const finishDateLabel = document.querySelector('label[for="summaryPlanDateInput"]');
+      if (taskKey === 'wetWork' || taskKey === 'reWetWork') {
+        if (startDateBox) startDateBox.classList.add('hidden');
+        if (finishDateLabel) {
+          finishDateLabel.textContent = (taskKey === 'reWetWork') ? 'กำหนดการแก้ไขอีกครั้ง (วันนัดตรวจซ้ำ / RE)' : 'กำหนดวันจบงาน (วันตรวจงาน WET WORK)';
+        }
+      } else {
+        if (startDateBox) startDateBox.classList.remove('hidden');
+        if (finishDateLabel) {
+          finishDateLabel.textContent = 'กำหนดวันจบงาน (แล้วเสร็จ)';
+        }
+      }
+
       // Inspection Document (Checkbox-only mode) vs Standard Single Progress
       const isCheckboxOnlyDoc = (taskKey === 'inspectionDoc' || (window.taskDefinitions && window.taskDefinitions[taskKey] && window.taskDefinitions[taskKey].isCheckboxOnly));
       const sliderHeader = document.getElementById('summaryPlanSliderHeader');
@@ -12212,7 +12230,7 @@ document.addEventListener('DOMContentLoaded', function() {
       }
 
       // Inspection Score Container Setup (for wetWork and endProduct)
-      const isInspection = (taskKey === 'wetWork' || taskKey === 'endProduct' || (window.taskDefinitions && window.taskDefinitions[taskKey] && window.taskDefinitions[taskKey].type === 'inspection'));
+      const isInspection = (taskKey === 'wetWork' || taskKey === 'reWetWork' || taskKey === 'endProduct' || (window.taskDefinitions && window.taskDefinitions[taskKey] && (window.taskDefinitions[taskKey].type === 'inspection' || window.taskDefinitions[taskKey].type === 're-inspection')));
       const scoreContainer = document.getElementById('summaryPlanScoreContainer');
       const scoreInput = document.getElementById('summaryPlanScoreInput');
       const majorDefectChk = document.getElementById('summaryPlanMajorDefectCheckbox');
@@ -12226,13 +12244,33 @@ document.addEventListener('DOMContentLoaded', function() {
         if (subtasksContainer) subtasksContainer.classList.add('hidden');
         
         const pData = (typeof window.getProjectData === 'function' ? window.getProjectData() : window.projectData) || {};
-        const roomObj = isMultiSelect ? {} : ((pData[taskKey] && pData[taskKey][floorStr] && pData[taskKey][floorStr][currentRoom.dataKey]) || {});
-        const exScore = roomObj.qcScore || roomObj.cmScore || '';
-        if (scoreInput) {
-          scoreInput.value = (exScore > 0) ? exScore : '';
-        }
-        if (majorDefectChk) {
-          majorDefectChk.checked = !!(roomObj.qcHasMajorDefect || roomObj.cmHasMajorDefect);
+        if (taskKey === 'reWetWork') {
+          const wwObj = isMultiSelect ? {} : ((pData.wetWork && pData.wetWork[floorStr] && pData.wetWork[floorStr][currentRoom.dataKey]) || {});
+          const exReScore = wwObj.reScore || (pData.reWetWork && pData.reWetWork[floorStr] && pData.reWetWork[floorStr][currentRoom.dataKey] && pData.reWetWork[floorStr][currentRoom.dataKey].qcScore) || '';
+          if (scoreInput) {
+            scoreInput.value = (exReScore > 0) ? exReScore : '';
+          }
+          if (majorDefectChk) {
+            majorDefectChk.checked = !!(wwObj.reHasMajorDefect || (pData.reWetWork && pData.reWetWork[floorStr] && pData.reWetWork[floorStr][currentRoom.dataKey] && pData.reWetWork[floorStr][currentRoom.dataKey].qcHasMajorDefect));
+          }
+          const scoreLbl = document.querySelector('label[for="summaryPlanScoreInput"]');
+          if (scoreLbl) scoreLbl.textContent = 'คะแนน RE-WETWORK (1 - 100)';
+          const finishDateInp = document.getElementById('summaryPlanDateInput');
+          const exReDate = wwObj.rePlanDate || (pData.plans && pData.plans[floorStr] && pData.plans[floorStr][currentRoom.dataKey] && pData.plans[floorStr][currentRoom.dataKey].reWetWork && pData.plans[floorStr][currentRoom.dataKey].reWetWork.currentPlanDate) || '';
+          if (finishDateInp && !isMultiSelect) {
+            finishDateInp.value = exReDate;
+          }
+        } else {
+          const roomObj = isMultiSelect ? {} : ((pData[taskKey] && pData[taskKey][floorStr] && pData[taskKey][floorStr][currentRoom.dataKey]) || {});
+          const exScore = roomObj.qcScore || roomObj.cmScore || '';
+          if (scoreInput) {
+            scoreInput.value = (exScore > 0) ? exScore : '';
+          }
+          if (majorDefectChk) {
+            majorDefectChk.checked = !!(roomObj.qcHasMajorDefect || roomObj.cmHasMajorDefect);
+          }
+          const scoreLbl = document.querySelector('label[for="summaryPlanScoreInput"]');
+          if (scoreLbl) scoreLbl.textContent = 'คะแนนประเมิน (1 - 100)';
         }
       } else {
         if (scoreContainer) scoreContainer.classList.add('hidden');
@@ -12298,6 +12336,43 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 })();
 </script>
+
+<script>
+// Auto-switch view if specified in URL query or hash
+(function() {
+  function applyUrlView() {
+    const params = new URLSearchParams(window.location.search);
+    const viewParam = params.get('view') || (window.location.hash.includes('summaryReport') ? 'summaryReport' : null);
+    if (viewParam === 'summaryReport') {
+      const wetBtn = document.getElementById('summary-report-wet-btn');
+      if (wetBtn) {
+        wetBtn.click();
+      }
+      if (params.get('scroll') === 'right') {
+        setTimeout(() => {
+          const mainEl = document.querySelector('main');
+          if (mainEl) mainEl.scrollLeft = 9999;
+        }, 400);
+      }
+
+      const openModalParam = params.get('openModal');
+      if (openModalParam) {
+        setTimeout(() => {
+          const parts = openModalParam.split(',');
+          if (parts.length === 3 && typeof window.openSummaryPlanModal === 'function') {
+            window.openSummaryPlanModal(parts[0], parts[1], parts[2]);
+          }
+        }, 600);
+      }
+    }
+  }
+  window.addEventListener('DOMContentLoaded', () => {
+    setTimeout(applyUrlView, 350);
+    setTimeout(applyUrlView, 1000);
+  });
+})();
+</script>
+
 </body>
 </html>
 
